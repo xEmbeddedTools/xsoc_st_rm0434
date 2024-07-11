@@ -9,7 +9,7 @@
 
 // xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/Frequency.hpp>
 
@@ -18,7 +18,7 @@ namespace soc {
 namespace m4 {
 namespace stm32wb {
 namespace sources {
-class lsi : private Non_constructible
+class lsi : private non_constructible
 {
 public:
     enum class Id : std::uint32_t

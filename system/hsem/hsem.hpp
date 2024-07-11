@@ -5,7 +5,7 @@
 // xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/Limited.hpp>
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
@@ -14,7 +14,7 @@ namespace soc {
 namespace m4 {
 namespace stm32wb {
 namespace system {
-class hsem : private Non_constructible
+class hsem : private non_constructible
 {
 public:
     enum class Id : std::uint8_t
@@ -27,7 +27,7 @@ public:
         clk48_config = 0x5u
     };
 
-    struct _1_step : private Non_constructible
+    struct _1_step : private non_constructible
     {
         static void lock(Limited<std::uint8_t, 0, 31> a_semaphore_id);
         static bool try_lock(Limited<std::uint8_t, 0, 31> a_semaphore_id, Milliseconds a_timeout);
@@ -52,7 +52,7 @@ public:
         }
     };
 
-    struct _2_step : private Non_constructible
+    struct _2_step : private non_constructible
     {
         static void lock(Limited<std::uint8_t, 0, 31> a_semaphore_id, std::uint8_t a_process_id);
         static bool try_lock(Limited<std::uint8_t, 0, 31> a_semaphore_id,

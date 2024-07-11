@@ -9,7 +9,7 @@
 
 // xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/bit_flag.hpp>
 
 namespace xmcu {
@@ -17,10 +17,10 @@ namespace soc {
 namespace m4 {
 namespace stm32wb {
 namespace sources {
-class lse : private Non_constructible
+class lse : private non_constructible
 {
 public:
-    struct xtal : private Non_constructible
+    struct xtal : private non_constructible
     {
         enum class Drive : std::uint32_t
         {
@@ -34,7 +34,7 @@ public:
         static bool enable(Drive a_drive_config, Milliseconds a_timeout);
     };
 
-    struct bypass : private Non_constructible
+    struct bypass : private non_constructible
     {
         static void enable();
         static bool enable(Milliseconds a_timeout);

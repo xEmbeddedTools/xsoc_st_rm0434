@@ -11,7 +11,7 @@
 #include <cstdint>
 
 // xmcu
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/various.hpp>
@@ -84,7 +84,7 @@ constexpr DMA<>::Event_flag operator|=(DMA<>::Event_flag& a_f1, DMA<>::Event_fla
     return a_f1;
 }
 
-template<> class rcc<DMA<>, 1> : private xmcu::Non_constructible
+template<> class rcc<DMA<>, 1> : private xmcu::non_constructible
 {
 public:
     static void enable()
@@ -99,7 +99,7 @@ public:
     }
 };
 
-template<> class rcc<DMA<>, 2> : private xmcu::Non_constructible
+template<> class rcc<DMA<>, 2> : private xmcu::non_constructible
 {
 public:
     static void enable()

@@ -12,11 +12,11 @@
 
 namespace xmcu::soc::m4::stm32wb::peripherals {
 
-class backup_domain : Non_constructible
+class backup_domain : non_constructible
 {
 };
 
-class rtc : Non_constructible
+class rtc : non_constructible
 {
 public:
     enum class Alarm_id
@@ -91,7 +91,7 @@ constexpr rtc::Alarm_mask operator|(rtc::Alarm_mask a_f1, rtc::Alarm_mask a_f2)
 
 namespace xmcu::soc::m4::stm32wb {
 
-template<> class rcc<peripherals::rtc> : private Non_constructible
+template<> class rcc<peripherals::rtc> : private non_constructible
 {
 public:
     template<typename Source_t> static void enable(bool a_enable_in_lp) = delete;

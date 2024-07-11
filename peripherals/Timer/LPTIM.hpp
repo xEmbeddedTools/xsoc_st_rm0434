@@ -169,7 +169,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
-template<std::uint32_t id> class rcc<peripherals::LPTIM, id> : private Non_constructible
+template<std::uint32_t id> class rcc<peripherals::LPTIM, id> : private non_constructible
 {
 public:
     template<typename Source_t> static void enable(bool a_enable_in_lp) = delete;
@@ -192,7 +192,7 @@ template<> template<> void rcc<peripherals::LPTIM, 2>::enable<sources::lse>(bool
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m4::stm32wb::peripherals::LPTIM, 1u> : private Non_constructible
+template<> class peripheral<m4::stm32wb::peripherals::LPTIM, 1u> : private non_constructible
 {
 public:
     static m4::stm32wb::peripherals::LPTIM create()
@@ -201,7 +201,7 @@ public:
     }
 };
 
-template<> class peripheral<m4::stm32wb::peripherals::LPTIM, 2u> : private Non_constructible
+template<> class peripheral<m4::stm32wb::peripherals::LPTIM, 2u> : private non_constructible
 {
 public:
     static m4::stm32wb::peripherals::LPTIM create()

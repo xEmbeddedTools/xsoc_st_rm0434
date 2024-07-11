@@ -410,7 +410,7 @@ private:
 namespace xmcu {
 namespace soc {
 template<> class peripheral<m4::stm32wb::peripherals::USART, 1u, m4::stm32wb::DMA<>, 1u>
-    : private Non_constructible
+    : private non_constructible
 {
 public:
     static m4::stm32wb::DMA<m4::stm32wb::peripherals::USART> create()
@@ -419,7 +419,7 @@ public:
     }
 };
 template<> class peripheral<m4::stm32wb::peripherals::USART, 1u, m4::stm32wb::DMA<>, 2u>
-    : private Non_constructible
+    : private non_constructible
 {
 public:
     static m4::stm32wb::DMA<m4::stm32wb::peripherals::USART> create()
@@ -429,7 +429,7 @@ public:
 };
 
 template<> class peripheral<m4::stm32wb::peripherals::LPUART, 1u, m4::stm32wb::DMA<>, 1u>
-    : private Non_constructible
+    : private non_constructible
 {
 public:
     static m4::stm32wb::DMA<m4::stm32wb::peripherals::LPUART> create()
@@ -438,7 +438,7 @@ public:
     }
 };
 template<> class peripheral<m4::stm32wb::peripherals::LPUART, 1u, m4::stm32wb::DMA<>, 2u>
-    : private Non_constructible
+    : private non_constructible
 {
 public:
     static m4::stm32wb::DMA<m4::stm32wb::peripherals::LPUART> create()

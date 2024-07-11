@@ -12,7 +12,7 @@
 
 // xmcu
 #include <xmcu/Limited.hpp>
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/bit_flag.hpp>
@@ -419,7 +419,7 @@ public:
         friend GPIO;
     };
 
-    struct mco : private xmcu::Non_constructible
+    struct mco : private xmcu::non_constructible
     {
         enum class Divider : std::uint32_t
         {
@@ -435,7 +435,7 @@ public:
         static void disable();
     };
 
-    struct lsco : private xmcu::Non_constructible
+    struct lsco : private xmcu::non_constructible
     {
         template<typename Clock_t> static void enable() = delete;
         static void disable();
@@ -570,7 +570,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
-template<std::uint32_t id> class rcc<peripherals::GPIO, id> : private xmcu::Non_constructible
+template<std::uint32_t id> class rcc<peripherals::GPIO, id> : private xmcu::non_constructible
 {
 public:
     static void enable(bool a_enable_in_lp) = delete;
@@ -612,7 +612,7 @@ namespace xmcu {
 namespace soc {
 
 #if defined(GPIOA_PIN_MASK)
-template<> class peripheral<m4::stm32wb::peripherals::GPIO, 1u> : private xmcu::Non_constructible
+template<> class peripheral<m4::stm32wb::peripherals::GPIO, 1u> : private xmcu::non_constructible
 {
 public:
     static m4::stm32wb::peripherals::GPIO create()
@@ -623,7 +623,7 @@ public:
 #endif
 
 #if defined(GPIOB_PIN_MASK)
-template<> class peripheral<m4::stm32wb::peripherals::GPIO, 2u> : private xmcu::Non_constructible
+template<> class peripheral<m4::stm32wb::peripherals::GPIO, 2u> : private xmcu::non_constructible
 {
 public:
     static m4::stm32wb::peripherals::GPIO create()
@@ -634,7 +634,7 @@ public:
 #endif
 
 #if defined(GPIOC_PIN_MASK)
-template<> class peripheral<m4::stm32wb::peripherals::GPIO, 3u> : private xmcu::Non_constructible
+template<> class peripheral<m4::stm32wb::peripherals::GPIO, 3u> : private xmcu::non_constructible
 {
 public:
     static m4::stm32wb::peripherals::GPIO create()
@@ -645,7 +645,7 @@ public:
 #endif
 
 #if defined(GPIOD_PIN_MASK)
-template<> class peripheral<m4::stm32wb::peripherals::GPIO, 4u> : private xmcu::Non_constructible
+template<> class peripheral<m4::stm32wb::peripherals::GPIO, 4u> : private xmcu::non_constructible
 {
 public:
     static m4::stm32wb::peripherals::GPIO create()
@@ -656,7 +656,7 @@ public:
 #endif
 
 #if defined(GPIOE_PIN_MASK)
-template<> class peripheral<m4::stm32wb::peripherals::GPIO, 5u> : private xmcu::Non_constructible
+template<> class peripheral<m4::stm32wb::peripherals::GPIO, 5u> : private xmcu::non_constructible
 {
 public:
     static m4::stm32wb::peripherals::GPIO create()
@@ -667,7 +667,7 @@ public:
 #endif
 
 #if defined(GPIOH_PIN_MASK)
-template<> class peripheral<m4::stm32wb::peripherals::GPIO, 8u> : private xmcu::Non_constructible
+template<> class peripheral<m4::stm32wb::peripherals::GPIO, 8u> : private xmcu::non_constructible
 {
 public:
     static m4::stm32wb::peripherals::GPIO create()

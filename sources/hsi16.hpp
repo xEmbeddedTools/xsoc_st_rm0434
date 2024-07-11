@@ -4,7 +4,7 @@
 
 // xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/Frequency.hpp>
 
 namespace xmcu {
@@ -12,7 +12,7 @@ namespace soc {
 namespace m4 {
 namespace stm32wb {
 namespace sources {
-class hsi16 : private Non_constructible
+class hsi16 : private non_constructible
 {
 public:
     static void enable();

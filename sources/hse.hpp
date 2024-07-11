@@ -11,14 +11,14 @@
 #include <xmcu/Duration.hpp>
 #include <xmcu/Frequency.hpp>
 #include <xmcu/Limited.hpp>
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
 namespace sources {
-class hse : private Non_constructible
+class hse : private non_constructible
 {
 public:
     enum class Prescaler : std::uint32_t
@@ -27,7 +27,7 @@ public:
         _2 = RCC_CR_HSEPRE
     };
 
-    struct tune : private Non_constructible
+    struct tune : private non_constructible
     {
         using Capacitor_tuning = Limited<std::uint32_t, 0, 63>;
 

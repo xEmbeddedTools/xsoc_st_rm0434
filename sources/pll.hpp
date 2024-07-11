@@ -10,7 +10,7 @@
 // xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/Limited.hpp>
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/various.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/hse.hpp>
@@ -22,7 +22,7 @@ namespace soc {
 namespace m4 {
 namespace stm32wb {
 namespace sources {
-class pll : private Non_constructible
+class pll : private non_constructible
 {
 public:
     enum class M : std::uint32_t
@@ -37,7 +37,7 @@ public:
         _8 = RCC_PLLCFGR_PLLM_2 | RCC_PLLCFGR_PLLM_1 | RCC_PLLCFGR_PLLM_0,
     };
 
-    class r : private Non_constructible
+    class r : private non_constructible
     {
     public:
         struct Enable_config
@@ -70,7 +70,7 @@ public:
         }
         static std::uint32_t get_frequency_Hz();
     };
-    class q : private Non_constructible
+    class q : private non_constructible
     {
     public:
         struct Enable_config
@@ -103,7 +103,7 @@ public:
         }
         static std::uint32_t get_frequency_Hz();
     };
-    class p : private Non_constructible
+    class p : private non_constructible
     {
     public:
         struct Enable_config
@@ -126,10 +126,10 @@ public:
         static std::uint32_t get_frequency_Hz();
     };
 
-    class sai1 : private Non_constructible
+    class sai1 : private non_constructible
     {
     public:
-        class r : private Non_constructible
+        class r : private non_constructible
         {
         public:
             struct Enable_config
@@ -158,7 +158,7 @@ public:
             static Enable_config get_Enable_config();
             static std::uint32_t get_frequency_Hz();
         };
-        class q : private Non_constructible
+        class q : private non_constructible
         {
         public:
             struct Enable_config
@@ -187,7 +187,7 @@ public:
             static Enable_config get_Enable_config();
             static std::uint32_t get_frequency_Hz();
         };
-        class p : private Non_constructible
+        class p : private non_constructible
         {
         public:
             struct Enable_config

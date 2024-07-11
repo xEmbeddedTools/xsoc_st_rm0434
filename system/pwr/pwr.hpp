@@ -11,7 +11,7 @@
 #pragma GCC diagnostic pop
 
 // xmcu
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/internal_flash/internal_flash.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/hse.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/hsi16.hpp>
@@ -24,11 +24,11 @@ namespace soc {
 namespace m4 {
 namespace stm32wb {
 namespace system {
-template<typename MCU_t> class pwr : private xmcu::Non_constructible
+template<typename MCU_t> class pwr : private xmcu::non_constructible
 {
 };
 
-template<> class pwr<mcu<1u>> : private xmcu::Non_constructible
+template<> class pwr<mcu<1u>> : private xmcu::non_constructible
 {
 public:
     enum class Voltage_scaling : std::uint32_t
@@ -37,7 +37,7 @@ public:
         _2 = PWR_CR1_VOS_1
     };
 
-    struct stop_mode : private xmcu::Non_constructible
+    struct stop_mode : private xmcu::non_constructible
     {
         enum class Type : std::uint32_t
         {
@@ -71,7 +71,7 @@ public:
     static Voltage_scaling get_voltage_scaling();
 };
 
-template<> class pwr<mcu<2u>> : private xmcu::Non_constructible
+template<> class pwr<mcu<2u>> : private xmcu::non_constructible
 {
 public:
     enum class Boot_after_reset_or_stop : std::uint32_t
