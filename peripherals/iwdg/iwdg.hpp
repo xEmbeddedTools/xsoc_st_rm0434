@@ -2,11 +2,11 @@
 
 /**/
 
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 
 namespace xmcu::soc::m4::stm32wb::peripherals {
 
-class iwdg : private xmcu::Non_constructible
+class iwdg : private xmcu::non_constructible
 {
 public:
     static void enable();

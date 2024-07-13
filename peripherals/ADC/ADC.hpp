@@ -14,7 +14,7 @@
 
 // xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
 #include <xmcu/bit_flag.hpp>
@@ -37,7 +37,7 @@ namespace peripherals {
 class ADC : private Non_copyable
 {
 public:
-    struct s : Non_constructible
+    struct s : non_constructible
     {
         static constexpr std::size_t max_channels_count = 17;
     };
@@ -283,10 +283,10 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
-template<> class rcc<peripherals::ADC> : private Non_constructible
+template<> class rcc<peripherals::ADC> : private non_constructible
 {
 public:
-    struct sync : private Non_constructible
+    struct sync : private non_constructible
     {
         enum class Prescaler : std::uint32_t
         {
@@ -304,7 +304,7 @@ public:
         }
     };
 
-    struct async : private Non_constructible
+    struct async : private non_constructible
     {
         enum class Prescaler : std::uint32_t
         {
@@ -344,7 +344,7 @@ void rcc<peripherals::ADC>::sync::enable<rcc<system::mcu<1u>>::hclk<1u>>(Prescal
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m4::stm32wb::peripherals::ADC, 1u> : private Non_constructible
+template<> class peripheral<m4::stm32wb::peripherals::ADC, 1u> : private non_constructible
 {
 public:
     static m4::stm32wb::peripherals::ADC create()

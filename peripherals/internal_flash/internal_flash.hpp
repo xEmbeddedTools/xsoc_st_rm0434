@@ -13,7 +13,7 @@
 // xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/Limited.hpp>
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/Not_null.hpp>
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/various.hpp>
@@ -25,13 +25,13 @@ namespace soc {
 namespace m4 {
 namespace stm32wb {
 namespace peripherals {
-class internal_flash : private Non_constructible
+class internal_flash : private non_constructible
 {
 public:
     using Word = std::uint64_t;
     using Function_lock = void (*)(bool a_lock);
 
-    struct s : private Non_constructible
+    struct s : private non_constructible
     {
         static constexpr std::size_t start = FLASH_BASE;
         static constexpr std::size_t page_size_in_bytes = 4096u;
@@ -79,7 +79,7 @@ public:
         locked                            = 0x80000000
     };
 
-    class unlocker : private Non_constructible
+    class unlocker : private non_constructible
     {
     public:
         static void unlock();
@@ -87,7 +87,7 @@ public:
 
         static void lock();
     };
-    class cache_disabler : private Non_constructible
+    class cache_disabler : private non_constructible
     {
     public:
         static void disable();
@@ -100,7 +100,7 @@ public:
         static inline Cache_mode_flag cache_mode = various::get_enum_incorrect_value<Cache_mode_flag>();
     };
 
-    class polling : private Non_constructible
+    class polling : private non_constructible
     {
     public:
         enum class Bank_id : std::uint32_t

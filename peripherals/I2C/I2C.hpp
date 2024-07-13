@@ -105,7 +105,7 @@ protected:
 } // namespace xmcu::soc::m4::stm32wb::peripherals
 
 namespace xmcu::soc::m4::stm32wb {
-template<std::uint32_t id> class rcc<peripherals::I2C, id> : private xmcu::Non_constructible
+template<std::uint32_t id> class rcc<peripherals::I2C, id> : private xmcu::non_constructible
 {
 public:
     template<typename Source_t> static void enable(bool a_enable_in_lp) = delete;
@@ -143,7 +143,7 @@ peripherals::GPIO::Alternate_function::enable<peripherals::I2C, 1u>(Limited<std:
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m4::stm32wb::peripherals::I2C, 1u> : private xmcu::Non_constructible
+template<> class peripheral<m4::stm32wb::peripherals::I2C, 1u> : private xmcu::non_constructible
 {
 public:
     static m4::stm32wb::peripherals::I2C create()

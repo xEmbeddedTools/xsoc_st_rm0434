@@ -7,7 +7,7 @@
 
 // xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/tick_counter.hpp>
 
@@ -16,7 +16,7 @@ namespace soc {
 namespace m4 {
 namespace stm32wb {
 namespace utils {
-struct wait_until : private Non_constructible
+struct wait_until : private non_constructible
 {
     template<typename Register_t, typename Mask_t>
     static void all_bits_are_set(volatile const Register_t& a_register, Mask_t a_mask)

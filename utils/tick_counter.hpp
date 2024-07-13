@@ -7,7 +7,7 @@
 
 // xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/m4/IRQ_config.hpp>
 #include <xmcu/soc/ST/m4/Systick/Systick.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/rcc.hpp>
@@ -21,10 +21,10 @@ namespace soc {
 namespace m4 {
 namespace stm32wb {
 namespace utils {
-template<typename Period_t> class tick_counter : private Non_constructible
+template<typename Period_t> class tick_counter : private non_constructible
 {
 };
-template<> class tick_counter<Milliseconds> : private Non_constructible
+template<> class tick_counter<Milliseconds> : private non_constructible
 {
 public:
     struct Callback

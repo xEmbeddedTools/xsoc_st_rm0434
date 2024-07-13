@@ -6,7 +6,7 @@
 #include <cstdint>
 
 // xmcu
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/rcc.hpp>
 
 // debug
@@ -17,7 +17,7 @@ namespace soc {
 namespace m4 {
 namespace stm32wb {
 namespace peripherals {
-template<std::size_t length_t = 0x0u> class crc : private xmcu::Non_constructible
+template<std::size_t length_t = 0x0u> class crc : private xmcu::non_constructible
 {
 public:
     enum class Input_data_format : std::uint32_t
@@ -42,7 +42,7 @@ public:
     };
 };
 
-template<> class crc<7u> : private xmcu::Non_constructible
+template<> class crc<7u> : private xmcu::non_constructible
 {
 public:
     static void start(crc<>::Input_data_format a_input_data_format,
@@ -54,7 +54,7 @@ public:
     static std::uint32_t get();
 };
 
-template<> class crc<8u> : private xmcu::Non_constructible
+template<> class crc<8u> : private xmcu::non_constructible
 {
 public:
     static void start(crc<>::Input_data_format a_input_data_format,
@@ -66,7 +66,7 @@ public:
     static std::uint32_t get();
 };
 
-template<> class crc<16u> : private xmcu::Non_constructible
+template<> class crc<16u> : private xmcu::non_constructible
 {
 public:
     static void start(crc<>::Input_data_format a_input_data_format,
@@ -78,7 +78,7 @@ public:
     static std::uint32_t get();
 };
 
-template<> class crc<32u> : private xmcu::Non_constructible
+template<> class crc<32u> : private xmcu::non_constructible
 {
 public:
     static void start(crc<>::Input_data_format a_input_data_format,
@@ -145,7 +145,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
-template<> class rcc<peripherals::crc<>> : private xmcu::Non_constructible
+template<> class rcc<peripherals::crc<>> : private xmcu::non_constructible
 {
 public:
     static void enable(bool a_enable_in_lp);

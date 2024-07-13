@@ -12,7 +12,7 @@
 
 // xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/Non_constructible.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 #include <xmcu/soc/ST/m4/IRQ_config.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/rcc.hpp>
@@ -25,7 +25,7 @@ namespace soc {
 namespace m4 {
 namespace stm32wb {
 namespace peripherals {
-class rng : private Non_constructible
+class rng : private non_constructible
 {
 public:
     enum class Event_flag : std::uint32_t
@@ -35,7 +35,7 @@ public:
         clock_error = 0x2u
     };
 
-    class polling : Non_constructible
+    class polling : non_constructible
     {
     public:
         struct Result
@@ -47,7 +47,7 @@ public:
         static Result get();
         static Result get(Milliseconds a_timeout);
     };
-    class interrupt : Non_constructible
+    class interrupt : non_constructible
     {
     public:
         struct Callback
@@ -100,7 +100,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
-template<> class rcc<peripherals::rng> : private Non_constructible
+template<> class rcc<peripherals::rng> : private non_constructible
 {
 public:
     template<typename Source_t> static void enable(bool a_enable_in_lp) = delete;
