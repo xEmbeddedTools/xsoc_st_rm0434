@@ -3,12 +3,12 @@
 #if defined(STM32WB)
 
 // this
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/lsi.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lsi.hpp>
 
 // xmcu
 #include <xmcu/bit.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
 
 namespace xmcu {
 namespace soc {

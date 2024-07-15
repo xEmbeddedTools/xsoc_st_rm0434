@@ -3,7 +3,7 @@
 #if defined(STM32WB)
 
 // this
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>

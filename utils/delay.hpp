@@ -5,9 +5,9 @@
 // hkm
 #include <xmcu/Duration.hpp>
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>

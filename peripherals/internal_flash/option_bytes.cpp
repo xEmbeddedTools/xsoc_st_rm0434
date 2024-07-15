@@ -1,7 +1,7 @@
 /**/
 
 // this
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/internal_flash/option_bytes.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/internal_flash/option_bytes.hpp>
 
 // externals
 #pragma GCC diagnostic ignored "-Wvolatile"
@@ -11,11 +11,11 @@
 // xmcu
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
-#include <xmcu/soc/ST/m4/nvic.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/internal_flash/internal_flash.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/system/hsem/hsem.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m4/nvic.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/internal_flash/internal_flash.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/hsem/hsem.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
 
 namespace xmcu {
 namespace soc {

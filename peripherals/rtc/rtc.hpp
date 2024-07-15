@@ -5,10 +5,10 @@
 #include <xmcu/Duration.hpp>
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/hse.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/lse.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/lsi.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hse.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lse.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lsi.hpp>
 
 namespace xmcu::soc::m4::stm32wb::peripherals {
 

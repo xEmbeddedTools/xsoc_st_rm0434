@@ -3,11 +3,11 @@
 #if defined(STM32WB)
 
 // this
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/msi.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/msi.hpp>
 
 // xmcu
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
 
 namespace {
 constexpr std::uint32_t msi_frequency_hz_lut[] = { 100_kHz, 200_kHz, 400_kHz, 800_kHz, 1_MHz,  2_MHz,

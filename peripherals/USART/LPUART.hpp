@@ -11,7 +11,7 @@
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
 #include <xmcu/various.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/USART/USART.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/USART/USART.hpp>
 
 namespace xmcu {
 namespace soc {
