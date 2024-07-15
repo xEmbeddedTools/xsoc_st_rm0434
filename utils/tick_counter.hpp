@@ -8,8 +8,8 @@
 // xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/soc/ST/m4/IRQ_config.hpp>
-#include <xmcu/soc/ST/m4/Systick/Systick.hpp>
+#include <xmcu/soc/ST/arm/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/Systick.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/rcc.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/hsi16.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/lse.hpp>
@@ -36,7 +36,7 @@ public:
     };
 
     template<typename Timer_t, typename Clock_t = void>
-    static void enable(Timer_t* a_p_timer, const soc::m4::IRQ_config& a_irq_config, std::uint64_t a_start_cnt) = delete;
+    static void enable(Timer_t* a_p_timer, const soc::IRQ_config& a_irq_config, std::uint64_t a_start_cnt) = delete;
     template<typename Timer_t> static void disable()                                                           = delete;
 
     template<typename Timer_t> static void start(bool a_call_handler_on_start = false) = delete;
@@ -55,10 +55,10 @@ private:
     static Callback callback;
 };
 
-template<> void tick_counter<Milliseconds>::enable<soc::m4::Systick>(soc::m4::Systick* a_p_timer,
-                                                                             const soc::m4::IRQ_config& a_irq_config,
-                                                                             std::uint64_t a_start_cnt);
-template<> void tick_counter<Milliseconds>::disable<soc::m4::Systick>();
+template<> void tick_counter<Milliseconds>::enable<soc::Systick>(soc::Systick* a_p_timer,
+                                                                 const soc::IRQ_config& a_irq_config,
+                                                                 std::uint64_t a_start_cnt);
+template<> void tick_counter<Milliseconds>::disable<soc::Systick>();
 
 template<> void tick_counter<Milliseconds>::start<Systick>(bool a_start_handler_immediately);
 template<> void tick_counter<Milliseconds>::stop<Systick>();

@@ -17,7 +17,7 @@
 #include <xmcu/bit.hpp>
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/various.hpp>
-#include <xmcu/soc/ST/m4/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/rcc.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/hsi16.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/hsi48.hpp>

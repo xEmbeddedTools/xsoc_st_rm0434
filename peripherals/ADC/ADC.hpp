@@ -19,7 +19,7 @@
 #include <xmcu/Not_null.hpp>
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/various.hpp>
-#include <xmcu/soc/ST/m4/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/rcc.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/lse.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/pll.hpp>

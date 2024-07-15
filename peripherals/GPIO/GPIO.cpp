@@ -7,7 +7,7 @@
 #include <xmcu/bit.hpp>
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
-#include <xmcu/soc/ST/m4/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/m4/nvic.hpp>
 
 // debug
