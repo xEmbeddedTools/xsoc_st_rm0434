@@ -14,7 +14,7 @@
 #include <xmcu/Duration.hpp>
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
-#include <xmcu/soc/ST/m4/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/rcc.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/lse.hpp>
 #include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/lsi.hpp>
