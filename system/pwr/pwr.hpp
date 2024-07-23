@@ -12,12 +12,12 @@
 
 // xmcu
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/internal_flash/internal_flash.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/hse.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/hsi16.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/msi.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/pll.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/internal_flash/internal_flash.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hse.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/msi.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/pll.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
 
 namespace xmcu {
 namespace soc {

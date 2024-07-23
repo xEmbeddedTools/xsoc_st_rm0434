@@ -1,7 +1,7 @@
 /**/
 
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/iwdg/iwdg.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/iwdg/iwdg.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
 
 #pragma GCC diagnostic ignored "-Wvolatile"
 #include <stm32wbxx.h>

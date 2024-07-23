@@ -1,14 +1,14 @@
 /**/
 
 // this
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/GPIO/GPIO.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/GPIO/GPIO.hpp>
 
 // xmcu
 #include <xmcu/bit.hpp>
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
-#include <xmcu/soc/ST/m4/nvic.hpp>
+#include <xmcu/soc/ST/arm/m4/nvic.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>

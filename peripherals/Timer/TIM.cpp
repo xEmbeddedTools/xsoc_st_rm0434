@@ -1,12 +1,12 @@
 /**/
 
 // this
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/Timer/TIM.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/Timer/TIM.hpp>
 
 // xmcu
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
-#include <xmcu/soc/ST/m4/nvic.hpp>
+#include <xmcu/soc/ST/arm/m4/nvic.hpp>
 
 // Tim_counter & derived
 namespace xmcu::soc::m4::stm32wb::peripherals::timer {

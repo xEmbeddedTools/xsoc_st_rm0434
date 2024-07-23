@@ -2,7 +2,7 @@
 
 
 // this
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/I2C/I2C.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/I2C/I2C.hpp>
 
 // xmcu
 #include <xmcu/Frequency.hpp>

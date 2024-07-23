@@ -1,7 +1,7 @@
 /**/
 
 // this
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/USART/DMA.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/USART/DMA.hpp>
 
 // xmcu
 #include <xmcu/bit.hpp>
