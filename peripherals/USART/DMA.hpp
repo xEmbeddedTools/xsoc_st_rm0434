@@ -15,10 +15,10 @@
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
 #include <xmcu/various.hpp>
-#include <xmcu/soc/ST/m4/IRQ_config.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/DMA.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/USART/LPUART.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/USART/USART.hpp>
+#include <xmcu/soc/ST/arm/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/DMA.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/USART/LPUART.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/USART/USART.hpp>
 #include <xmcu/soc/peripheral.hpp>
 
 namespace xmcu {

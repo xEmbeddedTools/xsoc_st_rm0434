@@ -13,9 +13,9 @@
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/various.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/hse.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/hsi16.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/msi.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hse.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/msi.hpp>
 
 namespace xmcu {
 namespace soc {

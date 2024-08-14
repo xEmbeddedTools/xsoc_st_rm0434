@@ -3,14 +3,14 @@
 #if defined(STM32WB)
 
 // this
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/rng/rng.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/rng/rng.hpp>
 
 // xmcu
 #include <xmcu/various.hpp>
-#include <xmcu/soc/ST/m4/nvic.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/system/hsem/hsem.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m4/nvic.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/hsem/hsem.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>

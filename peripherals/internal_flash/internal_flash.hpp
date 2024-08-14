@@ -18,7 +18,7 @@
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/various.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
-#include <xmcu/soc/ST/m4/nvic.hpp>
+#include <xmcu/soc/ST/arm/m4/nvic.hpp>
 
 namespace xmcu {
 namespace soc {

@@ -9,7 +9,7 @@
 #include <xmcu/Duration.hpp>
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/bit.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
 
 namespace xmcu {
 namespace soc {

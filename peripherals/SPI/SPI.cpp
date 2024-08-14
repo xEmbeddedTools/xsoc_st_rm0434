@@ -1,11 +1,11 @@
 /**/
 
 // this
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/SPI/SPI.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/SPI/SPI.hpp>
 
 // xmcu
 #include <xmcu/bit_flag.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
 
 namespace {
 using namespace xmcu;

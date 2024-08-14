@@ -3,7 +3,7 @@
 #if defined(STM32WB)
 
 // this
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/crc/crc.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/crc/crc.hpp>
 
 // externals
 #pragma GCC diagnostic ignored "-Wvolatile"

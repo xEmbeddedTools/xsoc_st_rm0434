@@ -3,14 +3,14 @@
 #if defined(STM32WB)
 
 // this
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/system/pwr/pwr.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/pwr/pwr.hpp>
 
 // xmcu
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/internal_flash/internal_flash.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/system/hsem/hsem.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/internal_flash/internal_flash.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/hsem/hsem.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
 
 namespace xmcu {
 namespace soc {

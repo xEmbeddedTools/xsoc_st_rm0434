@@ -3,7 +3,7 @@
 #if defined(STM32WB)
 
 // this
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/delay.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/delay.hpp>
 
 // externals
 #pragma GCC diagnostic ignored "-Wvolatile"
@@ -11,9 +11,9 @@
 #pragma GCC diagnostic pop
 
 // xmcu
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>

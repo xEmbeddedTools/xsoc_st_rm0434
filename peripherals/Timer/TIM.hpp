@@ -16,13 +16,13 @@
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/various.hpp>
-#include <xmcu/soc/ST/m4/IRQ_config.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/peripherals/GPIO/GPIO.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/hsi16.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/lse.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/lsi.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/GPIO/GPIO.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lse.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lsi.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 
 // small classes & enums

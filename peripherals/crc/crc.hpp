@@ -7,7 +7,7 @@
 
 // xmcu
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/rcc.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>

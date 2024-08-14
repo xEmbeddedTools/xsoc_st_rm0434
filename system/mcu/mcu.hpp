@@ -14,12 +14,12 @@
 // xmcu
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/bit_flag.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/hse.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/hsi16.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/hsi48.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/lse.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/sources/pll.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hse.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hsi48.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lse.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/pll.hpp>
 
 namespace xmcu {
 namespace soc {

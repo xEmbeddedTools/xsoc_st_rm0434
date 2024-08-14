@@ -15,7 +15,7 @@
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/bit_flag.hpp>
 #include <xmcu/various.hpp>
-#include <xmcu/soc/ST/m4/stm32wb/rm0434/rcc.hpp>
+#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
 
 namespace xmcu {
 namespace soc {
