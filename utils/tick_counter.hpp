@@ -8,6 +8,7 @@
 // xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/non_constructible.hpp>
+
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/Systick.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
