@@ -1,4 +1,7 @@
-/**/
+/*
+ *  Copyright (c) xEmbeddedTools team and contributors.
+ *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
+ */
 
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/iwdg/iwdg.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
