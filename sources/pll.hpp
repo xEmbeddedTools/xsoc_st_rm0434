@@ -10,12 +10,12 @@
 // xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/Limited.hpp>
+#include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/bit_flag.hpp>
-#include <xmcu/various.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hse.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hsi16.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/msi.hpp>
+#include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
@@ -60,13 +60,13 @@ public:
             };
 
             Divider divider = various::get_enum_incorrect_value<Divider>();
-            Output output   = various::get_enum_incorrect_value<Output>();
+            Output output = various::get_enum_incorrect_value<Output>();
         };
 
         static Enable_config get_Enable_config()
         {
-            return { static_cast<Enable_config::Divider>(bit_flag::get(RCC->PLLCFGR, RCC_PLLCFGR_PLLR_Msk)),
-                     static_cast<Enable_config::Output>(bit_flag::get(RCC->PLLCFGR, RCC_PLLCFGR_PLLREN)) };
+            return { static_cast<Enable_config::Divider>(bit::flag::get(RCC->PLLCFGR, RCC_PLLCFGR_PLLR_Msk)),
+                     static_cast<Enable_config::Output>(bit::flag::get(RCC->PLLCFGR, RCC_PLLCFGR_PLLREN)) };
         }
         static std::uint32_t get_frequency_Hz();
     };
@@ -93,13 +93,13 @@ public:
             };
 
             Divider divider = various::get_enum_incorrect_value<Divider>();
-            Output output   = various::get_enum_incorrect_value<Output>();
+            Output output = various::get_enum_incorrect_value<Output>();
         };
 
         static Enable_config get_Enable_config()
         {
-            return { static_cast<Enable_config::Divider>(bit_flag::get(RCC->PLLCFGR, RCC_PLLCFGR_PLLQ_Msk)),
-                     static_cast<Enable_config::Output>(bit_flag::get(RCC->PLLCFGR, RCC_PLLCFGR_PLLQEN)) };
+            return { static_cast<Enable_config::Divider>(bit::flag::get(RCC->PLLCFGR, RCC_PLLCFGR_PLLQ_Msk)),
+                     static_cast<Enable_config::Output>(bit::flag::get(RCC->PLLCFGR, RCC_PLLCFGR_PLLQEN)) };
         }
         static std::uint32_t get_frequency_Hz();
     };
@@ -111,7 +111,7 @@ public:
             enum class Output : std::uint32_t
             {
                 disabled = 0x0u,
-                enabled  = RCC_PLLCFGR_PLLPEN
+                enabled = RCC_PLLCFGR_PLLPEN
             };
 
             Limited<std::uint32_t, 2, 31> divider;
@@ -120,8 +120,8 @@ public:
 
         static Enable_config get_Enable_config()
         {
-            return { (bit_flag::get(RCC->PLLCFGR, RCC_PLLCFGR_PLLP_Msk) >> RCC_PLLCFGR_PLLP_Pos) + 1u,
-                     static_cast<Enable_config::Output>(bit_flag::get(RCC->PLLCFGR, RCC_PLLCFGR_PLLPEN)) };
+            return { (bit::flag::get(RCC->PLLCFGR, RCC_PLLCFGR_PLLP_Msk) >> RCC_PLLCFGR_PLLP_Pos) + 1u,
+                     static_cast<Enable_config::Output>(bit::flag::get(RCC->PLLCFGR, RCC_PLLCFGR_PLLPEN)) };
         }
         static std::uint32_t get_frequency_Hz();
     };
@@ -152,7 +152,7 @@ public:
                 };
 
                 Divider divider = various::get_enum_incorrect_value<Divider>();
-                Output output   = various::get_enum_incorrect_value<Output>();
+                Output output = various::get_enum_incorrect_value<Output>();
             };
 
             static Enable_config get_Enable_config();
@@ -181,7 +181,7 @@ public:
                 };
 
                 Divider divider = various::get_enum_incorrect_value<Divider>();
-                Output output   = various::get_enum_incorrect_value<Output>();
+                Output output = various::get_enum_incorrect_value<Output>();
             };
 
             static Enable_config get_Enable_config();
@@ -224,7 +224,7 @@ public:
                                                    Limited<std::uint32_t, 8u, 86u> a_N,
                                                    const r::Enable_config& a_R,
                                                    const q::Enable_config& a_Q,
-                                                   const p::Enable_config& a_P)                 = delete;
+                                                   const p::Enable_config& a_P) = delete;
     template<typename Source_t, hse::Prescaler> static void enable(M a_M,
                                                                    Limited<std::uint32_t, 8u, 86u> a_N,
                                                                    const r::Enable_config& a_R,
@@ -236,7 +236,7 @@ public:
                                                    const r::Enable_config& a_R,
                                                    const q::Enable_config& a_Q,
                                                    const p::Enable_config& a_P,
-                                                   Milliseconds a_timeout)                 = delete;
+                                                   Milliseconds a_timeout) = delete;
     template<typename Source_t, hse::Prescaler> static bool enable(M a_M,
                                                                    Limited<std::uint32_t, 8u, 86u> a_N,
                                                                    const r::Enable_config& a_R,
@@ -248,7 +248,7 @@ public:
 
     static bool is_enabled()
     {
-        return bit_flag::is(RCC->CR, RCC_CR_PLLRDY);
+        return bit::flag::is(RCC->CR, RCC_CR_PLLRDY);
     }
 };
 template<> void pll::enable<msi>(M a_M,

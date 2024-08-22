@@ -1,21 +1,20 @@
 /**/
 
-
 // this
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/I2C/I2C.hpp>
 
 // xmcu
 #include <xmcu/Frequency.hpp>
-#include <xmcu/bit_flag.hpp>
+#include <xmcu/bit.hpp>
 
 namespace xmcu::soc::m4::stm32wb {
 using namespace xmcu;
 
 enum class Clk_Sel
 {
-    PCLK   = 0b00,
+    PCLK = 0b00,
     SYSCLK = 0b01,
-    HSI16  = 0b10
+    HSI16 = 0b10
 };
 
 static std::uint32_t get_freq(Clk_Sel a_sel)
@@ -40,31 +39,31 @@ template<std::uint32_t id> void enable_rcc_impl(Clk_Sel a_sel, bool a_enable_in_
 
 template<> void enable_rcc_impl<0x01u>(Clk_Sel a_sel, bool a_enable_in_lp)
 {
-    bit_flag::set(&RCC->CCIPR, RCC_CCIPR_I2C1SEL, static_cast<std::uint32_t>(a_sel) << RCC_CCIPR_I2C1SEL_Pos);
-    bit_flag::set(&RCC->APB1ENR1, RCC_APB1ENR1_I2C1EN);
+    bit::flag::set(&RCC->CCIPR, RCC_CCIPR_I2C1SEL, static_cast<std::uint32_t>(a_sel) << RCC_CCIPR_I2C1SEL_Pos);
+    bit::flag::set(&RCC->APB1ENR1, RCC_APB1ENR1_I2C1EN);
 
     if (true == a_enable_in_lp)
     {
-        bit_flag::set(&(RCC->APB1SMENR1), RCC_APB1SMENR1_I2C1SMEN);
+        bit::flag::set(&(RCC->APB1SMENR1), RCC_APB1SMENR1_I2C1SMEN);
     }
     else
     {
-        bit_flag::clear(&(RCC->APB1SMENR1), RCC_APB1SMENR1_I2C1SMEN);
+        bit::flag::clear(&(RCC->APB1SMENR1), RCC_APB1SMENR1_I2C1SMEN);
     }
 }
 
 template<> void enable_rcc_impl<0x03u>(Clk_Sel a_sel, bool a_enable_in_lp)
 {
-    bit_flag::set(&RCC->CCIPR, RCC_CCIPR_I2C3SEL, static_cast<std::uint32_t>(a_sel) << RCC_CCIPR_I2C3SEL_Pos);
-    bit_flag::set(&RCC->APB1ENR1, RCC_APB1ENR1_I2C3EN);
+    bit::flag::set(&RCC->CCIPR, RCC_CCIPR_I2C3SEL, static_cast<std::uint32_t>(a_sel) << RCC_CCIPR_I2C3SEL_Pos);
+    bit::flag::set(&RCC->APB1ENR1, RCC_APB1ENR1_I2C3EN);
 
     if (true == a_enable_in_lp)
     {
-        bit_flag::set(&(RCC->APB1SMENR1), RCC_APB1SMENR1_I2C3SMEN);
+        bit::flag::set(&(RCC->APB1SMENR1), RCC_APB1SMENR1_I2C3SMEN);
     }
     else
     {
-        bit_flag::clear(&(RCC->APB1SMENR1), RCC_APB1SMENR1_I2C3SMEN);
+        bit::flag::clear(&(RCC->APB1SMENR1), RCC_APB1SMENR1_I2C3SMEN);
     }
 }
 
@@ -82,14 +81,14 @@ template<> template<> void rcc<peripherals::I2C, 1u>::enable<sources::hsi16>(boo
 }
 template<> void rcc<peripherals::I2C, 1u>::disable()
 {
-    bit_flag::clear(&RCC->CCIPR, RCC_CCIPR_I2C1SEL);
-    bit_flag::clear(&RCC->APB1ENR1, RCC_APB1ENR1_I2C1EN);
+    bit::flag::clear(&RCC->CCIPR, RCC_CCIPR_I2C1SEL);
+    bit::flag::clear(&RCC->APB1ENR1, RCC_APB1ENR1_I2C1EN);
 
-    bit_flag::clear(&RCC->APB1SMENR1, RCC_APB1SMENR1_I2C1SMEN);
+    bit::flag::clear(&RCC->APB1SMENR1, RCC_APB1SMENR1_I2C1SMEN);
 }
 template<> std::uint32_t rcc<peripherals::I2C, 1u>::get_frequency_Hz()
 {
-    std::uint32_t reg_flags = bit_flag::get(RCC->CCIPR, RCC_CCIPR_I2C1SEL) >> RCC_CCIPR_I2C1SEL_Pos;
+    std::uint32_t reg_flags = bit::flag::get(RCC->CCIPR, RCC_CCIPR_I2C1SEL) >> RCC_CCIPR_I2C1SEL_Pos;
     return get_freq(static_cast<Clk_Sel>(reg_flags));
 }
 
@@ -107,14 +106,14 @@ template<> template<> void rcc<peripherals::I2C, 3u>::enable<sources::hsi16>(boo
 }
 template<> void rcc<peripherals::I2C, 3u>::disable()
 {
-    bit_flag::clear(&RCC->CCIPR, RCC_CCIPR_I2C3SEL);
-    bit_flag::clear(&RCC->APB1ENR1, RCC_APB1ENR1_I2C3EN);
+    bit::flag::clear(&RCC->CCIPR, RCC_CCIPR_I2C3SEL);
+    bit::flag::clear(&RCC->APB1ENR1, RCC_APB1ENR1_I2C3EN);
 
-    bit_flag::clear(&RCC->APB1SMENR1, RCC_APB1SMENR1_I2C3SMEN);
+    bit::flag::clear(&RCC->APB1SMENR1, RCC_APB1SMENR1_I2C3SMEN);
 }
 template<> std::uint32_t rcc<peripherals::I2C, 3u>::get_frequency_Hz()
 {
-    std::uint32_t reg_flags = bit_flag::get(RCC->CCIPR, RCC_CCIPR_I2C3SEL) >> RCC_CCIPR_I2C3SEL_Pos;
+    std::uint32_t reg_flags = bit::flag::get(RCC->CCIPR, RCC_CCIPR_I2C3SEL) >> RCC_CCIPR_I2C3SEL_Pos;
     return get_freq(static_cast<Clk_Sel>(reg_flags));
 }
 
@@ -134,7 +133,10 @@ public:
 private:
     I2C_TypeDef* p_registers;
     std::size_t remaining_size;
-    bool inline is_last_part() { return 256 > this->remaining_size; }
+    bool inline is_last_part()
+    {
+        return 256 > this->remaining_size;
+    }
 };
 
 Transfer_config::Transfer_config(I2C_TypeDef* a_p_registers, std::size_t a_size)
@@ -143,22 +145,22 @@ Transfer_config::Transfer_config(I2C_TypeDef* a_p_registers, std::size_t a_size)
 {
     if (false == this->is_last_part())
     {
-        bit_flag::set(&this->p_registers->CR2, I2C_CR2_RELOAD);
+        bit::flag::set(&this->p_registers->CR2, I2C_CR2_RELOAD);
     }
 }
 
 Transfer_config::~Transfer_config()
 {
-    if (false == bit_flag::is(this->p_registers->CR2, I2C_CR2_AUTOEND))
+    if (false == bit::flag::is(this->p_registers->CR2, I2C_CR2_AUTOEND))
     {
         // using re-start - dont need clear stop flag, and CR2 register.
-        while (false == bit_flag::is(this->p_registers->ISR, I2C_ISR_TC)) continue;
+        while (false == bit::flag::is(this->p_registers->ISR, I2C_ISR_TC)) continue;
         return;
     }
-    if (bit_flag::is(this->p_registers->ISR, I2C_ISR_BUSY))
+    if (bit::flag::is(this->p_registers->ISR, I2C_ISR_BUSY))
     {
-        while (false == bit_flag::is(this->p_registers->ISR, I2C_ISR_STOPF)) continue;
-        bit_flag::set(&this->p_registers->ICR, I2C_ICR_STOPCF);
+        while (false == bit::flag::is(this->p_registers->ISR, I2C_ISR_STOPF)) continue;
+        bit::flag::set(&this->p_registers->ICR, I2C_ICR_STOPCF);
         this->p_registers->CR2 = 0;
     }
 }
@@ -171,7 +173,7 @@ void Transfer_config::configure(std::uint32_t a_adr)
     // 10 bit witten from bit 0
 
     // Configure slave address
-    bit_flag::set(&this->p_registers->CR2, I2C_CR2_SADD, a_adr << I2C_CR2_SADD_Pos);
+    bit::flag::set(&this->p_registers->CR2, I2C_CR2_SADD, a_adr << I2C_CR2_SADD_Pos);
 }
 
 std::size_t Transfer_config::set_size(bool a_end)
@@ -179,12 +181,12 @@ std::size_t Transfer_config::set_size(bool a_end)
     // NBYTES = N
     std::size_t transfer_size = this->is_last_part() ? this->remaining_size : 0xFF;
     // check size and need of reload set
-    bit_flag::set(&this->p_registers->CR2, I2C_CR2_NBYTES, transfer_size << I2C_CR2_NBYTES_Pos);
+    bit::flag::set(&this->p_registers->CR2, I2C_CR2_NBYTES, transfer_size << I2C_CR2_NBYTES_Pos);
     if (this->is_last_part())
     {
-        bit_flag::clear(&this->p_registers->CR2, I2C_CR2_RELOAD);
+        bit::flag::clear(&this->p_registers->CR2, I2C_CR2_RELOAD);
         // only for last part...
-        bit_flag::set(&this->p_registers->CR2, I2C_CR2_AUTOEND, a_end << I2C_CR2_AUTOEND_Pos);
+        bit::flag::set(&this->p_registers->CR2, I2C_CR2_AUTOEND, a_end << I2C_CR2_AUTOEND_Pos);
     }
     this->remaining_size -= transfer_size;
 
@@ -193,13 +195,13 @@ std::size_t Transfer_config::set_size(bool a_end)
 
 void Transfer_config::start_read()
 {
-    bit_flag::set(&this->p_registers->CR2, I2C_CR2_RD_WRN);
-    bit_flag::set(&this->p_registers->CR2, I2C_CR2_START);
+    bit::flag::set(&this->p_registers->CR2, I2C_CR2_RD_WRN);
+    bit::flag::set(&this->p_registers->CR2, I2C_CR2_START);
 }
 void Transfer_config::start_write()
 {
-    bit_flag::clear(&this->p_registers->CR2, I2C_CR2_RD_WRN);
-    bit_flag::set(&this->p_registers->CR2, I2C_CR2_START);
+    bit::flag::clear(&this->p_registers->CR2, I2C_CR2_RD_WRN);
+    bit::flag::set(&this->p_registers->CR2, I2C_CR2_START);
 }
 
 I2C::Polling::Polling(I2C_TypeDef* a_p_registers)
@@ -210,9 +212,9 @@ I2C::Polling::Polling(I2C_TypeDef* a_p_registers)
 bool I2C::enable()
 {
     std::uint32_t timing;
-    bit_flag::clear(&this->p_registers->CR1, I2C_CR1_PE);
+    bit::flag::clear(&this->p_registers->CR1, I2C_CR1_PE);
     __ISB();
-    // bit_flag::set(&this->p_registers->CR1, I2C_CR1_ANFOFF); // analog filter
+    // bit::flag::set(&this->p_registers->CR1, I2C_CR1_ANFOFF); // analog filter
 
     switch (get_clk())
     {
@@ -227,7 +229,7 @@ bool I2C::enable()
     }
     this->p_registers->TIMINGR = timing;
     // i2c must be configured first...
-    bit_flag::set(&this->p_registers->CR1, I2C_CR1_PE);
+    bit::flag::set(&this->p_registers->CR1, I2C_CR1_PE);
     return true;
 }
 
@@ -245,16 +247,16 @@ I2C::Polling::transmit(I2C::Address a_adr, Not_null<const void*> a_p_data, std::
         std::size_t i = 0;
         while (i < transfer_size)
         {
-            if (true == bit_flag::is(this->p_registers->ISR, I2C_ISR_NACKF))
+            if (true == bit::flag::is(this->p_registers->ISR, I2C_ISR_NACKF))
             {
                 return Transfer_result::nack;
             }
-            if (true == bit_flag::is(this->p_registers->ISR, I2C_ISR_ARLO))
+            if (true == bit::flag::is(this->p_registers->ISR, I2C_ISR_ARLO))
             {
                 this->p_registers->ICR = I2C_ICR_ARLOCF;
                 return I2C::Transfer_result::arbitration_lost;
             }
-            if (false == bit_flag::is(this->p_registers->ISR, I2C_ISR_TXIS))
+            if (false == bit::flag::is(this->p_registers->ISR, I2C_ISR_TXIS))
             {
                 continue;
             }
@@ -262,11 +264,11 @@ I2C::Polling::transmit(I2C::Address a_adr, Not_null<const void*> a_p_data, std::
             this->p_registers->TXDR = *(p_data++);
             ++i;
         }
-        if (true == bit_flag::is(this->p_registers->ISR, I2C_ISR_TC))
+        if (true == bit::flag::is(this->p_registers->ISR, I2C_ISR_TC))
         { // This flag is set by hardware when RELOAD = 0, AUTOEND = 0 and NBYTES data have been transferred
             return Transfer_result::ok;
         }
-        if (true == bit_flag::is(this->p_registers->ISR, I2C_ISR_TCR))
+        if (true == bit::flag::is(this->p_registers->ISR, I2C_ISR_TCR))
         { // This flag is set by hardware when RELOAD = 1 and NBYTES data have been transferred
             transfer_size = transfer.set_size(a_is_auto_end);
         }
@@ -294,7 +296,7 @@ I2C::Polling::receive(Address a_adr, Not_null<void*> a_p_data, std::size_t a_siz
         std::size_t i = 0;
         while (i < transfer_size)
         {
-            if (false == bit_flag::is(this->p_registers->ISR, I2C_ISR_RXNE))
+            if (false == bit::flag::is(this->p_registers->ISR, I2C_ISR_RXNE))
             {
                 continue;
             }
@@ -302,12 +304,12 @@ I2C::Polling::receive(Address a_adr, Not_null<void*> a_p_data, std::size_t a_siz
             *(p_data++) = this->p_registers->RXDR;
             ++i;
         }
-        if (true == bit_flag::is(this->p_registers->ISR, I2C_ISR_TC))
+        if (true == bit::flag::is(this->p_registers->ISR, I2C_ISR_TC))
         { // This flag is set by hardware when RELOAD = 0, AUTOEND = 0 and NBYTES data have been transferred
             return Transfer_result::ok;
             // next start will be repeated start so we need new chunk of data, from another call
         }
-        if (true == bit_flag::is(this->p_registers->ISR, I2C_ISR_TCR))
+        if (true == bit::flag::is(this->p_registers->ISR, I2C_ISR_TCR))
         { // This flag is set by hardware when RELOAD = 1 and NBYTES data have been transferred
             transfer_size = transfer.set_size(a_is_auto_end);
         }

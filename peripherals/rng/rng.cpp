@@ -6,15 +6,15 @@
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/rng/rng.hpp>
 
 // xmcu
-#include <xmcu/various.hpp>
+#include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/m4/nvic.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/hsem/hsem.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/various.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>
-
 
 namespace {
 using namespace xmcu::soc::m4::stm32wb::peripherals;
@@ -42,12 +42,12 @@ rng::Event_flag get_Event_flag(std::uint32_t a_SR, std::uint32_t a_CR)
 {
     rng::Event_flag ret = rng::Event_flag::none;
 
-    if (true == bit_flag::is(a_SR, RNG_SR_SEIS))
+    if (true == bit::flag::is(a_SR, RNG_SR_SEIS))
     {
         ret |= rng::Event_flag::seed_error;
     }
 
-    if (true == bit_flag::is(a_SR, RNG_SR_CEIS) && false == bit_flag::is(a_CR, RNG_CR_CED))
+    if (true == bit::flag::is(a_SR, RNG_SR_CEIS) && false == bit::flag::is(a_CR, RNG_CR_CED))
     {
         ret |= rng::Event_flag::clock_error;
     }
@@ -71,7 +71,7 @@ void RNG_interrupt_handler()
 
     std::uint32_t data = 0x0;
 
-    if (true == bit_flag::is(SR, RNG_SR_DRDY))
+    if (true == bit::flag::is(SR, RNG_SR_DRDY))
     {
         data = RNG->DR;
     }
@@ -122,12 +122,12 @@ void rng::interrupt::start(const Callback& a_callback)
 
     callback = a_callback;
 
-    bit_flag::set(&(RNG->CR), RNG_CR_IE);
+    bit::flag::set(&(RNG->CR), RNG_CR_IE);
 }
 
 void rng::interrupt::stop()
 {
-    bit_flag::clear(&(RNG->CR), RNG_CR_IE);
+    bit::flag::clear(&(RNG->CR), RNG_CR_IE);
 
     callback = { nullptr, nullptr };
 }
@@ -136,7 +136,7 @@ void rng::enable()
 {
     Scoped_guard<hsem::_1_step> sem0_guard(0x0u);
 
-    bit_flag::set(&(RNG->CR), RNG_CR_CED | RNG_CR_RNGEN, RNG_CR_RNGEN);
+    bit::flag::set(&(RNG->CR), RNG_CR_CED | RNG_CR_RNGEN, RNG_CR_RNGEN);
 }
 bool rng::enable(Milliseconds a_timeout)
 {
@@ -144,7 +144,7 @@ bool rng::enable(Milliseconds a_timeout)
 
     if (true == sem0_guard.is_locked())
     {
-        bit_flag::set(&(RNG->CR), RNG_CR_CED | RNG_CR_RNGEN, RNG_CR_RNGEN);
+        bit::flag::set(&(RNG->CR), RNG_CR_CED | RNG_CR_RNGEN, RNG_CR_RNGEN);
         return true;
     }
     return false;
@@ -154,7 +154,7 @@ void rng::disable()
 {
     Scoped_guard<hsem::_1_step> sem0_guard(0x0u);
 
-    bit_flag::clear(&(RNG->CR), RNG_CR_RNGEN);
+    bit::flag::clear(&(RNG->CR), RNG_CR_RNGEN);
 }
 bool rng::disable(Milliseconds a_timeout)
 {
@@ -162,7 +162,7 @@ bool rng::disable(Milliseconds a_timeout)
 
     if (true == sem0_guard.is_locked())
     {
-        bit_flag::clear(&(RNG->CR), RNG_CR_RNGEN);
+        bit::flag::clear(&(RNG->CR), RNG_CR_RNGEN);
 
         return true;
     }
@@ -184,51 +184,51 @@ using namespace xmcu::soc::m4::stm32wb::sources;
 
 template<> void rcc<rng>::enable<rcc<mcu<1u>>::clk48>(bool a_enable_in_lp)
 {
-    bit_flag::set(&(RCC->AHB3ENR), RCC_AHB3ENR_RNGEN);
-    bit_flag::clear(&(RCC->CCIPR), RCC_CCIPR_RNGSEL);
+    bit::flag::set(&(RCC->AHB3ENR), RCC_AHB3ENR_RNGEN);
+    bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_RNGSEL);
 
     if (true == a_enable_in_lp)
     {
-        bit_flag::set(&(RCC->AHB3ENR), RCC_AHB3SMENR_RNGSMEN);
+        bit::flag::set(&(RCC->AHB3ENR), RCC_AHB3SMENR_RNGSMEN);
     }
     else
     {
-        bit_flag::clear(&(RCC->AHB3ENR), RCC_AHB3SMENR_RNGSMEN);
+        bit::flag::clear(&(RCC->AHB3ENR), RCC_AHB3SMENR_RNGSMEN);
     }
 }
 template<> void rcc<rng>::enable<lsi>(bool a_enable_in_lp)
 {
-    bit_flag::set(&(RCC->AHB3ENR), RCC_AHB3ENR_RNGEN);
-    bit_flag::set(&(RCC->CCIPR), RCC_CCIPR_RNGSEL, RCC_CCIPR_RNGSEL_0);
+    bit::flag::set(&(RCC->AHB3ENR), RCC_AHB3ENR_RNGEN);
+    bit::flag::set(&(RCC->CCIPR), RCC_CCIPR_RNGSEL, RCC_CCIPR_RNGSEL_0);
 
     if (true == a_enable_in_lp)
     {
-        bit_flag::set(&(RCC->AHB3ENR), RCC_AHB3SMENR_RNGSMEN);
+        bit::flag::set(&(RCC->AHB3ENR), RCC_AHB3SMENR_RNGSMEN);
     }
     else
     {
-        bit_flag::clear(&(RCC->AHB3ENR), RCC_AHB3SMENR_RNGSMEN);
+        bit::flag::clear(&(RCC->AHB3ENR), RCC_AHB3SMENR_RNGSMEN);
     }
 }
 template<> void rcc<rng>::enable<lse>(bool a_enable_in_lp)
 {
-    bit_flag::set(&(RCC->AHB3ENR), RCC_AHB3ENR_RNGEN);
-    bit_flag::set(&(RCC->CCIPR), RCC_CCIPR_RNGSEL, RCC_CCIPR_RNGSEL_1);
+    bit::flag::set(&(RCC->AHB3ENR), RCC_AHB3ENR_RNGEN);
+    bit::flag::set(&(RCC->CCIPR), RCC_CCIPR_RNGSEL, RCC_CCIPR_RNGSEL_1);
 
     if (true == a_enable_in_lp)
     {
-        bit_flag::set(&(RCC->AHB3ENR), RCC_AHB3SMENR_RNGSMEN);
+        bit::flag::set(&(RCC->AHB3ENR), RCC_AHB3SMENR_RNGSMEN);
     }
     else
     {
-        bit_flag::clear(&(RCC->AHB3ENR), RCC_AHB3SMENR_RNGSMEN);
+        bit::flag::clear(&(RCC->AHB3ENR), RCC_AHB3SMENR_RNGSMEN);
     }
 }
 void rcc<rng>::disable()
 {
-    bit_flag::clear(&(RCC->AHB3ENR), RCC_AHB3ENR_RNGEN);
-    bit_flag::clear(&(RCC->CCIPR), RCC_CCIPR_RNGSEL);
-    bit_flag::clear(&(RCC->AHB3ENR), RCC_AHB3SMENR_RNGSMEN);
+    bit::flag::clear(&(RCC->AHB3ENR), RCC_AHB3ENR_RNGEN);
+    bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_RNGSEL);
+    bit::flag::clear(&(RCC->AHB3ENR), RCC_AHB3SMENR_RNGSMEN);
 }
 } // namespace stm32wb
 } // namespace m4

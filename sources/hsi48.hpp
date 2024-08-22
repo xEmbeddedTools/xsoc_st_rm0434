@@ -8,6 +8,7 @@
 #pragma GCC diagnostic pop
 
 // xmcu
+#include <xmcu/bit.hpp>
 #include <xmcu/Duration.hpp>
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/Frequency.hpp>
@@ -28,7 +29,7 @@ public:
 
     static bool is_enabled()
     {
-        return bit_flag::is(RCC->CRRCR, RCC_CRRCR_HSI48RDY);
+        return bit::flag::is(RCC->CRRCR, RCC_CRRCR_HSI48RDY);
     }
 
     static std::uint32_t get_frequency_Hz()

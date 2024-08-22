@@ -22,9 +22,9 @@ using namespace xmcu::soc::m4::stm32wb::peripherals;
 
 void clear_FLASH_SR_errors()
 {
-    bit_flag::set(&(FLASH->SR),
-                  FLASH_SR_OPERR | FLASH_SR_RDERR | FLASH_SR_WRPERR | FLASH_SR_SIZERR | FLASH_SR_PROGERR |
-                      FLASH_SR_PGAERR | FLASH_SR_PGSERR | FLASH_SR_MISERR | FLASH_SR_FASTERR);
+    bit::flag::set(&(FLASH->SR),
+                   FLASH_SR_OPERR | FLASH_SR_RDERR | FLASH_SR_WRPERR | FLASH_SR_SIZERR | FLASH_SR_PROGERR |
+                       FLASH_SR_PGAERR | FLASH_SR_PGSERR | FLASH_SR_MISERR | FLASH_SR_FASTERR);
 }
 
 bool is_FLASH_SR_error()
@@ -38,7 +38,7 @@ internal_flash::Status_flag get_status_flag_from_FLASH_SR()
 {
     uint32_t SR = (FLASH->SR & 0x3F8u);
 
-    if (0x0u == SR && bit_flag::is(FLASH->SR, FLASH_SR_BSY))
+    if (0x0u == SR && bit::flag::is(FLASH->SR, FLASH_SR_BSY))
     {
         return internal_flash::Status_flag::locked;
     }
@@ -60,7 +60,7 @@ void internal_flash::unlocker::unlock()
 {
     wait_until::all_bits_are_cleared(FLASH->SR, FLASH_SR_BSY);
 
-    if (true == bit_flag::is(FLASH->CR, FLASH_CR_LOCK))
+    if (true == bit::flag::is(FLASH->CR, FLASH_CR_LOCK))
     {
         Scoped_guard<nvic> interrupt_guard;
 
@@ -74,7 +74,7 @@ bool internal_flash::unlocker::unlock(Milliseconds a_timeout)
 {
     bool ret = wait_until::all_bits_are_cleared(FLASH->SR, FLASH_SR_BSY, a_timeout);
 
-    if (true == ret && true == bit_flag::is(FLASH->CR, FLASH_CR_LOCK))
+    if (true == ret && true == bit::flag::is(FLASH->CR, FLASH_CR_LOCK))
     {
         Scoped_guard<nvic> interrupt_guard;
 
@@ -82,11 +82,11 @@ bool internal_flash::unlocker::unlock(Milliseconds a_timeout)
         FLASH->KEYR = 0xCDEF89ABu;
     }
 
-    return false == bit_flag::is(FLASH->CR, FLASH_CR_LOCK);
+    return false == bit::flag::is(FLASH->CR, FLASH_CR_LOCK);
 }
 void internal_flash::unlocker::lock()
 {
-    bit_flag::set(&(FLASH->CR), FLASH_CR_LOCK);
+    bit::flag::set(&(FLASH->CR), FLASH_CR_LOCK);
 }
 
 void internal_flash::cache_disabler::disable()
@@ -115,7 +115,7 @@ void internal_flash::set_latency(Latency a_latency)
 {
     Scoped_guard<hsem::_1_step> sem2_guard(0x2u);
 
-    bit_flag::set(&(FLASH->ACR), FLASH_ACR_LATENCY, static_cast<std::uint32_t>(a_latency));
+    bit::flag::set(&(FLASH->ACR), FLASH_ACR_LATENCY, static_cast<std::uint32_t>(a_latency));
     wait_until::all_bits_are_set(FLASH->ACR, static_cast<std::uint32_t>(a_latency));
 }
 bool internal_flash::set_latency(Latency a_latency, Milliseconds a_timeout)
@@ -124,7 +124,7 @@ bool internal_flash::set_latency(Latency a_latency, Milliseconds a_timeout)
 
     if (true == sem2_guard.is_locked())
     {
-        bit_flag::set(&(FLASH->ACR), FLASH_ACR_LATENCY, static_cast<std::uint32_t>(a_latency));
+        bit::flag::set(&(FLASH->ACR), FLASH_ACR_LATENCY, static_cast<std::uint32_t>(a_latency));
         wait_until::all_bits_are_set(FLASH->ACR, static_cast<std::uint32_t>(a_latency));
 
         return true;
@@ -137,7 +137,7 @@ void internal_flash::set_cache_mode(Cache_mode_flag a_cache_mode)
 {
     Scoped_guard<hsem::_1_step> sem2_guard(0x2u);
 
-    bit_flag::set(
+    bit::flag::set(
         &(FLASH->ACR), FLASH_ACR_DCEN | FLASH_ACR_ICEN | FLASH_ACR_PRFTEN, static_cast<std::uint32_t>(a_cache_mode));
 }
 bool internal_flash::set_cache_mode(Cache_mode_flag a_cache_mode, Milliseconds a_timeout)
@@ -146,9 +146,9 @@ bool internal_flash::set_cache_mode(Cache_mode_flag a_cache_mode, Milliseconds a
 
     if (true == sem2_guard.is_locked())
     {
-        bit_flag::set(&(FLASH->ACR),
-                      FLASH_ACR_DCEN | FLASH_ACR_ICEN | FLASH_ACR_PRFTEN,
-                      static_cast<std::uint32_t>(a_cache_mode));
+        bit::flag::set(&(FLASH->ACR),
+                       FLASH_ACR_DCEN | FLASH_ACR_ICEN | FLASH_ACR_PRFTEN,
+                       static_cast<std::uint32_t>(a_cache_mode));
 
         return true;
     }
@@ -181,7 +181,7 @@ internal_flash::polling::write(Limited<std::uint32_t, s::start, s::start + s::si
         {
             Scoped_guard<cache_disabler> cache_guard;
 
-            bit_flag::set(&(FLASH->CR), FLASH_CR_PG);
+            bit::flag::set(&(FLASH->CR), FLASH_CR_PG);
 
             volatile std::uint32_t* p_address = reinterpret_cast<volatile std::uint32_t*>(a_address.get());
 
@@ -191,12 +191,12 @@ internal_flash::polling::write(Limited<std::uint32_t, s::start, s::start + s::si
 
             wait_until::all_bits_are_cleared(FLASH->SR, FLASH_SR_BSY);
 
-            if (true == bit_flag::is(FLASH->SR, FLASH_SR_EOP))
+            if (true == bit::flag::is(FLASH->SR, FLASH_SR_EOP))
             {
-                bit_flag::set(&(FLASH->SR), FLASH_SR_EOP);
+                bit::flag::set(&(FLASH->SR), FLASH_SR_EOP);
             }
 
-            bit_flag::clear(&(FLASH->CR), FLASH_CR_PG);
+            bit::flag::clear(&(FLASH->CR), FLASH_CR_PG);
 
             i++;
 
@@ -228,7 +228,7 @@ internal_flash::polling::write(Limited<std::uint32_t, s::start, s::start + s::si
                 clear_FLASH_SR_errors();
             }
 
-            bool timeout  = false;
+            bool timeout = false;
             std::size_t i = 0;
             while (i < a_size_in_double_words && false == timeout)
             {
@@ -245,7 +245,7 @@ internal_flash::polling::write(Limited<std::uint32_t, s::start, s::start + s::si
                     {
                         Scoped_guard<cache_disabler> cache_guard;
 
-                        bit_flag::set(&(FLASH->CR), FLASH_CR_PG);
+                        bit::flag::set(&(FLASH->CR), FLASH_CR_PG);
 
                         volatile std::uint32_t* p_address = reinterpret_cast<volatile std::uint32_t*>(a_address.get());
 
@@ -260,15 +260,15 @@ internal_flash::polling::write(Limited<std::uint32_t, s::start, s::start + s::si
 
                         if (false == timeout)
                         {
-                            if (true == bit_flag::is(FLASH->SR, FLASH_SR_EOP))
+                            if (true == bit::flag::is(FLASH->SR, FLASH_SR_EOP))
                             {
-                                bit_flag::set(&(FLASH->SR), FLASH_SR_EOP);
+                                bit::flag::set(&(FLASH->SR), FLASH_SR_EOP);
                             }
 
                             i++;
                         }
 
-                        bit_flag::clear(&(FLASH->CR), FLASH_CR_PG);
+                        bit::flag::clear(&(FLASH->CR), FLASH_CR_PG);
 
                         hsem::_1_step::unlock(0x7u);
                     }
@@ -357,11 +357,11 @@ internal_flash::polling::erase_page(Limited<std::uint32_t, 0u, s::pages_count - 
         {
             Scoped_guard<cache_disabler> cache_guard;
 
-            bit_flag::set(&(FLASH->CR),
-                          FLASH_CR_PNB | FLASH_CR_PER | FLASH_CR_STRT,
-                          (a_page_index << FLASH_CR_PNB_Pos) | FLASH_CR_PER | FLASH_CR_STRT);
+            bit::flag::set(&(FLASH->CR),
+                           FLASH_CR_PNB | FLASH_CR_PER | FLASH_CR_STRT,
+                           (a_page_index << FLASH_CR_PNB_Pos) | FLASH_CR_PER | FLASH_CR_STRT);
             wait_until::all_bits_are_cleared(FLASH->SR, FLASH_SR_BSY);
-            bit_flag::clear(&(FLASH->CR), FLASH_CR_PER | FLASH_CR_STRT);
+            bit::flag::clear(&(FLASH->CR), FLASH_CR_PER | FLASH_CR_STRT);
 
             hsem::_1_step::unlock(0x7u);
 
@@ -400,7 +400,7 @@ internal_flash::polling::erase_page(Limited<std::uint32_t, 0u, s::pages_count - 
                 a_external_lock_function(true);
             }
 
-            bool done    = false;
+            bool done = false;
             bool timeout = false;
             while (false == done && false == timeout)
             {
@@ -414,15 +414,15 @@ internal_flash::polling::erase_page(Limited<std::uint32_t, 0u, s::pages_count - 
                 {
                     Scoped_guard<cache_disabler> cache_guard;
 
-                    bit_flag::set(&(FLASH->CR),
-                                  FLASH_CR_PNB | FLASH_CR_PER | FLASH_CR_STRT,
-                                  (a_page_index << FLASH_CR_PNB_Pos) | FLASH_CR_PER | FLASH_CR_STRT);
+                    bit::flag::set(&(FLASH->CR),
+                                   FLASH_CR_PNB | FLASH_CR_PER | FLASH_CR_STRT,
+                                   (a_page_index << FLASH_CR_PNB_Pos) | FLASH_CR_PER | FLASH_CR_STRT);
                     timeout =
                         false ==
                         wait_until::all_bits_are_cleared(
                             FLASH->SR, FLASH_SR_BSY, a_timeout.get() - (tick_counter<Milliseconds>::get() - start));
 
-                    bit_flag::clear(&(FLASH->CR), FLASH_CR_PER | FLASH_CR_STRT);
+                    bit::flag::clear(&(FLASH->CR), FLASH_CR_PER | FLASH_CR_STRT);
 
                     hsem::_1_step::unlock(0x7u);
 
@@ -453,7 +453,8 @@ internal_flash::polling::erase_page(Limited<std::uint32_t, 0u, s::pages_count - 
     return { get_status_flag_from_FLASH_SR(), 0u };
 }
 
-internal_flash::polling::Result internal_flash::polling::erase_bank(Bank_id a_id, Function_lock a_external_lock_function)
+internal_flash::polling::Result internal_flash::polling::erase_bank(Bank_id a_id,
+                                                                    Function_lock a_external_lock_function)
 {
     Scoped_guard<hsem::_1_step> sem2_guard(0x2u);
     Scoped_guard<unlocker> unlock_guard;
@@ -479,7 +480,7 @@ internal_flash::polling::Result internal_flash::polling::erase_bank(Bank_id a_id
         {
             Scoped_guard<cache_disabler> cache_guard;
 
-            bit_flag::set(&(FLASH->CR), FLASH_CR_MER | FLASH_CR_STRT);
+            bit::flag::set(&(FLASH->CR), FLASH_CR_MER | FLASH_CR_STRT);
             wait_until::all_bits_are_cleared(FLASH->SR, FLASH_SR_BSY);
 
             hsem::_1_step::unlock(0x7u);
@@ -496,7 +497,8 @@ internal_flash::polling::Result internal_flash::polling::erase_bank(Bank_id a_id
     return { get_status_flag_from_FLASH_SR(), 1u };
 }
 
-internal_flash::polling::Result internal_flash::polling::erase_bank(Bank_id a_id, Function_lock a_external_lock_function, Milliseconds a_timeout)
+internal_flash::polling::Result
+internal_flash::polling::erase_bank(Bank_id a_id, Function_lock a_external_lock_function, Milliseconds a_timeout)
 {
     const std::uint64_t start = tick_counter<Milliseconds>::get();
 
@@ -516,7 +518,7 @@ internal_flash::polling::Result internal_flash::polling::erase_bank(Bank_id a_id
                 a_external_lock_function(true);
             }
 
-            bool done    = false;
+            bool done = false;
             bool timeout = false;
             while (false == done && false == timeout)
             {
@@ -528,7 +530,7 @@ internal_flash::polling::Result internal_flash::polling::erase_bank(Bank_id a_id
                 {
                     Scoped_guard<cache_disabler> cache_guard;
 
-                    bit_flag::set(&(FLASH->CR), FLASH_CR_MER | FLASH_CR_STRT);
+                    bit::flag::set(&(FLASH->CR), FLASH_CR_MER | FLASH_CR_STRT);
                     timeout =
                         false ==
                         wait_until::all_bits_are_cleared(

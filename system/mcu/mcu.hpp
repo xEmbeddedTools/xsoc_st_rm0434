@@ -12,8 +12,8 @@
 #pragma GCC diagnostic pop
 
 // xmcu
+#include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/bit_flag.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hse.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hsi16.hpp>
@@ -111,14 +111,14 @@ public:
         switch (a_mode)
         {
             case DWT_mode::enabled: {
-                bit_flag::set(&(CoreDebug->DEMCR), CoreDebug_DEMCR_TRCENA_Msk);
-                bit_flag::set(&(DWT->CTRL), DWT_CTRL_CYCCNTENA_Msk);
+                bit::flag::set(&(CoreDebug->DEMCR), CoreDebug_DEMCR_TRCENA_Msk);
+                bit::flag::set(&(DWT->CTRL), DWT_CTRL_CYCCNTENA_Msk);
             }
             break;
 
             case DWT_mode::disabled: {
-                bit_flag::clear(&(CoreDebug->DEMCR), CoreDebug_DEMCR_TRCENA_Msk);
-                bit_flag::clear(&(DWT->CTRL), DWT_CTRL_CYCCNTENA_Msk);
+                bit::flag::clear(&(CoreDebug->DEMCR), CoreDebug_DEMCR_TRCENA_Msk);
+                bit::flag::clear(&(DWT->CTRL), DWT_CTRL_CYCCNTENA_Msk);
             }
             break;
         }
@@ -126,12 +126,12 @@ public:
 
     static void set_FPU_mode(FPU_mode a_mode)
     {
-        bit_flag::set(&(SCB->CPACR), ((3u << 10u * 2u) | (3u << 11u * 2u)), static_cast<uint32_t>(a_mode));
+        bit::flag::set(&(SCB->CPACR), ((3u << 10u * 2u) | (3u << 11u * 2u)), static_cast<uint32_t>(a_mode));
     }
 
     static DWT_mode get_DWT_mode()
     {
-        return static_cast<DWT_mode>(bit_flag::is(DWT->CTRL, DWT_CTRL_CYCCNTENA_Msk));
+        return static_cast<DWT_mode>(bit::flag::is(DWT->CTRL, DWT_CTRL_CYCCNTENA_Msk));
     }
 
     static FPU_mode get_FPU_mode()
@@ -167,7 +167,7 @@ public:
 
     static bool is_in_debug_mode()
     {
-        return bit_flag::is(CoreDebug->DHCSR, CoreDebug_DHCSR_C_DEBUGEN_Msk);
+        return bit::flag::is(CoreDebug->DHCSR, CoreDebug_DHCSR_C_DEBUGEN_Msk);
     }
 
     static std::uint32_t get_unique_device_number()
@@ -421,10 +421,10 @@ template<> bool rcc<system::mcu<1>>::is_system_clock_source<sources::pll>();
 template<> void rcc<system::mcu<1u>>::set_system_clock_source<sources::hse, sources::hse::Prescaler::_1>();
 template<> void rcc<system::mcu<1u>>::set_system_clock_source<sources::hse, sources::hse::Prescaler::_2>();
 
-template<> bool rcc<system::mcu<1u>>::set_system_clock_source<sources::hse, sources::hse::Prescaler::_1>(
-    Milliseconds a_timeout);
-template<> bool rcc<system::mcu<1u>>::set_system_clock_source<sources::hse, sources::hse::Prescaler::_2>(
-    Milliseconds a_timeout);
+template<>
+bool rcc<system::mcu<1u>>::set_system_clock_source<sources::hse, sources::hse::Prescaler::_1>(Milliseconds a_timeout);
+template<>
+bool rcc<system::mcu<1u>>::set_system_clock_source<sources::hse, sources::hse::Prescaler::_2>(Milliseconds a_timeout);
 
 template<> bool rcc<system::mcu<1>>::is_system_clock_source<sources::hse>();
 

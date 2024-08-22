@@ -137,6 +137,7 @@ peripherals::GPIO::Alternate_function::enable<peripherals::SPI, 1>(Limited<std::
         hkm_assert(false);
         while (true) continue;
     }
+#elif defined(STM32WB55RG)
 #else
 #error "Undefined pin constraints for uC - add missing model refering to its *datasheet*"
 #endif

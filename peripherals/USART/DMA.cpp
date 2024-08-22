@@ -4,10 +4,10 @@
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/USART/DMA.hpp>
 
 // xmcus
-#include <xmcu/soc/Scoped_guard.hpp>
 #include <xmcu/soc/ST/arm/m4/nvic.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/Scoped_guard.hpp>
 
 namespace {
 using namespace xmcu;
@@ -20,14 +20,14 @@ void transmit(USART_TypeDef* a_p_USART_registers,
               volatile const void* a_p_buffer,
               std::uint16_t a_buffer_size_in_words)
 {
-    hkm_assert(false == bit_flag::is(a_p_channel_registers->CCR, DMA_CCR_EN));
+    hkm_assert(false == bit::flag::is(a_p_channel_registers->CCR, DMA_CCR_EN));
 
     a_p_channel_registers->CNDTR = a_buffer_size_in_words;
     a_p_channel_registers->CPAR = reinterpret_cast<std::uint32_t>(&(a_p_USART_registers->TDR));
     a_p_channel_registers->CMAR = reinterpret_cast<std::uint32_t>(a_p_buffer);
 
-    bit_flag::set(&(a_p_USART_registers->ICR), USART_ICR_TCCF);
-    bit_flag::set(&(a_p_channel_registers->CCR), a_channel_flags | DMA_CCR_EN);
+    bit::flag::set(&(a_p_USART_registers->ICR), USART_ICR_TCCF);
+    bit::flag::set(&(a_p_channel_registers->CCR), a_channel_flags | DMA_CCR_EN);
 }
 
 void receive(USART_TypeDef* a_p_USART_registers,
@@ -36,13 +36,13 @@ void receive(USART_TypeDef* a_p_USART_registers,
              volatile void* a_p_buffer,
              std::uint16_t a_buffer_size_in_words)
 {
-    hkm_assert(false == bit_flag::is(a_p_channel_registers->CCR, DMA_CCR_EN));
+    hkm_assert(false == bit::flag::is(a_p_channel_registers->CCR, DMA_CCR_EN));
 
     a_p_channel_registers->CNDTR = a_buffer_size_in_words;
     a_p_channel_registers->CPAR = reinterpret_cast<std::uint32_t>(&(a_p_USART_registers->RDR));
     a_p_channel_registers->CMAR = reinterpret_cast<std::uint32_t>(a_p_buffer);
 
-    bit_flag::set(&(a_p_channel_registers->CCR), a_channel_flags | DMA_CCR_EN);
+    bit::flag::set(&(a_p_channel_registers->CCR), a_channel_flags | DMA_CCR_EN);
 }
 DMA<>::Event_flag
 get_Event_flag_and_clear(std::uint32_t a_isr, volatile std::uint32_t* a_p_icr, DMA<>::Channel a_channel)
@@ -50,20 +50,20 @@ get_Event_flag_and_clear(std::uint32_t a_isr, volatile std::uint32_t* a_p_icr, D
     DMA<>::Event_flag ret = DMA<>::Event_flag::none;
     const std::uint32_t f = static_cast<std::uint32_t>(a_channel) * 4u;
 
-    if (true == bit_flag::is(a_isr, 0x1u << (DMA_ISR_TCIF1_Pos + f)))
+    if (true == bit::flag::is(a_isr, 0x1u << (DMA_ISR_TCIF1_Pos + f)))
     {
         ret |= DMA<>::Event_flag::full_transfer_complete;
     }
-    if (true == bit_flag::is(a_isr, 0x1u << (DMA_ISR_HTIF1_Pos + f)))
+    if (true == bit::flag::is(a_isr, 0x1u << (DMA_ISR_HTIF1_Pos + f)))
     {
         ret |= DMA<>::Event_flag::half_transfer_complete;
     }
-    if (true == bit_flag::is(a_isr, 0x1u << (DMA_ISR_TEIF1_Pos + f)))
+    if (true == bit::flag::is(a_isr, 0x1u << (DMA_ISR_TEIF1_Pos + f)))
     {
         ret |= DMA<>::Event_flag::transfer_error;
     }
 
-    bit_flag::set(a_p_icr, 0x1u << (DMA_IFCR_CGIF1_Pos + f));
+    bit::flag::set(a_p_icr, 0x1u << (DMA_IFCR_CGIF1_Pos + f));
 
     return ret;
 }
@@ -105,7 +105,7 @@ void DMA<USART>::Receiver::enable(DMA<>::Channel a_channel)
                 DMA1_Channel1_BASE + (static_cast<std::uint32_t>(a_channel) * 0x14u));
             this->p_DMA->rx_irqn = static_cast<IRQn_Type>(DMA1_Channel1_IRQn + static_cast<std::uint32_t>(a_channel));
 
-            hkm_assert(false == bit_flag::is(this->p_DMA->p_rx_channel_registers->CCR, DMA_CCR_EN));
+            hkm_assert(false == bit::flag::is(this->p_DMA->p_rx_channel_registers->CCR, DMA_CCR_EN));
 
             reinterpret_cast<DMAMUX_Channel_TypeDef*>(DMAMUX1_Channel0_BASE +
                                                       (static_cast<std::uint32_t>(a_channel) * 4))
@@ -118,7 +118,7 @@ void DMA<USART>::Receiver::enable(DMA<>::Channel a_channel)
                 DMA2_Channel1_BASE + (static_cast<std::uint32_t>(a_channel) * 0x14u));
             this->p_DMA->rx_irqn = static_cast<IRQn_Type>(DMA2_Channel1_IRQn + static_cast<std::uint32_t>(a_channel));
 
-            hkm_assert(false == bit_flag::is(this->p_DMA->p_rx_channel_registers->CCR, DMA_CCR_EN));
+            hkm_assert(false == bit::flag::is(this->p_DMA->p_rx_channel_registers->CCR, DMA_CCR_EN));
 
             reinterpret_cast<DMAMUX_Channel_TypeDef*>(DMAMUX1_Channel7_BASE +
                                                       (static_cast<std::uint32_t>(a_channel) * 4))
@@ -127,7 +127,7 @@ void DMA<USART>::Receiver::enable(DMA<>::Channel a_channel)
         break;
     }
 
-    bit_flag::set(&(this->p_DMA->p_USART_registers->CR3), USART_CR3_DMAR);
+    bit::flag::set(&(this->p_DMA->p_USART_registers->CR3), USART_CR3_DMAR);
 
     this->p_DMA->rx_channel = a_channel;
 }
@@ -143,13 +143,13 @@ void DMA<USART>::Receiver::disable()
     this->p_DMA->p_rx_channel_registers->CPAR = 0x0u;
     this->p_DMA->p_rx_channel_registers->CMAR = 0x0u;
 
-    bit_flag::clear(
+    bit::flag::clear(
         &(reinterpret_cast<DMAMUX_Channel_TypeDef*>(
               DMAMUX1_Channel7_BASE + (static_cast<std::uint32_t>(this->p_DMA->p_rx_channel_registers->CCR) * 4))
               ->CCR),
         0x3fu);
 
-    bit_flag::clear(&(this->p_DMA->p_USART_registers->CR3), USART_CR3_DMAR);
+    bit::flag::clear(&(this->p_DMA->p_USART_registers->CR3), USART_CR3_DMAR);
 }
 
 void DMA<USART>::Receiver::Polling::receive(DMA<>::Priority a_priority,
@@ -161,7 +161,7 @@ void DMA<USART>::Receiver::Polling::receive(DMA<>::Priority a_priority,
               this->p_DMA->p_rx_channel_registers,
               static_cast<std::uint32_t>(a_priority) | static_cast<std::uint32_t>(a_mode) |
                   (a_buffer_size_in_words > 1 ? DMA_CCR_MINC : 0x0u) |
-                  (USART_CR1_M0 == bit_flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
+                  (USART_CR1_M0 == bit::flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
                        (DMA_CCR_MSIZE_0 | DMA_CCR_PSIZE_0) :
                        0x0u),
               a_p_buffer,
@@ -180,7 +180,7 @@ void DMA<USART>::Receiver::Polling::receive(DMA<>::Priority a_priority,
 //               this->p_DMA->p_rx_channel_registers,
 //               static_cast<std::uint32_t>(a_priority) | static_cast<std::uint32_t>(a_mode) |
 //                   (a_buffer_size_in_words > 1 ? DMA_CCR_MINC : 0x0u) |
-//                   (USART_CR1_M0 == bit_flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
+//                   (USART_CR1_M0 == bit::flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
 //                        (DMA_CCR_MSIZE_0 | DMA_CCR_PSIZE_0) :
 //                        0x0u),
 //               a_p_buffer,
@@ -194,7 +194,7 @@ void DMA<USART>::Receiver::Polling::receive(DMA<>::Priority a_priority,
 //                                                          start));
 //         if (false == is_cleared)
 //         {
-//             bit_flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
+//             bit::flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
 //         }
 //     }
 //     else
@@ -205,7 +205,7 @@ void DMA<USART>::Receiver::Polling::receive(DMA<>::Priority a_priority,
 //                 (0x1u << (DMA_ISR_TEIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->rx_channel) * 4u)))),
 //             a_timeout.get() - (tick_counter<Milliseconds>::get() - start));
 //
-//         bit_flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
+//         bit::flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
 //     }
 //
 //     return { get_Event_flag_and_clear(
@@ -221,7 +221,7 @@ void DMA<USART>::Receiver::Interrupt::enable(const IRQ_config& a_irq_config,
 
     this->p_DMA->rx_callback = a_callback;
     this->set_context();
-    bit_flag::set(&(this->p_DMA->p_rx_channel_registers->CCR), get_interrupt_enable_flags(a_flag));
+    bit::flag::set(&(this->p_DMA->p_rx_channel_registers->CCR), get_interrupt_enable_flags(a_flag));
 
     NVIC_SetPriority(
         this->p_DMA->rx_irqn,
@@ -232,7 +232,7 @@ void DMA<USART>::Receiver::Interrupt::disable()
 {
     Scoped_guard<nvic> nvic_guard;
 
-    bit_flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_TCIE | DMA_CCR_HTIE | DMA_CCR_TEIE);
+    bit::flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_TCIE | DMA_CCR_HTIE | DMA_CCR_TEIE);
     this->clear_context();
     this->p_DMA->rx_callback = { .function = nullptr, .p_user_data = nullptr };
 
@@ -247,14 +247,14 @@ void DMA<USART>::Receiver::Interrupt::start(DMA<>::Priority a_priority,
                                             Not_null<volatile void*> a_p_buffer,
                                             std::uint16_t a_buffer_size_in_words)
 {
-    bit_flag::set(&(this->p_DMA->p_DMA_registers->IFCR),
-                  0x1u << (DMA_IFCR_CGIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->rx_channel) * 4u))));
+    bit::flag::set(&(this->p_DMA->p_DMA_registers->IFCR),
+                   0x1u << (DMA_IFCR_CGIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->rx_channel) * 4u))));
 
     ::receive(this->p_DMA->p_USART_registers,
               this->p_DMA->p_rx_channel_registers,
               static_cast<std::uint32_t>(a_priority) | static_cast<std::uint32_t>(a_mode) |
                   (a_buffer_size_in_words > 1 ? DMA_CCR_MINC : 0x0u) |
-                  (USART_CR1_M0 == bit_flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
+                  (USART_CR1_M0 == bit::flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
                        (DMA_CCR_MSIZE_0 | DMA_CCR_PSIZE_0) :
                        0x0u),
               a_p_buffer,
@@ -262,7 +262,7 @@ void DMA<USART>::Receiver::Interrupt::start(DMA<>::Priority a_priority,
 }
 void DMA<USART>::Receiver::Interrupt::stop()
 {
-    bit_flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
+    bit::flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
 }
 
 void DMA<USART>::Transmitter::enable(DMA<>::Channel a_channel)
@@ -274,7 +274,7 @@ void DMA<USART>::Transmitter::enable(DMA<>::Channel a_channel)
                 DMA1_Channel1_BASE + (static_cast<std::uint32_t>(a_channel) * 0x14u));
             this->p_DMA->tx_irqn = static_cast<IRQn_Type>(DMA1_Channel1_IRQn + static_cast<std::uint32_t>(a_channel));
 
-            hkm_assert(false == bit_flag::is(this->p_DMA->p_tx_channel_registers->CCR, DMA_CCR_EN));
+            hkm_assert(false == bit::flag::is(this->p_DMA->p_tx_channel_registers->CCR, DMA_CCR_EN));
 
             reinterpret_cast<DMAMUX_Channel_TypeDef*>(DMAMUX1_Channel0_BASE +
                                                       (static_cast<std::uint32_t>(a_channel) * 4))
@@ -287,7 +287,7 @@ void DMA<USART>::Transmitter::enable(DMA<>::Channel a_channel)
                 DMA2_Channel1_BASE + (static_cast<std::uint32_t>(a_channel) * 0x14u));
             this->p_DMA->tx_irqn = static_cast<IRQn_Type>(DMA2_Channel1_IRQn + static_cast<std::uint32_t>(a_channel));
 
-            hkm_assert(false == bit_flag::is(this->p_DMA->p_tx_channel_registers->CCR, DMA_CCR_EN));
+            hkm_assert(false == bit::flag::is(this->p_DMA->p_tx_channel_registers->CCR, DMA_CCR_EN));
 
             reinterpret_cast<DMAMUX_Channel_TypeDef*>(DMAMUX1_Channel7_BASE +
                                                       (static_cast<std::uint32_t>(a_channel) * 4))
@@ -296,7 +296,7 @@ void DMA<USART>::Transmitter::enable(DMA<>::Channel a_channel)
         break;
     }
 
-    bit_flag::set(&(this->p_DMA->p_USART_registers->CR3), USART_CR3_DMAT);
+    bit::flag::set(&(this->p_DMA->p_USART_registers->CR3), USART_CR3_DMAT);
 
     this->p_DMA->tx_channel = a_channel;
 }
@@ -307,13 +307,13 @@ void DMA<USART>::Transmitter::disable()
     this->p_DMA->p_tx_channel_registers->CPAR = 0x0u;
     this->p_DMA->p_tx_channel_registers->CMAR = 0x0u;
 
-    bit_flag::clear(
+    bit::flag::clear(
         &(reinterpret_cast<DMAMUX_Channel_TypeDef*>(
               DMAMUX1_Channel7_BASE + (static_cast<std::uint32_t>(this->p_DMA->p_tx_channel_registers->CCR) * 4))
               ->CCR),
         0x3fu);
 
-    bit_flag::clear(&(this->p_DMA->p_USART_registers->CR3), USART_CR3_DMAT);
+    bit::flag::clear(&(this->p_DMA->p_USART_registers->CR3), USART_CR3_DMAT);
 }
 
 DMA<>::Result DMA<USART>::Transmitter::Polling::transmit(DMA<>::Priority a_priority,
@@ -325,7 +325,7 @@ DMA<>::Result DMA<USART>::Transmitter::Polling::transmit(DMA<>::Priority a_prior
                this->p_DMA->p_tx_channel_registers,
                static_cast<std::uint32_t>(a_priority) | static_cast<std::uint32_t>(a_mode) |
                    (a_buffer_size_in_words > 1 ? DMA_CCR_MINC : 0x0u) | DMA_CCR_DIR |
-                   (USART_CR1_M0 == bit_flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
+                   (USART_CR1_M0 == bit::flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
                         (DMA_CCR_MSIZE_0 | DMA_CCR_PSIZE_0) :
                         0x0u),
                a_p_buffer,
@@ -336,7 +336,7 @@ DMA<>::Result DMA<USART>::Transmitter::Polling::transmit(DMA<>::Priority a_prior
         (0x1u << (DMA_ISR_TCIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->tx_channel) * 4u)))) |
             (0x1u << (DMA_ISR_TEIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->tx_channel) * 4u)))));
 
-    bit_flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_EN);
+    bit::flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_EN);
 
     return { get_Event_flag_and_clear(
                  this->p_DMA->p_DMA_registers->ISR, &(this->p_DMA->p_DMA_registers->IFCR), this->p_DMA->tx_channel),
@@ -354,7 +354,7 @@ DMA<>::Result DMA<USART>::Transmitter::Polling::transmit(DMA<>::Priority a_prior
                this->p_DMA->p_tx_channel_registers,
                static_cast<std::uint32_t>(a_priority) | static_cast<std::uint32_t>(a_mode) |
                    (a_buffer_size_in_words > 1 ? DMA_CCR_MINC : 0x0u) | DMA_CCR_DIR |
-                   (USART_CR1_M0 == bit_flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
+                   (USART_CR1_M0 == bit::flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
                         (DMA_CCR_MSIZE_0 | DMA_CCR_PSIZE_0) :
                         0x0u),
                a_p_buffer,
@@ -366,7 +366,7 @@ DMA<>::Result DMA<USART>::Transmitter::Polling::transmit(DMA<>::Priority a_prior
             (0x1u << (DMA_ISR_TEIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->tx_channel) * 4u)))),
         a_timeout.get() - (tick_counter<Milliseconds>::get() - start));
 
-    bit_flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_EN);
+    bit::flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_EN);
 
     return { .event = get_Event_flag_and_clear(
                  this->p_DMA->p_DMA_registers->ISR, &(this->p_DMA->p_DMA_registers->IFCR), this->p_DMA->tx_channel),
@@ -381,7 +381,7 @@ void DMA<USART>::Transmitter::Interrupt::enable(const IRQ_config& a_irq_config,
 
     this->p_DMA->tx_callback = a_callback;
     this->set_context();
-    bit_flag::set(&(this->p_DMA->p_tx_channel_registers->CCR), get_interrupt_enable_flags(a_flag));
+    bit::flag::set(&(this->p_DMA->p_tx_channel_registers->CCR), get_interrupt_enable_flags(a_flag));
 
     NVIC_SetPriority(
         this->p_DMA->tx_irqn,
@@ -392,7 +392,7 @@ void DMA<USART>::Transmitter::Interrupt::disable()
 {
     Scoped_guard<nvic> nvic_guard;
 
-    bit_flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_TCIE | DMA_CCR_HTIE | DMA_CCR_TEIE);
+    bit::flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_TCIE | DMA_CCR_HTIE | DMA_CCR_TEIE);
     this->clear_context();
     this->p_DMA->rx_callback = { .function = nullptr, .p_user_data = nullptr };
 
@@ -407,14 +407,14 @@ void DMA<USART>::Transmitter::Interrupt::start(DMA<>::Priority a_priority,
                                                Not_null<volatile const void*> a_p_buffer,
                                                std::uint16_t a_buffer_size_in_words)
 {
-    bit_flag::set(&(this->p_DMA->p_DMA_registers->IFCR),
-                  0x1u << (DMA_IFCR_CGIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->tx_channel) * 4u))));
+    bit::flag::set(&(this->p_DMA->p_DMA_registers->IFCR),
+                   0x1u << (DMA_IFCR_CGIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->tx_channel) * 4u))));
 
     ::transmit(this->p_DMA->p_USART_registers,
                this->p_DMA->p_tx_channel_registers,
                static_cast<std::uint32_t>(a_priority) | static_cast<std::uint32_t>(a_mode) |
                    (a_buffer_size_in_words > 1 ? DMA_CCR_MINC : 0x0u) | DMA_CCR_DIR |
-                   (USART_CR1_M0 == bit_flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
+                   (USART_CR1_M0 == bit::flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
                         (DMA_CCR_MSIZE_0 | DMA_CCR_PSIZE_0) :
                         0x0u),
                a_p_buffer,
@@ -422,7 +422,7 @@ void DMA<USART>::Transmitter::Interrupt::start(DMA<>::Priority a_priority,
 }
 void DMA<USART>::Transmitter::Interrupt::stop()
 {
-    bit_flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_EN);
+    bit::flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_EN);
 }
 
 void DMA<LPUART>::Receiver::enable(DMA<>::Channel a_channel)
@@ -434,7 +434,7 @@ void DMA<LPUART>::Receiver::enable(DMA<>::Channel a_channel)
                 DMA1_Channel1_BASE + (static_cast<std::uint32_t>(a_channel) * 0x14u));
             this->p_DMA->rx_irqn = static_cast<IRQn_Type>(DMA1_Channel1_IRQn + static_cast<std::uint32_t>(a_channel));
 
-            hkm_assert(false == bit_flag::is(this->p_DMA->p_rx_channel_registers->CCR, DMA_CCR_EN));
+            hkm_assert(false == bit::flag::is(this->p_DMA->p_rx_channel_registers->CCR, DMA_CCR_EN));
 
             reinterpret_cast<DMAMUX_Channel_TypeDef*>(DMAMUX1_Channel0_BASE +
                                                       (static_cast<std::uint32_t>(a_channel) * 4))
@@ -447,7 +447,7 @@ void DMA<LPUART>::Receiver::enable(DMA<>::Channel a_channel)
                 DMA2_Channel1_BASE + (static_cast<std::uint32_t>(a_channel) * 0x14u));
             this->p_DMA->rx_irqn = static_cast<IRQn_Type>(DMA2_Channel1_IRQn + static_cast<std::uint32_t>(a_channel));
 
-            hkm_assert(false == bit_flag::is(this->p_DMA->p_rx_channel_registers->CCR, DMA_CCR_EN));
+            hkm_assert(false == bit::flag::is(this->p_DMA->p_rx_channel_registers->CCR, DMA_CCR_EN));
 
             reinterpret_cast<DMAMUX_Channel_TypeDef*>(DMAMUX1_Channel7_BASE +
                                                       (static_cast<std::uint32_t>(a_channel) * 4))
@@ -456,7 +456,7 @@ void DMA<LPUART>::Receiver::enable(DMA<>::Channel a_channel)
         break;
     }
 
-    bit_flag::set(&(this->p_DMA->p_USART_registers->CR3), USART_CR3_DMAR);
+    bit::flag::set(&(this->p_DMA->p_USART_registers->CR3), USART_CR3_DMAR);
 
     this->p_DMA->rx_channel = a_channel;
 }
@@ -472,13 +472,13 @@ void DMA<LPUART>::Receiver::disable()
     this->p_DMA->p_rx_channel_registers->CPAR = 0x0u;
     this->p_DMA->p_rx_channel_registers->CMAR = 0x0u;
 
-    bit_flag::clear(
+    bit::flag::clear(
         &(reinterpret_cast<DMAMUX_Channel_TypeDef*>(
               DMAMUX1_Channel7_BASE + (static_cast<std::uint32_t>(this->p_DMA->p_rx_channel_registers->CCR) * 4))
               ->CCR),
         0x3fu);
 
-    bit_flag::clear(&(this->p_DMA->p_USART_registers->CR3), USART_CR3_DMAR);
+    bit::flag::clear(&(this->p_DMA->p_USART_registers->CR3), USART_CR3_DMAR);
 }
 
 DMA<>::Result DMA<LPUART>::Receiver::Polling::receive(DMA<>::Priority a_priority,
@@ -490,7 +490,7 @@ DMA<>::Result DMA<LPUART>::Receiver::Polling::receive(DMA<>::Priority a_priority
               this->p_DMA->p_rx_channel_registers,
               static_cast<std::uint32_t>(a_priority) | static_cast<std::uint32_t>(a_mode) |
                   (a_buffer_size_in_words > 1 ? DMA_CCR_MINC : 0x0u) |
-                  (USART_CR1_M0 == bit_flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
+                  (USART_CR1_M0 == bit::flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
                        (DMA_CCR_MSIZE_0 | DMA_CCR_PSIZE_0) :
                        0x0u),
               a_p_buffer,
@@ -501,7 +501,7 @@ DMA<>::Result DMA<LPUART>::Receiver::Polling::receive(DMA<>::Priority a_priority
         (0x1u << (DMA_ISR_TCIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->rx_channel) * 4u)))) |
             (0x1u << (DMA_ISR_TEIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->rx_channel) * 4u)))));
 
-    bit_flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
+    bit::flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
 
     return { get_Event_flag_and_clear(
                  this->p_DMA->p_DMA_registers->ISR, &(this->p_DMA->p_DMA_registers->IFCR), this->p_DMA->rx_channel),
@@ -517,7 +517,7 @@ DMA<>::Result DMA<peripherals::USART>::Receiver::Polling::wait_for_data(bool wai
             wait_until::any_bit_is_cleared(this->p_DMA->p_rx_channel_registers->CCR, DMA_CCR_EN, a_timeout);
         if (false == is_cleared)
         {
-            bit_flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
+            bit::flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
         }
     }
     else
@@ -528,7 +528,7 @@ DMA<>::Result DMA<peripherals::USART>::Receiver::Polling::wait_for_data(bool wai
                 (0x1u << (DMA_ISR_TEIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->rx_channel) * 4u)))),
             a_timeout);
 
-        bit_flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
+        bit::flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
     }
 
     return { get_Event_flag_and_clear(
@@ -547,7 +547,7 @@ DMA<>::Result DMA<LPUART>::Receiver::Polling::receive(DMA<>::Priority a_priority
               this->p_DMA->p_rx_channel_registers,
               static_cast<std::uint32_t>(a_priority) | static_cast<std::uint32_t>(a_mode) |
                   (a_buffer_size_in_words > 1 ? DMA_CCR_MINC : 0x0u) |
-                  (USART_CR1_M0 == bit_flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
+                  (USART_CR1_M0 == bit::flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
                        (DMA_CCR_MSIZE_0 | DMA_CCR_PSIZE_0) :
                        0x0u),
               a_p_buffer,
@@ -559,7 +559,7 @@ DMA<>::Result DMA<LPUART>::Receiver::Polling::receive(DMA<>::Priority a_priority
             (0x1u << (DMA_ISR_TEIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->rx_channel) * 4u)))),
         a_timeout.get() - (tick_counter<Milliseconds>::get() - start));
 
-    bit_flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
+    bit::flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
 
     return { get_Event_flag_and_clear(
                  this->p_DMA->p_DMA_registers->ISR, &(this->p_DMA->p_DMA_registers->IFCR), this->p_DMA->rx_channel),
@@ -574,7 +574,7 @@ void DMA<LPUART>::Receiver::Interrupt::enable(const IRQ_config& a_irq_config,
 
     this->p_DMA->rx_callback = a_callback;
     this->set_context();
-    bit_flag::set(&(this->p_DMA->p_rx_channel_registers->CCR), get_interrupt_enable_flags(a_flag));
+    bit::flag::set(&(this->p_DMA->p_rx_channel_registers->CCR), get_interrupt_enable_flags(a_flag));
 
     NVIC_SetPriority(
         this->p_DMA->rx_irqn,
@@ -585,7 +585,7 @@ void DMA<LPUART>::Receiver::Interrupt::disable()
 {
     Scoped_guard<nvic> nvic_guard;
 
-    bit_flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_TCIE | DMA_CCR_HTIE | DMA_CCR_TEIE);
+    bit::flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_TCIE | DMA_CCR_HTIE | DMA_CCR_TEIE);
     this->clear_context();
     this->p_DMA->rx_callback = { .function = nullptr, .p_user_data = nullptr };
 
@@ -600,14 +600,14 @@ void DMA<LPUART>::Receiver::Interrupt::start(DMA<>::Priority a_priority,
                                              Not_null<volatile void*> a_p_buffer,
                                              std::uint16_t a_buffer_size_in_words)
 {
-    bit_flag::set(&(this->p_DMA->p_DMA_registers->IFCR),
-                  0x1u << (DMA_IFCR_CGIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->rx_channel) * 4u))));
+    bit::flag::set(&(this->p_DMA->p_DMA_registers->IFCR),
+                   0x1u << (DMA_IFCR_CGIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->rx_channel) * 4u))));
 
     ::receive(this->p_DMA->p_USART_registers,
               this->p_DMA->p_rx_channel_registers,
               static_cast<std::uint32_t>(a_priority) | static_cast<std::uint32_t>(a_mode) |
                   (a_buffer_size_in_words > 1 ? DMA_CCR_MINC : 0x0u) |
-                  (USART_CR1_M0 == bit_flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
+                  (USART_CR1_M0 == bit::flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
                        (DMA_CCR_MSIZE_0 | DMA_CCR_PSIZE_0) :
                        0x0u),
               a_p_buffer,
@@ -615,7 +615,7 @@ void DMA<LPUART>::Receiver::Interrupt::start(DMA<>::Priority a_priority,
 }
 void DMA<LPUART>::Receiver::Interrupt::stop()
 {
-    bit_flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
+    bit::flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
 }
 
 void DMA<LPUART>::Transmitter::enable(DMA<>::Channel a_channel)
@@ -627,7 +627,7 @@ void DMA<LPUART>::Transmitter::enable(DMA<>::Channel a_channel)
                 DMA1_Channel1_BASE + (static_cast<std::uint32_t>(a_channel) * 0x14u));
             this->p_DMA->tx_irqn = static_cast<IRQn_Type>(DMA1_Channel1_IRQn + static_cast<std::uint32_t>(a_channel));
 
-            hkm_assert(false == bit_flag::is(this->p_DMA->p_tx_channel_registers->CCR, DMA_CCR_EN));
+            hkm_assert(false == bit::flag::is(this->p_DMA->p_tx_channel_registers->CCR, DMA_CCR_EN));
 
             reinterpret_cast<DMAMUX_Channel_TypeDef*>(DMAMUX1_Channel0_BASE +
                                                       (static_cast<std::uint32_t>(a_channel) * 4))
@@ -640,7 +640,7 @@ void DMA<LPUART>::Transmitter::enable(DMA<>::Channel a_channel)
                 DMA2_Channel1_BASE + (static_cast<std::uint32_t>(a_channel) * 0x14u));
             this->p_DMA->tx_irqn = static_cast<IRQn_Type>(DMA2_Channel1_IRQn + static_cast<std::uint32_t>(a_channel));
 
-            hkm_assert(false == bit_flag::is(this->p_DMA->p_tx_channel_registers->CCR, DMA_CCR_EN));
+            hkm_assert(false == bit::flag::is(this->p_DMA->p_tx_channel_registers->CCR, DMA_CCR_EN));
 
             reinterpret_cast<DMAMUX_Channel_TypeDef*>(DMAMUX1_Channel7_BASE +
                                                       (static_cast<std::uint32_t>(a_channel) * 4))
@@ -649,7 +649,7 @@ void DMA<LPUART>::Transmitter::enable(DMA<>::Channel a_channel)
         break;
     }
 
-    bit_flag::set(&(this->p_DMA->p_USART_registers->CR3), USART_CR3_DMAT);
+    bit::flag::set(&(this->p_DMA->p_USART_registers->CR3), USART_CR3_DMAT);
 
     this->p_DMA->tx_channel = a_channel;
 }
@@ -660,13 +660,13 @@ void DMA<LPUART>::Transmitter::disable()
     this->p_DMA->p_tx_channel_registers->CPAR = 0x0u;
     this->p_DMA->p_tx_channel_registers->CMAR = 0x0u;
 
-    bit_flag::clear(
+    bit::flag::clear(
         &(reinterpret_cast<DMAMUX_Channel_TypeDef*>(
               DMAMUX1_Channel7_BASE + (static_cast<std::uint32_t>(this->p_DMA->p_tx_channel_registers->CCR) * 4))
               ->CCR),
         0x3fu);
 
-    bit_flag::clear(&(this->p_DMA->p_USART_registers->CR3), USART_CR3_DMAT);
+    bit::flag::clear(&(this->p_DMA->p_USART_registers->CR3), USART_CR3_DMAT);
 }
 
 DMA<>::Result DMA<LPUART>::Transmitter::Polling::transmit(DMA<>::Priority a_priority,
@@ -678,7 +678,7 @@ DMA<>::Result DMA<LPUART>::Transmitter::Polling::transmit(DMA<>::Priority a_prio
                this->p_DMA->p_tx_channel_registers,
                static_cast<std::uint32_t>(a_priority) | static_cast<std::uint32_t>(a_mode) |
                    (a_buffer_size_in_words > 1 ? DMA_CCR_MINC : 0x0u) | DMA_CCR_DIR |
-                   (USART_CR1_M0 == bit_flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
+                   (USART_CR1_M0 == bit::flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
                         (DMA_CCR_MSIZE_0 | DMA_CCR_PSIZE_0) :
                         0x0u),
                a_p_buffer,
@@ -689,7 +689,7 @@ DMA<>::Result DMA<LPUART>::Transmitter::Polling::transmit(DMA<>::Priority a_prio
         (0x1u << (DMA_ISR_TCIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->tx_channel) * 4u)))) |
             (0x1u << (DMA_ISR_TEIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->tx_channel) * 4u)))));
 
-    bit_flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_EN);
+    bit::flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_EN);
 
     return { get_Event_flag_and_clear(
                  this->p_DMA->p_DMA_registers->ISR, &(this->p_DMA->p_DMA_registers->IFCR), this->p_DMA->tx_channel),
@@ -707,7 +707,7 @@ DMA<>::Result DMA<LPUART>::Transmitter::Polling::transmit(DMA<>::Priority a_prio
                this->p_DMA->p_tx_channel_registers,
                static_cast<std::uint32_t>(a_priority) | static_cast<std::uint32_t>(a_mode) |
                    (a_buffer_size_in_words > 1 ? DMA_CCR_MINC : 0x0u) | DMA_CCR_DIR |
-                   (USART_CR1_M0 == bit_flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
+                   (USART_CR1_M0 == bit::flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
                         (DMA_CCR_MSIZE_0 | DMA_CCR_PSIZE_0) :
                         0x0u),
                a_p_buffer,
@@ -718,7 +718,7 @@ DMA<>::Result DMA<LPUART>::Transmitter::Polling::transmit(DMA<>::Priority a_prio
                                    (DMA_ISR_TEIF1 + static_cast<std::uint32_t>(this->p_DMA->tx_channel)),
                                a_timeout.get() - (tick_counter<Milliseconds>::get() - start));
 
-    bit_flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_EN);
+    bit::flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_EN);
 
     return { get_Event_flag_and_clear(
                  this->p_DMA->p_DMA_registers->ISR, &(this->p_DMA->p_DMA_registers->IFCR), this->p_DMA->tx_channel),
@@ -733,7 +733,7 @@ void DMA<LPUART>::Transmitter::Interrupt::enable(const IRQ_config& a_irq_config,
 
     this->p_DMA->tx_callback = a_callback;
     this->set_context();
-    bit_flag::set(&(this->p_DMA->p_tx_channel_registers->CCR), get_interrupt_enable_flags(a_flag));
+    bit::flag::set(&(this->p_DMA->p_tx_channel_registers->CCR), get_interrupt_enable_flags(a_flag));
 
     NVIC_SetPriority(
         this->p_DMA->tx_irqn,
@@ -744,7 +744,7 @@ void DMA<LPUART>::Transmitter::Interrupt::disable()
 {
     Scoped_guard<nvic> nvic_guard;
 
-    bit_flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_TCIE | DMA_CCR_HTIE | DMA_CCR_TEIE);
+    bit::flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_TCIE | DMA_CCR_HTIE | DMA_CCR_TEIE);
     this->clear_context();
     this->p_DMA->rx_callback = { .function = nullptr, .p_user_data = nullptr };
 
@@ -759,14 +759,14 @@ void DMA<LPUART>::Transmitter::Interrupt::start(DMA<>::Priority a_priority,
                                                 Not_null<volatile const void*> a_p_buffer,
                                                 std::uint16_t a_buffer_size_in_words)
 {
-    bit_flag::set(&(this->p_DMA->p_DMA_registers->IFCR),
-                  0x1u << (DMA_IFCR_CGIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->tx_channel) * 4u))));
+    bit::flag::set(&(this->p_DMA->p_DMA_registers->IFCR),
+                   0x1u << (DMA_IFCR_CGIF1_Pos + ((static_cast<std::uint32_t>(this->p_DMA->tx_channel) * 4u))));
 
     ::transmit(this->p_DMA->p_USART_registers,
                this->p_DMA->p_tx_channel_registers,
                static_cast<std::uint32_t>(a_priority) | static_cast<std::uint32_t>(a_mode) |
                    (a_buffer_size_in_words > 1 ? DMA_CCR_MINC : 0x0u) | DMA_CCR_DIR |
-                   (USART_CR1_M0 == bit_flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
+                   (USART_CR1_M0 == bit::flag::get(this->p_DMA->p_USART_registers->CR1, USART_CR1_M0 | USART_CR1_M1) ?
                         (DMA_CCR_MSIZE_0 | DMA_CCR_PSIZE_0) :
                         0x0u),
                a_p_buffer,
@@ -774,7 +774,7 @@ void DMA<LPUART>::Transmitter::Interrupt::start(DMA<>::Priority a_priority,
 }
 void DMA<LPUART>::Transmitter::Interrupt::stop()
 {
-    bit_flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_EN);
+    bit::flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_EN);
 }
 } // namespace stm32wb
 } // namespace m4

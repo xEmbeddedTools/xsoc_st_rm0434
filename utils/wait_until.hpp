@@ -7,8 +7,8 @@
 
 // xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/non_constructible.hpp>
 #include <xmcu/bit.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
 
 namespace xmcu {
@@ -21,7 +21,7 @@ struct wait_until : private non_constructible
     template<typename Register_t, typename Mask_t>
     static void all_bits_are_set(volatile const Register_t& a_register, Mask_t a_mask)
     {
-        while (false == bit_flag::is(a_register, a_mask)) continue;
+        while (false == bit::flag::is(a_register, a_mask)) continue;
     }
     template<typename Register_t, typename Mask_t>
     static void any_bit_is_set(volatile const Register_t& a_register, Mask_t a_mask)
@@ -31,7 +31,7 @@ struct wait_until : private non_constructible
     template<typename Register_t, typename Mask_t>
     static void all_bits_are_cleared(volatile const Register_t& a_register, Mask_t a_mask)
     {
-        while (false == bit_flag::is(~a_register, a_mask)) continue;
+        while (false == bit::flag::is(~a_register, a_mask)) continue;
     }
     template<typename Register_t, typename Mask_t>
     static void any_bit_is_cleared(volatile const std::uint32_t& a_register, uint32_t a_mask)
@@ -51,15 +51,15 @@ struct wait_until : private non_constructible
 
         return status;
     }
-    template<typename Register_t, typename Mask_t> static bool
-    all_bits_are_cleared(volatile const Register_t& a_register, Mask_t a_mask, Milliseconds a_timeout)
+    template<typename Register_t, typename Mask_t>
+    static bool all_bits_are_cleared(volatile const Register_t& a_register, Mask_t a_mask, Milliseconds a_timeout)
     {
         const std::uint64_t timeout_end = tick_counter<Milliseconds>::get() + a_timeout.get();
         bool status = false;
 
         while (tick_counter<Milliseconds>::get() < timeout_end && false == status)
         {
-            status = bit_flag::is(~a_register, a_mask);
+            status = bit::flag::is(~a_register, a_mask);
         }
 
         return status;
@@ -85,7 +85,7 @@ struct wait_until : private non_constructible
 
         while (tick_counter<Milliseconds>::get() < timeout_end && false == status)
         {
-            status = bit_flag::is(a_register, a_mask);
+            status = bit::flag::is(a_register, a_mask);
         }
 
         return status;

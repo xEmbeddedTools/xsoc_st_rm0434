@@ -1,12 +1,17 @@
 /**/
 
-#include <xmcu/bit.hpp>
+// externals
+#pragma GCC diagnostic ignored "-Wvolatile"
+#include <stm32wbxx.h>
+#pragma GCC diagnostic pop
+
+// xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/time_utils.hpp>
+#include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/rtc/rtc.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
-#include <stm32wbxx.h>
+#include <xmcu/time_utils.hpp>
 
 namespace {
 using namespace xmcu;
@@ -52,16 +57,16 @@ void rcc_enable_rtc(bool a_enable_in_lp, std::uint32_t a_select_flag)
 
     Scoped_guard<rtc> unlocker;
 
-    bit_flag::set(&(RCC->APB1ENR1), RCC_APB1ENR1_RTCAPBEN);
-    bit_flag::set(&(RCC->BDCR), RCC_BDCR_RTCEN | RCC_BDCR_RTCSEL, RCC_BDCR_RTCEN | a_select_flag);
+    bit::flag::set(&(RCC->APB1ENR1), RCC_APB1ENR1_RTCAPBEN);
+    bit::flag::set(&(RCC->BDCR), RCC_BDCR_RTCEN | RCC_BDCR_RTCSEL, RCC_BDCR_RTCEN | a_select_flag);
 
     if (true == a_enable_in_lp)
     {
-        bit_flag::set(&(RCC->APB1SMENR1), RCC_APB1SMENR1_RTCAPBSMEN);
+        bit::flag::set(&(RCC->APB1SMENR1), RCC_APB1SMENR1_RTCAPBSMEN);
     }
     else
     {
-        bit_flag::clear(&(RCC->APB1SMENR1), RCC_APB1SMENR1_RTCAPBSMEN);
+        bit::flag::clear(&(RCC->APB1SMENR1), RCC_APB1SMENR1_RTCAPBSMEN);
     }
 }
 
@@ -70,25 +75,25 @@ void rtc_alarm_interrupt_handler()
     const rtc::Alarm_handler* p_handler;
 
     p_handler = &::f_alarm_handlers[various::to_underlying(rtc::Alarm_id::A)];
-    if (bit_flag::is(RTC->ISR, RTC_ISR_ALRAF) && p_handler->function != nullptr)
+    if (bit::flag::is(RTC->ISR, RTC_ISR_ALRAF) && p_handler->function != nullptr)
     {
         p_handler->function(rtc::Alarm_id::A, p_handler->p_data);
-        bit_flag::clear(&RTC->ISR, RTC_ISR_ALRAF);
+        bit::flag::clear(&RTC->ISR, RTC_ISR_ALRAF);
     }
 
     p_handler = &::f_alarm_handlers[various::to_underlying(rtc::Alarm_id::B)];
-    if (bit_flag::is(RTC->ISR, RTC_ISR_ALRBF) && p_handler->function != nullptr)
+    if (bit::flag::is(RTC->ISR, RTC_ISR_ALRBF) && p_handler->function != nullptr)
     {
         p_handler->function(rtc::Alarm_id::B, p_handler->p_data);
-        bit_flag::clear(&RTC->ISR, RTC_ISR_ALRBF);
+        bit::flag::clear(&RTC->ISR, RTC_ISR_ALRBF);
     }
 
     // ES0394 2.12.1 - double-check alarm A due to possible masking by interrupt caused by alarm B
     p_handler = &::f_alarm_handlers[various::to_underlying(rtc::Alarm_id::A)];
-    if (bit_flag::is(RTC->ISR, RTC_ISR_ALRAF) && p_handler->function != nullptr)
+    if (bit::flag::is(RTC->ISR, RTC_ISR_ALRAF) && p_handler->function != nullptr)
     {
         p_handler->function(rtc::Alarm_id::A, p_handler->p_data);
-        bit_flag::clear(&RTC->ISR, RTC_ISR_ALRAF);
+        bit::flag::clear(&RTC->ISR, RTC_ISR_ALRAF);
     }
 }
 } // namespace
@@ -111,19 +116,19 @@ void rtc::set_clock(Milliseconds a_world_millis)
     Scoped_guard<rtc> unlocker;
 
     // Enter calendar initialization mode
-    bit_flag::set(&RTC->ISR, RTC_ISR_INIT);
+    bit::flag::set(&RTC->ISR, RTC_ISR_INIT);
     wait_until::any_bit_is_set(RTC->ISR, RTC_ISR_INITF);
 
     // Set prescalers to generate 1Hz
-    bit_flag::set(&RTC->PRER, RTC_PRER_PREDIV_A_Msk, (128 - 1) << RTC_PRER_PREDIV_A_Pos);
-    bit_flag::set(&RTC->PRER, RTC_PRER_PREDIV_S_Msk, (256 - 1) << RTC_PRER_PREDIV_S_Pos);
+    bit::flag::set(&RTC->PRER, RTC_PRER_PREDIV_A_Msk, (128 - 1) << RTC_PRER_PREDIV_A_Pos);
+    bit::flag::set(&RTC->PRER, RTC_PRER_PREDIV_S_Msk, (256 - 1) << RTC_PRER_PREDIV_S_Pos);
 
     // Configure 24-hour format
-    bit_flag::clear(&RTC->CR, RTC_CR_FMT);
+    bit::flag::clear(&RTC->CR, RTC_CR_FMT);
 
     // Set time/date
     time_utils::Timestamp date_and_time = time_utils::from_unix_epoch(a_world_millis.get() / 1000u);
-    bit_flag::clear(&RTC->TR, RTC_TR_PM);
+    bit::flag::clear(&RTC->TR, RTC_TR_PM);
     RTC->TR = ((date_and_time.time.hour / 10) << RTC_TR_HT_Pos) | ((date_and_time.time.hour % 10) << RTC_TR_HU_Pos) |
               ((date_and_time.time.minute / 10) << RTC_TR_MNT_Pos) |
               ((date_and_time.time.minute % 10) << RTC_TR_MNU_Pos) |
@@ -135,14 +140,14 @@ void rtc::set_clock(Milliseconds a_world_millis)
               ((date_and_time.date.day % 10) << RTC_DR_DU_Pos);
 
     // Exit init mode
-    bit_flag::clear(&RTC->ISR, RTC_ISR_INIT);
+    bit::flag::clear(&RTC->ISR, RTC_ISR_INIT);
     wait_until::any_bit_is_set(RTC->ISR, RTC_ISR_INITS);
 }
 
 bool rtc::is_clock_set()
 {
     // Checks if year is 00
-    bool is_set = bit_flag::is(RTC->ISR, RTC_ISR_INITS);
+    bool is_set = bit::flag::is(RTC->ISR, RTC_ISR_INITS);
     return is_set;
 }
 
@@ -166,19 +171,19 @@ Milliseconds rtc::get_time()
     // The DR/SSR values will be latched after TR read, until DR is read.
     std::uint32_t date = RTC->DR;
 
-    time_utils::Timestamp timestamp = { .time = { .hour = (bit_flag::get(time, RTC_TR_HT) >> RTC_TR_HT_Pos) * 10 +
-                                                          (bit_flag::get(time, RTC_TR_HU) >> RTC_TR_HU_Pos),
-                                                  .minute = (bit_flag::get(time, RTC_TR_MNT) >> RTC_TR_MNT_Pos) * 10 +
-                                                            (bit_flag::get(time, RTC_TR_MNU) >> RTC_TR_MNU_Pos),
-                                                  .second = (bit_flag::get(time, RTC_TR_ST) >> RTC_TR_ST_Pos) * 10 +
-                                                            (bit_flag::get(time, RTC_TR_SU) >> RTC_TR_SU_Pos) },
-                                        .date = { .day = (bit_flag::get(date, RTC_DR_DT) >> RTC_DR_DT_Pos) * 10 +
-                                                         (bit_flag::get(date, RTC_DR_DU) >> RTC_DR_DU_Pos),
-                                                  .month = (bit_flag::get(date, RTC_DR_MT) >> RTC_DR_MT_Pos) * 10 +
-                                                           (bit_flag::get(date, RTC_DR_MU) >> RTC_DR_MU_Pos),
+    time_utils::Timestamp timestamp = { .time = { .hour = (bit::flag::get(time, RTC_TR_HT) >> RTC_TR_HT_Pos) * 10 +
+                                                          (bit::flag::get(time, RTC_TR_HU) >> RTC_TR_HU_Pos),
+                                                  .minute = (bit::flag::get(time, RTC_TR_MNT) >> RTC_TR_MNT_Pos) * 10 +
+                                                            (bit::flag::get(time, RTC_TR_MNU) >> RTC_TR_MNU_Pos),
+                                                  .second = (bit::flag::get(time, RTC_TR_ST) >> RTC_TR_ST_Pos) * 10 +
+                                                            (bit::flag::get(time, RTC_TR_SU) >> RTC_TR_SU_Pos) },
+                                        .date = { .day = (bit::flag::get(date, RTC_DR_DT) >> RTC_DR_DT_Pos) * 10 +
+                                                         (bit::flag::get(date, RTC_DR_DU) >> RTC_DR_DU_Pos),
+                                                  .month = (bit::flag::get(date, RTC_DR_MT) >> RTC_DR_MT_Pos) * 10 +
+                                                           (bit::flag::get(date, RTC_DR_MU) >> RTC_DR_MU_Pos),
                                                   .year = 2000 +
-                                                          (bit_flag::get(date, RTC_DR_YT) >> RTC_DR_YT_Pos) * 10 +
-                                                          (bit_flag::get(date, RTC_DR_YU) >> RTC_DR_YU_Pos) } };
+                                                          (bit::flag::get(date, RTC_DR_YT) >> RTC_DR_YT_Pos) * 10 +
+                                                          (bit::flag::get(date, RTC_DR_YU) >> RTC_DR_YU_Pos) } };
     Milliseconds world_millis(time_utils::to_unix_epoch(timestamp) * 1000u);
     return world_millis;
 }
@@ -192,7 +197,7 @@ void rtc::wait_for_sync()
     (void)RTC->DR;
 
     // Wait for next sync
-    bit_flag::clear(&RTC->ISR, RTC_ISR_RSF);
+    bit::flag::clear(&RTC->ISR, RTC_ISR_RSF);
     wait_until::any_bit_is_set(RTC->ISR, RTC_ISR_RSF);
 }
 
@@ -202,52 +207,52 @@ void rtc::enable_alarm(Alarm_id a_id, Alarm_mask a_mask, xmcu::Milliseconds a_wo
 
     time_utils::Timestamp date_and_time = time_utils::from_unix_epoch(a_world_millis.get() / 1000u);
     const alarm_registers& alarm_regs = ::get_alarm_regs(a_id);
-    bit_flag::clear(&RTC->CR, alarm_regs.enable_mask);
+    bit::flag::clear(&RTC->CR, alarm_regs.enable_mask);
 
-    bit_flag::clear(alarm_regs.p_alarm_reg, RTC_ALRMAR_PM);
-    bit_flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_MSK4 | RTC_ALRMAR_MSK3 | RTC_ALRMAR_MSK2 | RTC_ALRMAR_MSK1);
-    if (bit_flag::is(a_mask, Alarm_mask::days))
+    bit::flag::clear(alarm_regs.p_alarm_reg, RTC_ALRMAR_PM);
+    bit::flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_MSK4 | RTC_ALRMAR_MSK3 | RTC_ALRMAR_MSK2 | RTC_ALRMAR_MSK1);
+    if (bit::flag::is(a_mask, Alarm_mask::days))
     {
-        bit_flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_DT, (date_and_time.date.day / 10) << RTC_ALRMAR_DT_Pos);
-        bit_flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_DU, (date_and_time.date.day % 10) << RTC_ALRMAR_DU_Pos);
-        bit_flag::clear(alarm_regs.p_alarm_reg, RTC_ALRMAR_MSK4);
+        bit::flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_DT, (date_and_time.date.day / 10) << RTC_ALRMAR_DT_Pos);
+        bit::flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_DU, (date_and_time.date.day % 10) << RTC_ALRMAR_DU_Pos);
+        bit::flag::clear(alarm_regs.p_alarm_reg, RTC_ALRMAR_MSK4);
     }
-    if (bit_flag::is(a_mask, Alarm_mask::hours))
+    if (bit::flag::is(a_mask, Alarm_mask::hours))
     {
-        bit_flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_HT, (date_and_time.time.hour / 10) << RTC_ALRMAR_HT_Pos);
-        bit_flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_HU, (date_and_time.time.hour % 10) << RTC_ALRMAR_HU_Pos);
-        bit_flag::clear(alarm_regs.p_alarm_reg, RTC_ALRMAR_MSK3);
+        bit::flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_HT, (date_and_time.time.hour / 10) << RTC_ALRMAR_HT_Pos);
+        bit::flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_HU, (date_and_time.time.hour % 10) << RTC_ALRMAR_HU_Pos);
+        bit::flag::clear(alarm_regs.p_alarm_reg, RTC_ALRMAR_MSK3);
     }
-    if (bit_flag::is(a_mask, Alarm_mask::minutes))
+    if (bit::flag::is(a_mask, Alarm_mask::minutes))
     {
-        bit_flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_MNT, (date_and_time.time.minute / 10) << RTC_ALRMAR_MNT_Pos);
-        bit_flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_MNU, (date_and_time.time.minute % 10) << RTC_ALRMAR_MNU_Pos);
-        bit_flag::clear(alarm_regs.p_alarm_reg, RTC_ALRMAR_MSK2);
+        bit::flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_MNT, (date_and_time.time.minute / 10) << RTC_ALRMAR_MNT_Pos);
+        bit::flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_MNU, (date_and_time.time.minute % 10) << RTC_ALRMAR_MNU_Pos);
+        bit::flag::clear(alarm_regs.p_alarm_reg, RTC_ALRMAR_MSK2);
     }
-    if (bit_flag::is(a_mask, Alarm_mask::seconds))
+    if (bit::flag::is(a_mask, Alarm_mask::seconds))
     {
-        bit_flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_ST, (date_and_time.time.second / 10) << RTC_ALRMAR_ST_Pos);
-        bit_flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_SU, (date_and_time.time.second % 10) << RTC_ALRMAR_SU_Pos);
-        bit_flag::clear(alarm_regs.p_alarm_reg, RTC_ALRMAR_MSK1);
+        bit::flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_ST, (date_and_time.time.second / 10) << RTC_ALRMAR_ST_Pos);
+        bit::flag::set(alarm_regs.p_alarm_reg, RTC_ALRMAR_SU, (date_and_time.time.second % 10) << RTC_ALRMAR_SU_Pos);
+        bit::flag::clear(alarm_regs.p_alarm_reg, RTC_ALRMAR_MSK1);
     }
 
     *alarm_regs.p_subseconds_reg = 0; // We don't need subsecond precision
 
-    bit_flag::clear(&RTC->CR, alarm_regs.int_enable_mask);
-    bit_flag::clear(&RTC->ISR, alarm_regs.int_mask);
+    bit::flag::clear(&RTC->CR, alarm_regs.int_enable_mask);
+    bit::flag::clear(&RTC->ISR, alarm_regs.int_mask);
 
-    bit_flag::set(&RTC->CR, alarm_regs.enable_mask);
+    bit::flag::set(&RTC->CR, alarm_regs.enable_mask);
     f_alarm_handlers[various::to_underlying(a_id)] = a_handler;
     if (a_handler.function != nullptr)
     {
         if (false == bit::is_any(RTC->CR, RTC_CR_ALRAIE | RTC_CR_ALRBIE))
         {
-            bit_flag::set(&EXTI->IMR1, EXTI_IMR1_IM17);
-            bit_flag::set(&EXTI->RTSR1, EXTI_RTSR1_RT17);
+            bit::flag::set(&EXTI->IMR1, EXTI_IMR1_IM17);
+            bit::flag::set(&EXTI->RTSR1, EXTI_RTSR1_RT17);
             NVIC_SetPriority(RTC_Alarm_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
             NVIC_EnableIRQ(RTC_Alarm_IRQn);
         }
-        bit_flag::set(&RTC->CR, alarm_regs.int_enable_mask);
+        bit::flag::set(&RTC->CR, alarm_regs.int_enable_mask);
     }
 }
 
@@ -256,14 +261,14 @@ void rtc::disable_alarm(Alarm_id a_id)
     Scoped_guard<rtc> unlocker;
 
     const alarm_registers& alarm_regs = ::get_alarm_regs(a_id);
-    bit_flag::clear(&RTC->CR, alarm_regs.enable_mask);
-    bit_flag::clear(&RTC->CR, alarm_regs.int_enable_mask);
-    bit_flag::clear(&RTC->ISR, alarm_regs.int_mask);
+    bit::flag::clear(&RTC->CR, alarm_regs.enable_mask);
+    bit::flag::clear(&RTC->CR, alarm_regs.int_enable_mask);
+    bit::flag::clear(&RTC->ISR, alarm_regs.int_mask);
 
     if (false == bit::is_any(RTC->CR, RTC_CR_ALRAIE | RTC_CR_ALRBIE))
     {
-        bit_flag::clear(&EXTI->IMR1, EXTI_IMR1_IM17);
-        bit_flag::clear(&EXTI->RTSR1, EXTI_RTSR1_RT17);
+        bit::flag::clear(&EXTI->IMR1, EXTI_IMR1_IM17);
+        bit::flag::clear(&EXTI->RTSR1, EXTI_RTSR1_RT17);
         NVIC_DisableIRQ(RTC_Alarm_IRQn);
     }
 }
@@ -271,7 +276,7 @@ void rtc::disable_alarm(Alarm_id a_id)
 bool rtc::is_alarm_triggered(Alarm_id a_id)
 {
     const alarm_registers& alarm_regs = ::get_alarm_regs(a_id);
-    bool is_triggered = bit_flag::is(RTC->ISR, alarm_regs.int_mask);
+    bool is_triggered = bit::flag::is(RTC->ISR, alarm_regs.int_mask);
     return is_triggered;
 }
 
@@ -340,14 +345,14 @@ void rcc<rtc>::disable()
 {
     Scoped_guard<backup_domain> unlocker;
 
-    bit_flag::clear(&(RCC->APB1ENR1), RCC_APB1ENR1_RTCAPBEN);
-    bit_flag::clear(&(RCC->BDCR), RCC_BDCR_RTCEN | RCC_BDCR_RTCSEL);
-    bit_flag::clear(&(RCC->APB1SMENR1), RCC_APB1SMENR1_RTCAPBSMEN);
+    bit::flag::clear(&(RCC->APB1ENR1), RCC_APB1ENR1_RTCAPBEN);
+    bit::flag::clear(&(RCC->BDCR), RCC_BDCR_RTCEN | RCC_BDCR_RTCSEL);
+    bit::flag::clear(&(RCC->APB1SMENR1), RCC_APB1SMENR1_RTCAPBSMEN);
 }
 
 bool rcc<rtc>::is_enabled()
 {
-    bool is_enabled = bit_flag::is(RCC->APB1ENR1, RCC_APB1ENR1_RTCAPBEN) && bit_flag::is(RCC->BDCR, RCC_BDCR_RTCEN) &&
+    bool is_enabled = bit::flag::is(RCC->APB1ENR1, RCC_APB1ENR1_RTCAPBEN) && bit::flag::is(RCC->BDCR, RCC_BDCR_RTCEN) &&
                       bit::is_any(RCC->BDCR, RCC_BDCR_RTCSEL);
     return is_enabled;
 }

@@ -9,8 +9,8 @@
 
 // xmcu
 #include <xmcu/Duration.hpp>
+#include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/bit_flag.hpp>
 
 namespace xmcu {
 namespace soc {
@@ -24,10 +24,10 @@ public:
     {
         enum class Drive : std::uint32_t
         {
-            low         = 0x0u,
-            medium_low  = RCC_BDCR_LSEDRV_0,
+            low = 0x0u,
+            medium_low = RCC_BDCR_LSEDRV_0,
             medium_high = RCC_BDCR_LSEDRV_1,
-            high        = RCC_BDCR_LSEDRV_0 | RCC_BDCR_LSEDRV_1
+            high = RCC_BDCR_LSEDRV_0 | RCC_BDCR_LSEDRV_1
         };
 
         static void enable(Drive a_drive_config);
@@ -45,7 +45,7 @@ public:
 
     static bool is_enabled()
     {
-        return bit_flag::is(RCC->BDCR, RCC_BDCR_LSERDY);
+        return bit::flag::is(RCC->BDCR, RCC_BDCR_LSERDY);
     }
 
     static std::uint32_t get_frequency_Hz()
