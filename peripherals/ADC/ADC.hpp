@@ -17,17 +17,17 @@
 
 // xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/non_constructible.hpp>
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
-#include <xmcu/bit_flag.hpp>
-#include <xmcu/various.hpp>
+#include <xmcu/bit.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lse.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/pll.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
+#include <xmcu/various.hpp>
 
 // common
 #include <common/Vector_array.hpp>
@@ -47,8 +47,8 @@ public:
 
     enum class Mode : std::uint32_t
     {
-        single        = 0x0u,
-        continuous    = ADC_CFGR_CONT,
+        single = 0x0u,
+        continuous = ADC_CFGR_CONT,
         discontinuous = ADC_CFGR_DISCEN
     };
     enum class Resolution : std::uint32_t
@@ -61,8 +61,8 @@ public:
 
     struct Calibration_data
     {
-        std::uint16_t temperature_sensor_data_1  = 0u;
-        std::uint16_t temperature_sensor_data_2  = 0u;
+        std::uint16_t temperature_sensor_data_1 = 0u;
+        std::uint16_t temperature_sensor_data_2 = 0u;
         std::uint16_t internal_voltage_reference = 0u;
     };
     struct Channel
@@ -110,17 +110,16 @@ public:
     {
     public:
         // TODO: add read_setup<Mode> for uniformity with L0, remove templates here?
-        template<Mode mode> void
-        read(Not_null<uint16_t*> a_p_buffer, std::size_t a_buffer_capacity, std::size_t a_group_size) = delete;
+        template<Mode mode>
+        void read(Not_null<uint16_t*> a_p_buffer, std::size_t a_buffer_capacity, std::size_t a_group_size) = delete;
         template<Mode mode> bool read(Not_null<uint16_t*> a_p_buffer,
                                       std::size_t a_buffer_capacity,
                                       std::size_t a_group_size,
-                                      Milliseconds a_timeout)                                         = delete;
+                                      Milliseconds a_timeout) = delete;
 
         template<Mode mode> void read(Not_null<uint16_t*> a_p_buffer, std::size_t a_buffer_capacity) = delete;
-        template<Mode mode> bool read(Not_null<uint16_t*> a_p_buffer,
-                                      std::size_t a_buffer_capacity,
-                                      Milliseconds a_timeout)                                        = delete;
+        template<Mode mode>
+        bool read(Not_null<uint16_t*> a_p_buffer, std::size_t a_buffer_capacity, Milliseconds a_timeout) = delete;
 
     private:
         ADC* p_ADC;
@@ -162,7 +161,7 @@ public:
         friend ADC;
     };
 
-    ADC(ADC&&)            = default;
+    ADC(ADC&&) = default;
     ADC& operator=(ADC&&) = default;
 
     ADC()
@@ -170,7 +169,7 @@ public:
         , p_registers(nullptr)
         , irqn(static_cast<IRQn_Type>(std::numeric_limits<std::uint32_t>::max()))
     {
-        this->polling.p_ADC   = nullptr;
+        this->polling.p_ADC = nullptr;
         this->interrupt.p_ADC = nullptr;
     }
     ~ADC()
@@ -205,7 +204,7 @@ public:
 
     bool is_enabled() const
     {
-        return ADC_CR_ADEN == bit_flag::get(this->p_registers->CR, ADC_CR_ADEN | ADC_CR_ADDIS);
+        return ADC_CR_ADEN == bit::flag::get(this->p_registers->CR, ADC_CR_ADEN | ADC_CR_ADDIS);
     }
 
     bool is_created() const
@@ -232,7 +231,7 @@ private:
         , p_registers(a_p_registers)
         , irqn(a_irqn)
     {
-        this->polling.p_ADC   = this;
+        this->polling.p_ADC = this;
         this->interrupt.p_ADC = this;
     }
 
@@ -253,8 +252,7 @@ private:
 };
 void ADC_interrupt_handler(ADC* a_p_this);
 
-template<>
-void ADC::Polling::read<ADC::Mode::single>(Not_null<uint16_t*> a_p_buffer, std::size_t a_buffer_capacity);
+template<> void ADC::Polling::read<ADC::Mode::single>(Not_null<uint16_t*> a_p_buffer, std::size_t a_buffer_capacity);
 template<>
 void ADC::Polling::read<ADC::Mode::continuous>(Not_null<uint16_t*> a_p_buffer, std::size_t a_buffer_capacity);
 template<> void ADC::Polling::read<ADC::Mode::discontinuous>(Not_null<uint16_t*> a_p_buffer,
@@ -301,9 +299,9 @@ public:
         template<typename Source_t> static void enable(Prescaler a_prescaler, bool a_enable_in_lp) = delete;
         static void disable()
         {
-            bit_flag::clear(&(ADC1_COMMON->CCR), ADC_CCR_CKMODE_Msk | ADC_CCR_PRESC_Msk);
-            bit_flag::clear(&(RCC->CCIPR), RCC_CCIPR_ADCSEL_Msk);
-            bit_flag::clear(&(RCC->AHB2ENR), RCC_AHB2ENR_ADCEN);
+            bit::flag::clear(&(ADC1_COMMON->CCR), ADC_CCR_CKMODE_Msk | ADC_CCR_PRESC_Msk);
+            bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_ADCSEL_Msk);
+            bit::flag::clear(&(RCC->AHB2ENR), RCC_AHB2ENR_ADCEN);
         }
     };
 
@@ -328,9 +326,9 @@ public:
         template<typename Source_t> static void enable(Prescaler a_prescaler, bool a_enable_in_lp) = delete;
         static void disable()
         {
-            bit_flag::clear(&(ADC1_COMMON->CCR), ADC_CCR_CKMODE_Msk | ADC_CCR_PRESC_Msk);
-            bit_flag::clear(&(RCC->CCIPR), RCC_CCIPR_ADCSEL_Msk);
-            bit_flag::clear(&(RCC->AHB2ENR), RCC_AHB2ENR_ADCEN);
+            bit::flag::clear(&(ADC1_COMMON->CCR), ADC_CCR_CKMODE_Msk | ADC_CCR_PRESC_Msk);
+            bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_ADCSEL_Msk);
+            bit::flag::clear(&(RCC->AHB2ENR), RCC_AHB2ENR_ADCEN);
         }
     };
 };

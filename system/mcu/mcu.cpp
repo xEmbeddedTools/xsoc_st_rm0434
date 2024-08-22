@@ -32,7 +32,7 @@ template<> void rcc<mcu<1u>>::clk48::set<hsi48>()
     hkm_assert(true == hsi48::is_enabled());
 
     Scoped_guard<hsem::_1_step> sem5_guard(0x5u);
-    bit_flag::clear(&(RCC->CCIPR), RCC_CCIPR_CLK48SEL);
+    bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_CLK48SEL);
 }
 template<> bool rcc<mcu<1u>>::clk48::set<hsi48>(Milliseconds a_timeout)
 {
@@ -42,14 +42,14 @@ template<> bool rcc<mcu<1u>>::clk48::set<hsi48>(Milliseconds a_timeout)
 
     if (true == sem5_guard.is_locked())
     {
-        bit_flag::clear(&(RCC->CCIPR), RCC_CCIPR_CLK48SEL);
+        bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_CLK48SEL);
         return true;
     }
     return false;
 }
 template<> bool rcc<mcu<1u>>::clk48::is_source<hsi48>()
 {
-    return 0x0 == bit_flag::get(RCC->CCIPR, RCC_CCIPR_CLK48SEL);
+    return 0x0 == bit::flag::get(RCC->CCIPR, RCC_CCIPR_CLK48SEL);
 }
 template<> void rcc<mcu<1u>>::clk48::set<msi>()
 {
@@ -57,7 +57,7 @@ template<> void rcc<mcu<1u>>::clk48::set<msi>()
     hkm_assert(48_MHz == msi::get_frequency_Hz());
 
     Scoped_guard<hsem::_1_step> sem5_guard(0x5u);
-    bit_flag::set(&(RCC->CCIPR), RCC_CCIPR_CLK48SEL, RCC_CCIPR_CLK48SEL_0 | RCC_CCIPR_CLK48SEL_1);
+    bit::flag::set(&(RCC->CCIPR), RCC_CCIPR_CLK48SEL, RCC_CCIPR_CLK48SEL_0 | RCC_CCIPR_CLK48SEL_1);
 }
 template<> bool rcc<mcu<1u>>::clk48::set<msi>(Milliseconds a_timeout)
 {
@@ -68,14 +68,14 @@ template<> bool rcc<mcu<1u>>::clk48::set<msi>(Milliseconds a_timeout)
 
     if (true == sem5_guard.is_locked())
     {
-        bit_flag::set(&(RCC->CCIPR), RCC_CCIPR_CLK48SEL, RCC_CCIPR_CLK48SEL_0 | RCC_CCIPR_CLK48SEL_1);
+        bit::flag::set(&(RCC->CCIPR), RCC_CCIPR_CLK48SEL, RCC_CCIPR_CLK48SEL_0 | RCC_CCIPR_CLK48SEL_1);
         return true;
     }
     return false;
 }
 template<> bool rcc<mcu<1u>>::clk48::is_source<msi>()
 {
-    return (RCC_CCIPR_CLK48SEL_0 | RCC_CCIPR_CLK48SEL_1) == bit_flag::get(RCC->CCIPR, RCC_CCIPR_CLK48SEL);
+    return (RCC_CCIPR_CLK48SEL_0 | RCC_CCIPR_CLK48SEL_1) == bit::flag::get(RCC->CCIPR, RCC_CCIPR_CLK48SEL);
 }
 template<> void rcc<mcu<1u>>::clk48::set<pll::q>()
 {
@@ -84,7 +84,7 @@ template<> void rcc<mcu<1u>>::clk48::set<pll::q>()
 
     Scoped_guard<hsem::_1_step> sem5_guard(0x5u);
 
-    bit_flag::set(&(RCC->CCIPR), RCC_CCIPR_CLK48SEL, RCC_CCIPR_CLK48SEL_1);
+    bit::flag::set(&(RCC->CCIPR), RCC_CCIPR_CLK48SEL, RCC_CCIPR_CLK48SEL_1);
 }
 template<> bool rcc<mcu<1u>>::clk48::set<pll::q>(Milliseconds a_timeout)
 {
@@ -95,14 +95,14 @@ template<> bool rcc<mcu<1u>>::clk48::set<pll::q>(Milliseconds a_timeout)
 
     if (true == sem5_guard.is_locked())
     {
-        bit_flag::set(&(RCC->CCIPR), RCC_CCIPR_CLK48SEL, RCC_CCIPR_CLK48SEL_1);
+        bit::flag::set(&(RCC->CCIPR), RCC_CCIPR_CLK48SEL, RCC_CCIPR_CLK48SEL_1);
         return true;
     }
     return false;
 }
 template<> bool rcc<mcu<1u>>::clk48::is_source<pll::q>()
 {
-    return RCC_CCIPR_CLK48SEL_1 == bit_flag::get(RCC->CCIPR, RCC_CCIPR_CLK48SEL);
+    return RCC_CCIPR_CLK48SEL_1 == bit::flag::get(RCC->CCIPR, RCC_CCIPR_CLK48SEL);
 }
 template<> void rcc<mcu<1u>>::clk48::set<pll::sai1::q>()
 {
@@ -110,7 +110,7 @@ template<> void rcc<mcu<1u>>::clk48::set<pll::sai1::q>()
     hkm_assert(48_MHz == pll::sai1::q::get_frequency_Hz());
 
     Scoped_guard<hsem::_1_step> sem5_guard(0x5u);
-    bit_flag::set(&(RCC->CCIPR), RCC_CCIPR_CLK48SEL, RCC_CCIPR_CLK48SEL_0);
+    bit::flag::set(&(RCC->CCIPR), RCC_CCIPR_CLK48SEL, RCC_CCIPR_CLK48SEL_0);
 }
 template<> bool rcc<mcu<1u>>::clk48::set<pll::sai1::q>(Milliseconds a_timeout)
 {
@@ -121,19 +121,19 @@ template<> bool rcc<mcu<1u>>::clk48::set<pll::sai1::q>(Milliseconds a_timeout)
 
     if (true == sem5_guard.is_locked())
     {
-        bit_flag::set(&(RCC->CCIPR), RCC_CCIPR_CLK48SEL, RCC_CCIPR_CLK48SEL_0);
+        bit::flag::set(&(RCC->CCIPR), RCC_CCIPR_CLK48SEL, RCC_CCIPR_CLK48SEL_0);
         return true;
     }
     return false;
 }
 template<> bool rcc<mcu<1u>>::clk48::is_source<pll::sai1::q>()
 {
-    return RCC_CCIPR_CLK48SEL_0 == bit_flag::get(RCC->CCIPR, RCC_CCIPR_CLK48SEL);
+    return RCC_CCIPR_CLK48SEL_0 == bit::flag::get(RCC->CCIPR, RCC_CCIPR_CLK48SEL);
 }
 
 std::uint32_t rcc<mcu<1u>>::clk48::get_frequency_Hz()
 {
-    switch (bit_flag::get(RCC->CCIPR, RCC_CCIPR_CLK48SEL))
+    switch (bit::flag::get(RCC->CCIPR, RCC_CCIPR_CLK48SEL))
     {
         case 0x0u: {
             return hsi48::get_frequency_Hz();
@@ -161,12 +161,12 @@ std::uint32_t rcc<mcu<1u>>::clk48::get_frequency_Hz()
 
 void rcc<mcu<1u>>::hclk<1u>::set(Prescaler a_prescaler)
 {
-    bit_flag::set(&(RCC->CFGR), RCC_CFGR_HPRE, static_cast<std::uint32_t>(a_prescaler));
+    bit::flag::set(&(RCC->CFGR), RCC_CFGR_HPRE, static_cast<std::uint32_t>(a_prescaler));
     wait_until::all_bits_are_set(RCC->CFGR, RCC_CFGR_HPREF);
 }
 bool rcc<mcu<1u>>::hclk<1u>::set(Prescaler a_prescaler, Milliseconds a_timeout)
 {
-    bit_flag::set(&(RCC->CFGR), RCC_CFGR_HPRE, static_cast<std::uint32_t>(a_prescaler));
+    bit::flag::set(&(RCC->CFGR), RCC_CFGR_HPRE, static_cast<std::uint32_t>(a_prescaler));
     return wait_until::all_bits_are_set(RCC->CFGR, RCC_CFGR_HPREF, a_timeout);
 }
 rcc<mcu<1u>>::hclk<1u>::Prescaler rcc<mcu<1u>>::hclk<1u>::get_Prescaler()
@@ -175,58 +175,59 @@ rcc<mcu<1u>>::hclk<1u>::Prescaler rcc<mcu<1u>>::hclk<1u>::get_Prescaler()
 }
 std::uint32_t rcc<mcu<1u>>::hclk<1u>::get_frequency_Hz()
 {
-    return SystemCoreClock / hclk_dividers[bit_flag::get(RCC->CFGR, RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos];
+    return SystemCoreClock / hclk_dividers[bit::flag::get(RCC->CFGR, RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos];
 }
 
 void rcc<mcu<1u>>::hclk<2u>::set(Prescaler a_prescaler)
 {
-    bit_flag::set(&(RCC->EXTCFGR), RCC_EXTCFGR_C2HPRE, static_cast<std::uint32_t>(a_prescaler));
+    bit::flag::set(&(RCC->EXTCFGR), RCC_EXTCFGR_C2HPRE, static_cast<std::uint32_t>(a_prescaler));
     wait_until::all_bits_are_set(RCC->EXTCFGR, RCC_EXTCFGR_C2HPREF);
 }
 bool rcc<mcu<1u>>::hclk<2u>::set(Prescaler a_prescaler, Milliseconds a_timeout)
 {
     const std::uint64_t start = tick_counter<Milliseconds>::get();
 
-    bit_flag::set(&(RCC->EXTCFGR), RCC_EXTCFGR_C2HPRE, static_cast<std::uint32_t>(a_prescaler));
+    bit::flag::set(&(RCC->EXTCFGR), RCC_EXTCFGR_C2HPRE, static_cast<std::uint32_t>(a_prescaler));
     return wait_until::all_bits_are_set(
         RCC->EXTCFGR, RCC_EXTCFGR_C2HPREF, a_timeout.get() - (tick_counter<Milliseconds>::get() - start));
 }
 std::uint32_t rcc<mcu<1u>>::hclk<2u>::get_frequency_Hz()
 {
-    return SystemCoreClock / hclk_dividers[bit_flag::get(RCC->EXTCFGR, RCC_EXTCFGR_C2HPRE) >> RCC_EXTCFGR_C2HPRE_Pos];
+    return SystemCoreClock / hclk_dividers[bit::flag::get(RCC->EXTCFGR, RCC_EXTCFGR_C2HPRE) >> RCC_EXTCFGR_C2HPRE_Pos];
 }
 
 void rcc<mcu<1u>>::hclk<4u>::set(Prescaler a_prescaler)
 {
-    bit_flag::set(&(RCC->EXTCFGR), RCC_EXTCFGR_SHDHPRE, static_cast<std::uint32_t>(a_prescaler));
+    bit::flag::set(&(RCC->EXTCFGR), RCC_EXTCFGR_SHDHPRE, static_cast<std::uint32_t>(a_prescaler));
     wait_until::all_bits_are_set(RCC->EXTCFGR, RCC_EXTCFGR_SHDHPREF);
 }
 bool rcc<mcu<1u>>::hclk<4u>::set(Prescaler a_prescaler, Milliseconds a_timeout)
 {
     const std::uint64_t start = tick_counter<Milliseconds>::get();
 
-    bit_flag::set(&(RCC->EXTCFGR), RCC_EXTCFGR_SHDHPRE, static_cast<std::uint32_t>(a_prescaler));
+    bit::flag::set(&(RCC->EXTCFGR), RCC_EXTCFGR_SHDHPRE, static_cast<std::uint32_t>(a_prescaler));
     return wait_until::all_bits_are_set(
         RCC->EXTCFGR, RCC_EXTCFGR_SHDHPREF, a_timeout.get() - (tick_counter<Milliseconds>::get() - start));
 }
 std::uint32_t rcc<mcu<1u>>::hclk<4u>::get_frequency_Hz()
 {
-    return SystemCoreClock / hclk_dividers[bit_flag::get(RCC->EXTCFGR, RCC_EXTCFGR_SHDHPRE) >> RCC_EXTCFGR_SHDHPRE_Pos];
+    return SystemCoreClock /
+           hclk_dividers[bit::flag::get(RCC->EXTCFGR, RCC_EXTCFGR_SHDHPRE) >> RCC_EXTCFGR_SHDHPRE_Pos];
 }
 
 void rcc<mcu<1u>>::pclk<1u>::set(Prescaler a_prescaler)
 {
-    bit_flag::set(&(RCC->CFGR), RCC_CFGR_PPRE1, static_cast<std::uint32_t>(a_prescaler));
+    bit::flag::set(&(RCC->CFGR), RCC_CFGR_PPRE1, static_cast<std::uint32_t>(a_prescaler));
     wait_until::all_bits_are_set(RCC->CFGR, RCC_CFGR_PPRE1F);
 }
 bool rcc<mcu<1u>>::pclk<1u>::set(Prescaler a_prescaler, Milliseconds a_timeout)
 {
-    bit_flag::set(&(RCC->CFGR), RCC_CFGR_PPRE1, static_cast<std::uint32_t>(a_prescaler));
+    bit::flag::set(&(RCC->CFGR), RCC_CFGR_PPRE1, static_cast<std::uint32_t>(a_prescaler));
     return wait_until::all_bits_are_set(RCC->CFGR, RCC_CFGR_PPRE1F, a_timeout);
 }
 std::uint32_t rcc<mcu<1u>>::pclk<1u>::get_frequency_Hz()
 {
-    std::uint32_t index = bit_flag::get(RCC->CFGR, RCC_CFGR_PPRE1) >> RCC_CFGR_PPRE1_Pos;
+    std::uint32_t index = bit::flag::get(RCC->CFGR, RCC_CFGR_PPRE1) >> RCC_CFGR_PPRE1_Pos;
 
     if (index >= 4)
     {
@@ -237,7 +238,7 @@ std::uint32_t rcc<mcu<1u>>::pclk<1u>::get_frequency_Hz()
 }
 std::uint32_t rcc<mcu<1u>>::pclk<1u>::get_Tim_frequency_Hz()
 {
-    std::uint32_t index = bit_flag::get(RCC->CFGR, RCC_CFGR_PPRE1) >> RCC_CFGR_PPRE1_Pos;
+    std::uint32_t index = bit::flag::get(RCC->CFGR, RCC_CFGR_PPRE1) >> RCC_CFGR_PPRE1_Pos;
 
     if (index >= 4)
     {
@@ -249,12 +250,12 @@ std::uint32_t rcc<mcu<1u>>::pclk<1u>::get_Tim_frequency_Hz()
 
 void rcc<mcu<1u>>::pclk<2u>::set(Prescaler a_prescaler)
 {
-    bit_flag::set(&(RCC->CFGR), RCC_CFGR_PPRE2, static_cast<std::uint32_t>(a_prescaler));
+    bit::flag::set(&(RCC->CFGR), RCC_CFGR_PPRE2, static_cast<std::uint32_t>(a_prescaler));
     wait_until::all_bits_are_set(RCC->CFGR, RCC_CFGR_PPRE2F);
 }
 bool rcc<mcu<1u>>::pclk<2u>::set(Prescaler a_prescaler, Milliseconds a_timeout)
 {
-    bit_flag::set(&(RCC->CFGR), RCC_CFGR_PPRE2, static_cast<std::uint32_t>(a_prescaler));
+    bit::flag::set(&(RCC->CFGR), RCC_CFGR_PPRE2, static_cast<std::uint32_t>(a_prescaler));
     return wait_until::all_bits_are_set(RCC->CFGR, RCC_CFGR_PPRE2F, a_timeout);
 }
 rcc<mcu<1u>>::pclk<2u>::Prescaler rcc<mcu<1u>>::pclk<2u>::get_Prescaler()
@@ -263,7 +264,7 @@ rcc<mcu<1u>>::pclk<2u>::Prescaler rcc<mcu<1u>>::pclk<2u>::get_Prescaler()
 }
 std::uint32_t rcc<mcu<1u>>::pclk<2u>::get_frequency_Hz()
 {
-    std::uint32_t index = bit_flag::get(RCC->CFGR, RCC_CFGR_PPRE2) >> RCC_CFGR_PPRE2_Pos;
+    std::uint32_t index = bit::flag::get(RCC->CFGR, RCC_CFGR_PPRE2) >> RCC_CFGR_PPRE2_Pos;
 
     if (index >= 4)
     {
@@ -274,7 +275,7 @@ std::uint32_t rcc<mcu<1u>>::pclk<2u>::get_frequency_Hz()
 }
 std::uint32_t rcc<mcu<1u>>::pclk<2u>::get_Tim_frequency_Hz()
 {
-    std::uint32_t index = bit_flag::get(RCC->CFGR, RCC_CFGR_PPRE2) >> RCC_CFGR_PPRE2_Pos;
+    std::uint32_t index = bit::flag::get(RCC->CFGR, RCC_CFGR_PPRE2) >> RCC_CFGR_PPRE2_Pos;
 
     if (index >= 4)
     {
@@ -288,7 +289,7 @@ template<> void rcc<mcu<1u>>::set_system_clock_source<msi>()
 {
     hkm_assert(true == msi::is_enabled());
 
-    bit_flag::clear(&(RCC->CFGR), RCC_CFGR_SW);
+    bit::flag::clear(&(RCC->CFGR), RCC_CFGR_SW);
     wait_until::all_bits_are_cleared(RCC->CFGR, RCC_CFGR_SWS);
 
     SystemCoreClock = msi::get_frequency_Hz();
@@ -299,7 +300,7 @@ template<> bool rcc<mcu<1u>>::set_system_clock_source<msi>(Milliseconds a_timeou
 
     const std::uint64_t start = tick_counter<Milliseconds>::get();
 
-    bit_flag::clear(&(RCC->CFGR), RCC_CFGR_SW);
+    bit::flag::clear(&(RCC->CFGR), RCC_CFGR_SW);
     if (true == wait_until::all_bits_are_cleared(
                     RCC->CFGR, RCC_CFGR_SWS, a_timeout.get() - (tick_counter<Milliseconds>::get() - start)))
     {
@@ -311,14 +312,14 @@ template<> bool rcc<mcu<1u>>::set_system_clock_source<msi>(Milliseconds a_timeou
 }
 template<> bool rcc<mcu<1u>>::is_system_clock_source<msi>()
 {
-    return false == bit_flag::is(RCC->CFGR, RCC_CFGR_SWS);
+    return false == bit::flag::is(RCC->CFGR, RCC_CFGR_SWS);
 }
 
 template<> void rcc<mcu<1u>>::set_system_clock_source<hsi16>()
 {
     hkm_assert(true == hsi16::is_enabled());
 
-    bit_flag::set(&(RCC->CFGR), RCC_CFGR_SW, RCC_CFGR_SW_0);
+    bit::flag::set(&(RCC->CFGR), RCC_CFGR_SW, RCC_CFGR_SW_0);
     wait_until::all_bits_are_set(RCC->CFGR, RCC_CFGR_SWS_0);
 
     SystemCoreClock = hsi16::get_frequency_Hz();
@@ -329,7 +330,7 @@ template<> bool rcc<mcu<1u>>::set_system_clock_source<hsi16>(Milliseconds a_time
 
     const std::uint64_t start = tick_counter<Milliseconds>::get();
 
-    bit_flag::set(&(RCC->CFGR), RCC_CFGR_SW, RCC_CFGR_SW_0);
+    bit::flag::set(&(RCC->CFGR), RCC_CFGR_SW, RCC_CFGR_SW_0);
     if (true == wait_until::all_bits_are_set(
                     RCC->CFGR, RCC_CFGR_SWS_0, a_timeout.get() - (tick_counter<Milliseconds>::get() - start)))
     {
@@ -341,7 +342,7 @@ template<> bool rcc<mcu<1u>>::set_system_clock_source<hsi16>(Milliseconds a_time
 }
 template<> bool rcc<mcu<1u>>::is_system_clock_source<hsi16>()
 {
-    return RCC_CFGR_SWS_0 == bit_flag::get(RCC->CFGR, RCC_CFGR_SWS);
+    return RCC_CFGR_SWS_0 == bit::flag::get(RCC->CFGR, RCC_CFGR_SWS);
 }
 
 template<> void rcc<mcu<1u>>::set_system_clock_source<pll>()
@@ -349,7 +350,7 @@ template<> void rcc<mcu<1u>>::set_system_clock_source<pll>()
     hkm_assert(true == pll::is_enabled());
     hkm_assert(pll::r::Enable_config::Output::enabled == pll::r::get_Enable_config().output);
 
-    bit_flag::set(&(RCC->CFGR), RCC_CFGR_SW_0 | RCC_CFGR_SW_1);
+    bit::flag::set(&(RCC->CFGR), RCC_CFGR_SW_0 | RCC_CFGR_SW_1);
     wait_until::all_bits_are_set(RCC->CFGR, RCC_CFGR_SWS_0 | RCC_CFGR_SWS_1);
 
     SystemCoreClock = pll::r::get_frequency_Hz();
@@ -361,7 +362,7 @@ template<> bool rcc<mcu<1u>>::set_system_clock_source<pll>(Milliseconds a_timeou
 
     const std::uint64_t start = tick_counter<Milliseconds>::get();
 
-    bit_flag::set(&(RCC->CFGR), RCC_CFGR_SW, RCC_CFGR_SW_0 | RCC_CFGR_SW_1);
+    bit::flag::set(&(RCC->CFGR), RCC_CFGR_SW, RCC_CFGR_SW_0 | RCC_CFGR_SW_1);
     if (true == wait_until::all_bits_are_set(RCC->CFGR,
                                              RCC_CFGR_SWS_0 | RCC_CFGR_SWS_1,
                                              a_timeout.get() - (tick_counter<Milliseconds>::get() - start)))
@@ -374,15 +375,15 @@ template<> bool rcc<mcu<1u>>::set_system_clock_source<pll>(Milliseconds a_timeou
 }
 template<> bool rcc<mcu<1u>>::is_system_clock_source<pll>()
 {
-    return true == bit_flag::is(RCC->CFGR, RCC_CFGR_SWS);
+    return true == bit::flag::is(RCC->CFGR, RCC_CFGR_SWS);
 }
 
 template<> void rcc<mcu<1u>>::set_system_clock_source<hse, hse::Prescaler::_1>()
 {
     hkm_assert(true == hse::is_enabled());
 
-    bit_flag::clear(&(RCC->CR), RCC_CR_HSEPRE);
-    bit_flag::set(&(RCC->CFGR), RCC_CFGR_SW, RCC_CFGR_SW_1);
+    bit::flag::clear(&(RCC->CR), RCC_CR_HSEPRE);
+    bit::flag::set(&(RCC->CFGR), RCC_CFGR_SW, RCC_CFGR_SW_1);
     wait_until::all_bits_are_set(RCC->CFGR, RCC_CFGR_SWS_1);
 
     SystemCoreClock = hse::get_frequency_Hz();
@@ -391,8 +392,8 @@ template<> void rcc<mcu<1u>>::set_system_clock_source<hse, hse::Prescaler::_2>()
 {
     hkm_assert(true == hse::is_enabled());
 
-    bit_flag::set(&(RCC->CR), RCC_CR_HSEPRE);
-    bit_flag::set(&(RCC->CFGR), RCC_CFGR_SW, RCC_CFGR_SW_1);
+    bit::flag::set(&(RCC->CR), RCC_CR_HSEPRE);
+    bit::flag::set(&(RCC->CFGR), RCC_CFGR_SW, RCC_CFGR_SW_1);
     wait_until::all_bits_are_set(RCC->CFGR, RCC_CFGR_SWS_1);
 
     SystemCoreClock = hse::get_frequency_Hz() / 2u;
@@ -403,8 +404,8 @@ template<> bool rcc<mcu<1u>>::set_system_clock_source<hse, hse::Prescaler::_1>(M
 
     const std::uint64_t start = tick_counter<Milliseconds>::get();
 
-    bit_flag::clear(&(RCC->CR), RCC_CR_HSEPRE);
-    bit_flag::set(&(RCC->CFGR), RCC_CFGR_SW, RCC_CFGR_SW_1);
+    bit::flag::clear(&(RCC->CR), RCC_CR_HSEPRE);
+    bit::flag::set(&(RCC->CFGR), RCC_CFGR_SW, RCC_CFGR_SW_1);
     if (true == wait_until::all_bits_are_set(
                     RCC->CFGR, RCC_CFGR_SWS_1, a_timeout.get() - (tick_counter<Milliseconds>::get() - start)))
     {
@@ -420,8 +421,8 @@ template<> bool rcc<mcu<1u>>::set_system_clock_source<hse, hse::Prescaler::_2>(M
 
     const std::uint64_t start = tick_counter<Milliseconds>::get();
 
-    bit_flag::set(&(RCC->CR), RCC_CR_HSEPRE);
-    bit_flag::set(&(RCC->CFGR), RCC_CFGR_SW, RCC_CFGR_SW_1);
+    bit::flag::set(&(RCC->CR), RCC_CR_HSEPRE);
+    bit::flag::set(&(RCC->CFGR), RCC_CFGR_SW, RCC_CFGR_SW_1);
     if (true == wait_until::all_bits_are_set(
                     RCC->CFGR, RCC_CFGR_SWS_1, a_timeout.get() - (tick_counter<Milliseconds>::get() - start)))
     {
@@ -433,7 +434,7 @@ template<> bool rcc<mcu<1u>>::set_system_clock_source<hse, hse::Prescaler::_2>(M
 }
 template<> bool rcc<mcu<1u>>::is_system_clock_source<hse>()
 {
-    return RCC_CFGR_SWS_1 == bit_flag::get(RCC->CFGR, RCC_CFGR_SWS_0);
+    return RCC_CFGR_SWS_1 == bit::flag::get(RCC->CFGR, RCC_CFGR_SWS_0);
 }
 
 std::uint32_t rcc<mcu<1u>>::get_system_clock_frequency_Hz()
@@ -443,29 +444,29 @@ std::uint32_t rcc<mcu<1u>>::get_system_clock_frequency_Hz()
 
 template<> void rcc<mcu<1u>>::set_wakeup_clock_source<msi>()
 {
-    bit_flag::clear(&(RCC->CFGR), RCC_CFGR_STOPWUCK);
+    bit::flag::clear(&(RCC->CFGR), RCC_CFGR_STOPWUCK);
 }
 template<> void rcc<mcu<1u>>::set_wakeup_clock_source<hsi16>()
 {
-    bit_flag::set(&(RCC->CFGR), RCC_CFGR_STOPWUCK, RCC_CFGR_STOPWUCK);
+    bit::flag::set(&(RCC->CFGR), RCC_CFGR_STOPWUCK, RCC_CFGR_STOPWUCK);
 }
 
 template<> void rcc<mcu<2u>>::set_wakeup_clock_source<lse>()
 {
-    bit_flag::set(&(RCC->CSR), RCC_CSR_RFWKPSEL, RCC_CSR_RFWKPSEL_0);
+    bit::flag::set(&(RCC->CSR), RCC_CSR_RFWKPSEL, RCC_CSR_RFWKPSEL_0);
 }
 template<> void rcc<mcu<2u>>::set_wakeup_clock_source<hse>()
 {
-    bit_flag::set(&(RCC->CSR), RCC_CSR_RFWKPSEL_0 | RCC_CSR_RFWKPSEL_1);
+    bit::flag::set(&(RCC->CSR), RCC_CSR_RFWKPSEL_0 | RCC_CSR_RFWKPSEL_1);
 }
 
 template<> void rcc<mcu<1u>>::hclk<5u>::set<hsi16>()
 {
-    bit_flag::clear(&(RCC->EXTCFGR), RCC_EXTCFGR_RFCSS);
+    bit::flag::clear(&(RCC->EXTCFGR), RCC_EXTCFGR_RFCSS);
 }
 template<> void rcc<mcu<1u>>::hclk<5u>::set<hse, hse::Prescaler::_2>()
 {
-    bit_flag::set(&(RCC->EXTCFGR), RCC_EXTCFGR_RFCSS);
+    bit::flag::set(&(RCC->EXTCFGR), RCC_EXTCFGR_RFCSS);
 }
 namespace system {
 
@@ -491,7 +492,7 @@ const char* to_string(mcu<1u>::Reset_source a_source)
             return nullptr;
     }
 }
-}
+} // namespace system
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

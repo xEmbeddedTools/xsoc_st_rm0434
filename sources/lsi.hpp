@@ -12,9 +12,9 @@
 
 // xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/non_constructible.hpp>
-#include <xmcu/bit_flag.hpp>
 #include <xmcu/Frequency.hpp>
+#include <xmcu/bit.hpp>
+#include <xmcu/non_constructible.hpp>
 
 namespace xmcu {
 namespace soc {
@@ -40,7 +40,7 @@ public:
 
     static bool is_enabled(Id a_id)
     {
-        return bit_flag::is(RCC->CSR, RCC_CSR_LSI1RDY);
+        return bit::flag::is(RCC->CSR, RCC_CSR_LSI1RDY);
     }
 
     static std::uint32_t get_frequency_Hz(Id a_id)

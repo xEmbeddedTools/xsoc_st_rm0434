@@ -17,8 +17,7 @@
 // xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/Non_copyable.hpp>
-#include <xmcu/bit_flag.hpp>
-#include <xmcu/various.hpp>
+#include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/GPIO/GPIO.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
@@ -27,6 +26,7 @@
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lsi.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
+#include <xmcu/various.hpp>
 
 // small classes & enums
 namespace xmcu::soc::m4::stm32wb::peripherals::timer {
@@ -161,7 +161,7 @@ public:
     void disable() const;
     bool is_enabled() const
     {
-        return bit_flag::is(this->p_registers->CR1, TIM_CR1_CEN); // naive
+        return bit::flag::is(this->p_registers->CR1, TIM_CR1_CEN); // naive
     }
 };
 
@@ -375,7 +375,7 @@ public:
             static_cast<std::uint32_t>(a_cm);
         std::uint32_t shift = (this->idx & 1) * TIM_CCMR1_CC2S_Pos;
         volatile std::uint32_t* ccmr_ptr = Counter_base::get_CCMR_ptr(this->idx, this->p_registers);
-        bit_flag::set(ccmr_ptr, set_compare_mask << shift, config << shift);
+        bit::flag::set(ccmr_ptr, set_compare_mask << shift, config << shift);
     }
 
     void set_output_configuration(Out_config a_output, Out_config a_outputN = Out_config::disabled)
@@ -383,7 +383,7 @@ public:
         std::uint32_t config = static_cast<std::uint32_t>(a_output) | static_cast<std::uint32_t>(a_outputN)
                                                                           << TIM_CCER_CC1NE_Pos;
         std::uint32_t shift = TIM_CCER_CC2E_Pos * this->idx;
-        bit_flag::set(&this->p_registers->CCER, output_config_mask << shift, config << shift);
+        bit::flag::set(&this->p_registers->CCER, output_config_mask << shift, config << shift);
     }
 
     void set_CCR(typename Counter_base::Counter_word_t ccr)
@@ -480,15 +480,15 @@ template<> class rcc<peripherals::TIM_ADV, 1u>
 public:
     static void enable()
     {
-        bit_flag::set(&RCC->APB2ENR, RCC_APB2ENR_TIM1EN);
+        bit::flag::set(&RCC->APB2ENR, RCC_APB2ENR_TIM1EN);
     }
     static void disable()
     {
-        bit_flag::clear(&RCC->APB2ENR, RCC_APB2ENR_TIM1EN);
+        bit::flag::clear(&RCC->APB2ENR, RCC_APB2ENR_TIM1EN);
     }
     static bool is_enabled()
     {
-        return bit_flag::is(RCC->APB2ENR, RCC_APB2ENR_TIM1EN);
+        return bit::flag::is(RCC->APB2ENR, RCC_APB2ENR_TIM1EN);
     }
     static std::uint32_t get_frequency_Hz()
     {
@@ -501,15 +501,15 @@ template<> class rcc<peripherals::TIM_G16, 16u>
 public:
     static void enable()
     {
-        bit_flag::set(&RCC->APB2ENR, RCC_APB2ENR_TIM16EN);
+        bit::flag::set(&RCC->APB2ENR, RCC_APB2ENR_TIM16EN);
     }
     static void disable()
     {
-        bit_flag::clear(&RCC->APB2ENR, RCC_APB2ENR_TIM16EN);
+        bit::flag::clear(&RCC->APB2ENR, RCC_APB2ENR_TIM16EN);
     }
     static bool is_enabled()
     {
-        return bit_flag::is(RCC->APB2ENR, RCC_APB2ENR_TIM16EN);
+        return bit::flag::is(RCC->APB2ENR, RCC_APB2ENR_TIM16EN);
     }
     static std::uint32_t get_frequency_Hz()
     {
@@ -521,15 +521,15 @@ template<> class rcc<peripherals::TIM_G16, 17u>
 public:
     static void enable()
     {
-        bit_flag::set(&RCC->APB2ENR, RCC_APB2ENR_TIM17EN);
+        bit::flag::set(&RCC->APB2ENR, RCC_APB2ENR_TIM17EN);
     }
     static void disable()
     {
-        bit_flag::clear(&RCC->APB2ENR, RCC_APB2ENR_TIM17EN);
+        bit::flag::clear(&RCC->APB2ENR, RCC_APB2ENR_TIM17EN);
     }
     static bool is_enabled()
     {
-        return bit_flag::is(RCC->APB2ENR, RCC_APB2ENR_TIM17EN);
+        return bit::flag::is(RCC->APB2ENR, RCC_APB2ENR_TIM17EN);
     }
     static std::uint32_t get_frequency_Hz()
     {
@@ -537,10 +537,10 @@ public:
     }
 };
 
-template<> inline void peripherals::GPIO::Alternate_function::enable<peripherals::timer::Channel, 1u>(
-    Limited<std::uint32_t, 0, 15> a_id,
-    const Enable_config& a_config,
-    Pin* a_p_pin)
+template<> inline void
+peripherals::GPIO::Alternate_function::enable<peripherals::timer::Channel, 1u>(Limited<std::uint32_t, 0, 15> a_id,
+                                                                               const Enable_config& a_config,
+                                                                               Pin* a_p_pin)
 {
 #if defined(STM32WB35xx) || defined(STM32WB55xx)
     hkm_assert((0 == this->p_port->idx && (7 == a_id || 8 == a_id || 9 == a_id || 10 == a_id || 11 == a_id)) ||
@@ -549,10 +549,10 @@ template<> inline void peripherals::GPIO::Alternate_function::enable<peripherals
     this->enable(a_id, a_config, 0x1u, a_p_pin);
 }
 
-template<> inline void peripherals::GPIO::Alternate_function::enable<peripherals::timer::Channel, 16u>(
-    Limited<std::uint32_t, 0, 15> a_id,
-    const Enable_config& a_config,
-    Pin* a_p_pin)
+template<> inline void
+peripherals::GPIO::Alternate_function::enable<peripherals::timer::Channel, 16u>(Limited<std::uint32_t, 0, 15> a_id,
+                                                                                const Enable_config& a_config,
+                                                                                Pin* a_p_pin)
 {
 #if defined(STM32WB35xx) || defined(STM32WB55xx)
     hkm_assert((0 == this->p_port->idx && (6 == a_id)) || (1 == this->p_port->idx && (6 == a_id || 8 == a_id)));
@@ -560,10 +560,10 @@ template<> inline void peripherals::GPIO::Alternate_function::enable<peripherals
     this->enable(a_id, a_config, 14u, a_p_pin);
 }
 
-template<> inline void peripherals::GPIO::Alternate_function::enable<peripherals::timer::Channel, 17u>(
-    Limited<std::uint32_t, 0, 15u> a_id,
-    const Enable_config& a_config,
-    Pin* a_p_pin)
+template<> inline void
+peripherals::GPIO::Alternate_function::enable<peripherals::timer::Channel, 17u>(Limited<std::uint32_t, 0, 15u> a_id,
+                                                                                const Enable_config& a_config,
+                                                                                Pin* a_p_pin)
 {
 #if defined(STM32WB35xx) || defined(STM32WB55xx)
     hkm_assert((0 == this->p_port->idx && (7 == a_id)) || (1 == this->p_port->idx && (7 == a_id || 9 == a_id)));

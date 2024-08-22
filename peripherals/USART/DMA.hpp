@@ -17,12 +17,13 @@
 #include <xmcu/Duration.hpp>
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
-#include <xmcu/various.hpp>
+#include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/DMA.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/USART/LPUART.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/USART/USART.hpp>
 #include <xmcu/soc/peripheral.hpp>
+#include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
@@ -42,13 +43,12 @@ public:
                          Not_null<volatile void*> a_p_buffer,
                          std::uint16_t a_buffer_size_in_words);
 
-            DMA<>::Result wait_for_data(bool wait_until_channel_disabled,
-                                        std::size_t a_buffer_size_in_words,
-                                        Milliseconds a_timeout);
+            DMA<>::Result
+            wait_for_data(bool wait_until_channel_disabled, std::size_t a_buffer_size_in_words, Milliseconds a_timeout);
 
             void stop()
             {
-                bit_flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
+                bit::flag::clear(&(this->p_DMA->p_rx_channel_registers->CCR), DMA_CCR_EN);
             }
 
         private:
@@ -412,8 +412,7 @@ private:
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m4::stm32wb::peripherals::USART, 1u, m4::stm32wb::DMA<>, 1u>
-    : private non_constructible
+template<> class peripheral<m4::stm32wb::peripherals::USART, 1u, m4::stm32wb::DMA<>, 1u> : private non_constructible
 {
 public:
     static m4::stm32wb::DMA<m4::stm32wb::peripherals::USART> create()
@@ -421,8 +420,7 @@ public:
         return m4::stm32wb::DMA<m4::stm32wb::peripherals::USART>(0x0u, DMA1, USART1);
     }
 };
-template<> class peripheral<m4::stm32wb::peripherals::USART, 1u, m4::stm32wb::DMA<>, 2u>
-    : private non_constructible
+template<> class peripheral<m4::stm32wb::peripherals::USART, 1u, m4::stm32wb::DMA<>, 2u> : private non_constructible
 {
 public:
     static m4::stm32wb::DMA<m4::stm32wb::peripherals::USART> create()
@@ -431,8 +429,7 @@ public:
     }
 };
 
-template<> class peripheral<m4::stm32wb::peripherals::LPUART, 1u, m4::stm32wb::DMA<>, 1u>
-    : private non_constructible
+template<> class peripheral<m4::stm32wb::peripherals::LPUART, 1u, m4::stm32wb::DMA<>, 1u> : private non_constructible
 {
 public:
     static m4::stm32wb::DMA<m4::stm32wb::peripherals::LPUART> create()
@@ -440,8 +437,7 @@ public:
         return m4::stm32wb::DMA<m4::stm32wb::peripherals::LPUART>(0x0u, DMA1, LPUART1);
     }
 };
-template<> class peripheral<m4::stm32wb::peripherals::LPUART, 1u, m4::stm32wb::DMA<>, 2u>
-    : private non_constructible
+template<> class peripheral<m4::stm32wb::peripherals::LPUART, 1u, m4::stm32wb::DMA<>, 2u> : private non_constructible
 {
 public:
     static m4::stm32wb::DMA<m4::stm32wb::peripherals::LPUART> create()

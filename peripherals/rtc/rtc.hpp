@@ -7,11 +7,12 @@
 
 #include <xmcu/Duration.hpp>
 #include <xmcu/Non_copyable.hpp>
-#include <xmcu/soc/Scoped_guard.hpp>
+#include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hse.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lse.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lsi.hpp>
+#include <xmcu/soc/Scoped_guard.hpp>
 
 namespace xmcu::soc::m4::stm32wb::peripherals {
 
@@ -74,8 +75,7 @@ public:
 
     static void write_bkp_register(std::size_t a_index, uint32_t a_value);
 
-    static void
-    enable_alarm(Alarm_id a_id, Alarm_mask a_mask, Milliseconds a_world_millis, Alarm_handler a_handler);
+    static void enable_alarm(Alarm_id a_id, Alarm_mask a_mask, Milliseconds a_world_millis, Alarm_handler a_handler);
 
     static void disable_alarm(Alarm_id a_id);
 
@@ -118,13 +118,13 @@ public:
     Scoped_guard()
     {
         // Disable write protection of backup domain peripherals
-        bit_flag::set(&PWR->CR1, PWR_CR1_DBP);
+        bit::flag::set(&PWR->CR1, PWR_CR1_DBP);
     }
 
     ~Scoped_guard()
     {
         // Re-enable write-protection of backup domain peripherals
-        bit_flag::clear(&PWR->CR1, PWR_CR1_DBP);
+        bit::flag::clear(&PWR->CR1, PWR_CR1_DBP);
     }
 };
 

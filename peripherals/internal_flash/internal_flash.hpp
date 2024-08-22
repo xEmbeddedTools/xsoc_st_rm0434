@@ -16,12 +16,12 @@
 // xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/Limited.hpp>
-#include <xmcu/non_constructible.hpp>
 #include <xmcu/Not_null.hpp>
-#include <xmcu/bit_flag.hpp>
-#include <xmcu/various.hpp>
-#include <xmcu/soc/Scoped_guard.hpp>
+#include <xmcu/bit.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/m4/nvic.hpp>
+#include <xmcu/soc/Scoped_guard.hpp>
+#include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
@@ -61,25 +61,25 @@ public:
 
     enum class Cache_mode_flag : std::uint32_t
     {
-        disabled     = 0x0u,
-        data         = FLASH_ACR_DCEN,
+        disabled = 0x0u,
+        data = FLASH_ACR_DCEN,
         instructions = FLASH_ACR_ICEN,
-        prefetech    = FLASH_ACR_PRFTEN
+        prefetech = FLASH_ACR_PRFTEN
     };
 
     enum class Status_flag : std::uint32_t
     {
-        ok                                = 0x0u,
-        operation_error                   = FLASH_SR_OPERR,
-        read_protection_error             = FLASH_SR_RDERR,
-        write_protection_error            = FLASH_SR_WRPERR,
-        size_error                        = FLASH_SR_SIZERR,
-        programming_sequential_error      = FLASH_SR_PROGERR,
-        programming_aligment_error        = FLASH_SR_PGAERR,
-        programming_sequence_error        = FLASH_SR_PGSERR,
+        ok = 0x0u,
+        operation_error = FLASH_SR_OPERR,
+        read_protection_error = FLASH_SR_RDERR,
+        write_protection_error = FLASH_SR_WRPERR,
+        size_error = FLASH_SR_SIZERR,
+        programming_sequential_error = FLASH_SR_PROGERR,
+        programming_aligment_error = FLASH_SR_PGAERR,
+        programming_sequence_error = FLASH_SR_PGSERR,
         data_miss_during_fast_programming = FLASH_SR_MISERR,
-        fast_programming_error            = FLASH_SR_FASTERR,
-        locked                            = 0x80000000
+        fast_programming_error = FLASH_SR_FASTERR,
+        locked = 0x80000000
     };
 
     class unlocker : private non_constructible
@@ -114,7 +114,7 @@ public:
         struct Result
         {
             Status_flag status = various::get_enum_incorrect_value<Status_flag>();
-            std::size_t words  = 0;
+            std::size_t words = 0;
         };
 
         static Result write(Limited<std::uint32_t, s::start, s::start + s::size_in_bytes> a_address,
@@ -151,12 +151,12 @@ public:
 
     static Cache_mode_flag get_cache_mode()
     {
-        return static_cast<Cache_mode_flag>(bit_flag::get(FLASH->ACR, FLASH_ACR_DCEN | FLASH_ACR_ICEN));
+        return static_cast<Cache_mode_flag>(bit::flag::get(FLASH->ACR, FLASH_ACR_DCEN | FLASH_ACR_ICEN));
     }
 
     static Latency get_latency()
     {
-        return static_cast<Latency>(bit_flag::get(FLASH->ACR, FLASH_ACR_LATENCY));
+        return static_cast<Latency>(bit::flag::get(FLASH->ACR, FLASH_ACR_LATENCY));
     }
 };
 } // namespace peripherals

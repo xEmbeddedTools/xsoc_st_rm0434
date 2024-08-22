@@ -14,7 +14,7 @@
 #pragma GCC diagnostic pop
 
 // xmcu
-#include <xmcu/bit_flag.hpp>
+#include <xmcu/bit.hpp>
 
 namespace {
 using namespace xmcu;
@@ -28,14 +28,14 @@ void crc_start(std::uint32_t a_init_value,
 {
     CRC->INIT = a_init_value;
 
-    bit_flag::set(&(CRC->CR),
-                  CRC_CR_REV_IN_0 | CRC_CR_REV_IN_1 | CRC_CR_REV_OUT | CRC_CR_POLYSIZE_0 | CRC_CR_POLYSIZE_1,
-                  static_cast<std::uint32_t>(a_input_data_format) |
-                      (crc<>::Output_data_format_flag::reversed_by_bit ==
-                               (crc<>::Output_data_format_flag::reversed_by_bit & a_output_data_format) ?
-                           CRC_CR_REV_OUT :
-                           0x0u) |
-                      a_polynomial_length);
+    bit::flag::set(&(CRC->CR),
+                   CRC_CR_REV_IN_0 | CRC_CR_REV_IN_1 | CRC_CR_REV_OUT | CRC_CR_POLYSIZE_0 | CRC_CR_POLYSIZE_1,
+                   static_cast<std::uint32_t>(a_input_data_format) |
+                       (crc<>::Output_data_format_flag::reversed_by_bit ==
+                                (crc<>::Output_data_format_flag::reversed_by_bit & a_output_data_format) ?
+                            CRC_CR_REV_OUT :
+                            0x0u) |
+                       a_polynomial_length);
 
     if (crc<>::Polynomial_flag::custom == (crc<>::Polynomial_flag::custom & a_polynomial_config))
     {
@@ -192,20 +192,20 @@ using namespace xmcu::soc::m4::stm32wb::peripherals;
 
 void rcc<crc<>>::enable(bool a_enable_in_lp)
 {
-    bit_flag::set(&(RCC->AHB1ENR), RCC_AHB1ENR_CRCEN);
+    bit::flag::set(&(RCC->AHB1ENR), RCC_AHB1ENR_CRCEN);
 
     if (true == a_enable_in_lp)
     {
-        bit_flag::set(&(RCC->AHB1SMENR), RCC_AHB1SMENR_CRCSMEN);
+        bit::flag::set(&(RCC->AHB1SMENR), RCC_AHB1SMENR_CRCSMEN);
     }
     else
     {
-        bit_flag::clear(&(RCC->AHB1SMENR), RCC_AHB1SMENR_CRCSMEN);
+        bit::flag::clear(&(RCC->AHB1SMENR), RCC_AHB1SMENR_CRCSMEN);
     }
 }
 void rcc<crc<>>::disable()
 {
-    bit_flag::clear(&(RCC->AHB1ENR), RCC_AHB1ENR_CRCEN);
+    bit::flag::clear(&(RCC->AHB1ENR), RCC_AHB1ENR_CRCEN);
 }
 } // namespace stm32wb
 } // namespace m4
