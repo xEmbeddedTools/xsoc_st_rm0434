@@ -26,7 +26,7 @@ namespace ll {
 #define XMCU_GPIOE_PRESENT
 #define XMCU_GPIOH_PRESENT
 
-struct gpio_base : private xmcu::non_constructible
+struct gpio_base : private non_constructible
 {
 public:
     enum class A : std::uint8_t
