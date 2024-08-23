@@ -11,7 +11,6 @@
 // xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/non_constructible.hpp>
-
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/Systick.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
@@ -41,10 +40,10 @@ public:
 
     template<typename Timer_t, typename Clock_t = void>
     static void enable(Timer_t* a_p_timer, const soc::IRQ_config& a_irq_config, std::uint64_t a_start_cnt) = delete;
-    template<typename Timer_t> static void disable()                                                           = delete;
+    template<typename Timer_t> static void disable() = delete;
 
     template<typename Timer_t> static void start(bool a_call_handler_on_start = false) = delete;
-    template<typename Timer_t> static void stop()                                      = delete;
+    template<typename Timer_t> static void stop() = delete;
 
     static std::uint64_t get();
 
@@ -54,7 +53,7 @@ private:
     static void update(void*);
 
     static inline volatile std::uint64_t cnt = 0u;
-    static inline void* p_timer              = nullptr;
+    static inline void* p_timer = nullptr;
 
     static Callback callback;
 };

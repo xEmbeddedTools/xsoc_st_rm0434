@@ -13,8 +13,9 @@
 // xmcu
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
-#include <xmcu/various.hpp>
+#include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/USART/USART.hpp>
+#include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
@@ -24,10 +25,10 @@ namespace peripherals {
 class LPUART : private Non_copyable
 {
 public:
-    using Event_flag              = USART::Event_flag;
+    using Event_flag = USART::Event_flag;
     using Low_power_wakeup_method = USART::Low_power_wakeup_method;
-    using Clock_config            = USART::Clock_config;
-    using Frame_format            = USART::Frame_format;
+    using Clock_config = USART::Clock_config;
+    using Frame_format = USART::Frame_format;
 
     struct Transceiving_config
     {
@@ -89,36 +90,29 @@ public:
         Result transmit(Not_null<const std::uint8_t*> a_p_data, std::size_t a_data_size_in_words);
         Result transmit(Not_null<const std::uint16_t*> a_p_data, std::size_t a_data_size_in_words);
 
-        Result transmit(Not_null<const std::uint8_t*> a_p_data,
-                        std::size_t a_data_size_in_words,
-                        Milliseconds a_timeout);
-        Result transmit(Not_null<const std::uint16_t*> a_p_data,
-                        std::size_t a_data_size_in_words,
-                        Milliseconds a_timeout);
+        Result
+        transmit(Not_null<const std::uint8_t*> a_p_data, std::size_t a_data_size_in_words, Milliseconds a_timeout);
+        Result
+        transmit(Not_null<const std::uint16_t*> a_p_data, std::size_t a_data_size_in_words, Milliseconds a_timeout);
 
         Result receive(Not_null<std::uint8_t*> a_p_data, std::size_t a_data_size_in_words);
         Result receive(Not_null<std::uint16_t*> a_p_data, std::size_t a_data_size_in_words);
 
-        Result receive(Not_null<std::uint8_t*> a_p_data,
-                       std::size_t a_data_size_in_words,
-                       Milliseconds a_timeout);
-        Result receive(Not_null<std::uint16_t*> a_p_data,
-                       std::size_t a_data_size_in_words,
-                       Milliseconds a_timeout);
+        Result receive(Not_null<std::uint8_t*> a_p_data, std::size_t a_data_size_in_words, Milliseconds a_timeout);
+        Result receive(Not_null<std::uint16_t*> a_p_data, std::size_t a_data_size_in_words, Milliseconds a_timeout);
 
         template<typename t_Type> std::uint32_t transmit_2(const t_Type& a_data)
         {
             const auto itr_begin = std::begin(a_data);
-            const auto itr_end   = std::end(a_data);
-            auto itr             = itr_begin;
+            const auto itr_end = std::end(a_data);
+            auto itr = itr_begin;
 
-            bit_flag::set(&(this->p_LPUART->p_registers->ICR),
-                                  USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
+            bit::flag::set(&(this->p_LPUART->p_registers->ICR), USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
 
             while (itr != itr_end &&
                    false == bit::is_any(this->p_LPUART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE))
             {
-                if (true == bit_flag::is(this->p_LPUART->p_registers->ISR, USART_ISR_TXE))
+                if (true == bit::flag::is(this->p_LPUART->p_registers->ISR, USART_ISR_TXE))
                 {
                     this->p_LPUART->p_registers->TDR = *itr;
                     itr++;
@@ -136,16 +130,15 @@ public:
         std::uint32_t transmit_2(const t_First& a_first, const t_Tail&... a_tail)
         {
             const auto itr_begin = std::begin(a_first);
-            const auto itr_end   = std::end(a_first);
-            auto itr             = itr_begin;
+            const auto itr_end = std::end(a_first);
+            auto itr = itr_begin;
 
-            bit_flag::set(&(this->p_LPUART->p_registers->ICR),
-                                  USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
+            bit::flag::set(&(this->p_LPUART->p_registers->ICR), USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
 
             while (itr != itr_end &&
                    false == bit::is_any(this->p_LPUART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE))
             {
-                if (true == bit_flag::is(this->p_LPUART->p_registers->ISR, USART_ISR_TXE))
+                if (true == bit::flag::is(this->p_LPUART->p_registers->ISR, USART_ISR_TXE))
                 {
                     this->p_LPUART->p_registers->TDR = *itr;
                     itr++;
@@ -162,21 +155,19 @@ public:
 
         template<typename t_Type> std::uint32_t transmit_2(Milliseconds a_timeout, const t_Type& a_data)
         {
-            const std::uint64_t timeout_end_timestamp =
-                utils::tick_counter<Milliseconds>::get() + a_timeout.get();
+            const std::uint64_t timeout_end_timestamp = utils::tick_counter<Milliseconds>::get() + a_timeout.get();
 
             const auto itr_begin = std::begin(a_data);
-            const auto itr_end   = std::end(a_data);
-            auto itr             = itr_begin;
+            const auto itr_end = std::end(a_data);
+            auto itr = itr_begin;
 
-            bit_flag::set(&(this->p_LPUART->p_registers->ICR),
-                                  USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
+            bit::flag::set(&(this->p_LPUART->p_registers->ICR), USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
 
             while (itr != itr_end &&
                    false == bit::is_any(this->p_LPUART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE) &&
                    utils::tick_counter<Milliseconds>::get() <= timeout_end_timestamp)
             {
-                if (true == bit_flag::is(this->p_LPUART->p_registers->ISR, USART_ISR_TXE))
+                if (true == bit::flag::is(this->p_LPUART->p_registers->ISR, USART_ISR_TXE))
                 {
                     this->p_LPUART->p_registers->TDR = *itr;
                     itr++;
@@ -194,20 +185,19 @@ public:
         std::uint32_t transmit_2(Milliseconds a_timeout, const t_First& a_first, const t_Tail&... a_tail)
         {
             const std::uint64_t timeout_start_timestamp = utils::tick_counter<Milliseconds>::get();
-            const std::uint64_t timeout_end_timestamp   = timeout_start_timestamp + a_timeout.get();
+            const std::uint64_t timeout_end_timestamp = timeout_start_timestamp + a_timeout.get();
 
             const auto itr_begin = std::begin(a_first);
-            const auto itr_end   = std::end(a_first);
-            auto itr             = itr_begin;
+            const auto itr_end = std::end(a_first);
+            auto itr = itr_begin;
 
-            bit_flag::set(&(this->p_LPUART->p_registers->ICR),
-                                  USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
+            bit::flag::set(&(this->p_LPUART->p_registers->ICR), USART_ICR_TCCF | USART_ICR_PECF | USART_ICR_NECF);
 
             while (itr != itr_end &&
                    false == bit::is_any(this->p_LPUART->p_registers->ISR, USART_ISR_PE | USART_ISR_NE) &&
                    utils::tick_counter<Milliseconds>::get() <= timeout_end_timestamp)
             {
-                if (true == bit_flag::is(this->p_LPUART->p_registers->ISR, USART_ISR_TXE))
+                if (true == bit::flag::is(this->p_LPUART->p_registers->ISR, USART_ISR_TXE))
                 {
                     this->p_LPUART->p_registers->TDR = *itr;
                     itr++;
@@ -234,8 +224,8 @@ public:
     {
     public:
         using Transmit_callback = USART::Interrupt::Transmit_callback;
-        using Receive_callback  = USART::Interrupt::Receive_callback;
-        using Event_callback    = USART::Interrupt::Event_callback;
+        using Receive_callback = USART::Interrupt::Receive_callback;
+        using Event_callback = USART::Interrupt::Event_callback;
 
         ~Interrupt()
         {
@@ -267,7 +257,7 @@ public:
         friend class LPUART;
     };
 
-    LPUART(LPUART&&)            = default;
+    LPUART(LPUART&&) = default;
     LPUART& operator=(LPUART&&) = default;
 
     LPUART()
@@ -275,7 +265,7 @@ public:
         , p_registers(nullptr)
         , irqn(static_cast<IRQn_Type>(std::numeric_limits<std::uint32_t>::max()))
     {
-        this->polling.p_LPUART   = nullptr;
+        this->polling.p_LPUART = nullptr;
         this->interrupt.p_LPUART = nullptr;
     }
     ~LPUART()
@@ -331,7 +321,7 @@ private:
         , p_registers(a_p_registers)
         , irqn(a_irqn)
     {
-        this->polling.p_LPUART   = this;
+        this->polling.p_LPUART = this;
         this->interrupt.p_LPUART = this;
     }
 
@@ -427,7 +417,7 @@ template<std::uint32_t id> class rcc<peripherals::LPUART, id> : private non_cons
 {
 public:
     template<typename Source_t> static void enable(bool a_enable_in_lp) = delete;
-    static void disable()                                               = delete;
+    static void disable() = delete;
 };
 template<> template<> void rcc<peripherals::LPUART, 1u>::enable<rcc<system::mcu<1u>>::pclk<1u>>(bool a_enable_in_lp);
 template<> template<> void rcc<peripherals::LPUART, 1u>::enable<rcc<system::mcu<1u>>>(bool a_enable_in_lp);
@@ -435,10 +425,10 @@ template<> template<> void rcc<peripherals::LPUART, 1u>::enable<sources::hsi16>(
 template<> template<> void rcc<peripherals::LPUART, 1u>::enable<sources::lse>(bool a_enable_in_lp);
 template<> void rcc<peripherals::LPUART, 1u>::disable();
 
-template<> inline void
-peripherals::GPIO::Alternate_function::enable<peripherals::LPUART, 1>(Limited<std::uint32_t, 0, 15> a_id,
-                                                                      const Enable_config& a_config,
-                                                                      Pin* a_p_pin)
+template<>
+inline void peripherals::GPIO::Alternate_function::enable<peripherals::LPUART, 1>(Limited<std::uint32_t, 0, 15> a_id,
+                                                                                  const Enable_config& a_config,
+                                                                                  Pin* a_p_pin)
 {
 #if defined(STM32WB35xx) || defined(STM32WB55xx)
     hkm_assert((0u == this->p_port->idx && (2u == a_id || 3u == a_id || 6u == a_id)) ||

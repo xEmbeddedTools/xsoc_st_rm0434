@@ -11,8 +11,8 @@
 #pragma GCC diagnostic pop
 
 // xmcu
-#include <xmcu/bit_flag.hpp>
 #include <xmcu/Duration.hpp>
+#include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
 
 namespace xmcu {
@@ -29,14 +29,14 @@ public:
         _200_kHz = RCC_CR_MSIRANGE_1,
         _400_kHz = RCC_CR_MSIRANGE_2,
         _800_kHz = RCC_CR_MSIRANGE_3,
-        _1_MHz   = RCC_CR_MSIRANGE_4,
-        _2_MHz   = RCC_CR_MSIRANGE_5,
-        _4_MHz   = RCC_CR_MSIRANGE_6,
-        _8_MHz   = RCC_CR_MSIRANGE_7,
-        _16_MHz  = RCC_CR_MSIRANGE_8,
-        _24_MHz  = RCC_CR_MSIRANGE_9,
-        _32_MHz  = RCC_CR_MSIRANGE_10,
-        _48_MHz  = RCC_CR_MSIRANGE_11,
+        _1_MHz = RCC_CR_MSIRANGE_4,
+        _2_MHz = RCC_CR_MSIRANGE_5,
+        _4_MHz = RCC_CR_MSIRANGE_6,
+        _8_MHz = RCC_CR_MSIRANGE_7,
+        _16_MHz = RCC_CR_MSIRANGE_8,
+        _24_MHz = RCC_CR_MSIRANGE_9,
+        _32_MHz = RCC_CR_MSIRANGE_10,
+        _48_MHz = RCC_CR_MSIRANGE_11,
     };
 
     static void enable(Frequency a_frequency);
@@ -49,7 +49,7 @@ public:
 
     static bool is_enabled()
     {
-        return bit_flag::is(RCC->CR, RCC_CR_MSIRDY);
+        return bit::flag::is(RCC->CR, RCC_CR_MSIRDY);
     }
 };
 } // namespace sources

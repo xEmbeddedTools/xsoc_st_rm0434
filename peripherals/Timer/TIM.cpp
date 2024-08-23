@@ -7,9 +7,9 @@
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/Timer/TIM.hpp>
 
 // xmcu
-#include <xmcu/bit_flag.hpp>
-#include <xmcu/soc/Scoped_guard.hpp>
+#include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/m4/nvic.hpp>
+#include <xmcu/soc/Scoped_guard.hpp>
 
 // Tim_counter & derived
 namespace xmcu::soc::m4::stm32wb::peripherals::timer {
@@ -17,7 +17,7 @@ using namespace xmcu;
 
 bool Polling::is_overload() const
 {
-    if (bit_flag::is(p_registers->SR, TIM_SR_UIF))
+    if (bit::flag::is(p_registers->SR, TIM_SR_UIF))
     {
         p_registers->SR = ~TIM_SR_UIF; // without or-assign (|=) - rc_w0
         return true;
@@ -41,14 +41,14 @@ Tim_counter::~Tim_counter()
 
 void Tim_counter::start(Mode a_mode) const
 {
-    bit_flag::set(&this->p_registers->CR1, TIM_CR1_CEN);
+    bit::flag::set(&this->p_registers->CR1, TIM_CR1_CEN);
     this->p_registers->EGR = TIM_EGR_UG; // update event - transfer to shadow register and reset
-    bit_flag::set(&this->p_registers->CR1, static_cast<std::uint32_t>(a_mode));
+    bit::flag::set(&this->p_registers->CR1, static_cast<std::uint32_t>(a_mode));
 }
 
 void Tim_counter::stop() const
 {
-    bit_flag::clear(&this->p_registers->CR1, TIM_CR1_OPM | TIM_CR1_CEN);
+    bit::flag::clear(&this->p_registers->CR1, TIM_CR1_OPM | TIM_CR1_CEN);
 }
 
 void Tim_counter::enable(Tmr_divider a_div, Count_Mode a_mode, std::uint16_t a_psc) const
@@ -75,23 +75,23 @@ void Tim_advanced::start(Mode a_mode, Counter_word_t a_arr) const
 {
     this->stop();
     this->p_registers->ARR = a_arr;
-    bit_flag::set(&this->p_registers->CR1, TIM_CR1_CEN);
+    bit::flag::set(&this->p_registers->CR1, TIM_CR1_CEN);
     // MOE (Main output enable) is set automatically when update (TIM_EGR_UG)
-    bit_flag::set(&this->p_registers->BDTR, TIM_BDTR_AOE);
+    bit::flag::set(&this->p_registers->BDTR, TIM_BDTR_AOE);
     // generate update event - transfer to shadow register and reset
     this->p_registers->EGR = TIM_EGR_UG;
     // one pulse mode will stop counter after EGR_UG, so is set after (EGR_UG)
-    bit_flag::set(&this->p_registers->CR1, static_cast<std::uint32_t>(a_mode));
+    bit::flag::set(&this->p_registers->CR1, static_cast<std::uint32_t>(a_mode));
 }
 
 void Tim_advanced::stop() const
 {
-    bit_flag::clear(&this->p_registers->BDTR, TIM_BDTR_MOE | TIM_BDTR_AOE);
+    bit::flag::clear(&this->p_registers->BDTR, TIM_BDTR_MOE | TIM_BDTR_AOE);
     Tim_counter::stop();
 }
 void Tim_advanced::enable(Tmr_divider a_div, Count_Mode a_mode, std::uint16_t a_psc) const
 {
-    bit_flag::set(&this->p_registers->BDTR, TIM_BDTR_OSSI | TIM_BDTR_OSSR);
+    bit::flag::set(&this->p_registers->BDTR, TIM_BDTR_OSSI | TIM_BDTR_OSSR);
     Tim_counter::enable(a_div, a_mode, a_psc);
 }
 } // namespace xmcu::soc::m4::stm32wb::peripherals::timer
@@ -106,10 +106,10 @@ void TIM_ADV::config_output_idle_state(GPIO::Level a_lvl)
     switch (a_lvl)
     {
         case GPIO::Level::low:
-            bit_flag::clear(&this->tick_counter.p_registers->CR2, all_bits);
+            bit::flag::clear(&this->tick_counter.p_registers->CR2, all_bits);
             break;
         case GPIO::Level::high:
-            bit_flag::set(&this->tick_counter.p_registers->CR2, all_bits);
+            bit::flag::set(&this->tick_counter.p_registers->CR2, all_bits);
             break;
     }
 }
@@ -184,7 +184,7 @@ constexpr const Interrupt_constants& get_irq(TIM_irq a_irq)
 
 std::uint32_t read_pending(TIM_TypeDef* a_p_dirver, std::uint32_t a_mask)
 {
-    std::uint32_t result = bit_flag::get(a_p_dirver->SR, a_mask);
+    std::uint32_t result = bit::flag::get(a_p_dirver->SR, a_mask);
     a_p_dirver->SR = a_p_dirver->SR & ~result; // w0 clear
     return result;
 }
@@ -324,14 +324,14 @@ void Interrupt::register_callback(const Callback& a_callback)
     this->callback = a_callback;
 
     const Interrupt_constants& irq = irq_constants[this->idx];
-    bit_flag::set(&irq.driver->DIER, irq.dier);
+    bit::flag::set(&irq.driver->DIER, irq.dier);
 }
 void Interrupt::unregister_callback()
 {
     Scoped_guard<nvic> guard;
 
     const Interrupt_constants& irq = irq_constants[this->idx];
-    bit_flag::clear(&irq.driver->DIER, irq.dier);
+    bit::flag::clear(&irq.driver->DIER, irq.dier);
 
     this->callback = { nullptr, nullptr };
 }

@@ -15,11 +15,9 @@
 
 // xmcu
 #include <xmcu/Limited.hpp>
-#include <xmcu/non_constructible.hpp>
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/bit.hpp>
-#include <xmcu/bit_flag.hpp>
-#include <xmcu/various.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/GPIO/gpio_ll.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
@@ -30,11 +28,12 @@
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/pll.hpp>
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
+#include <xmcu/various.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>
 
-// TODO: use with hkm_assert in gpio pin initialization to check if pin can actually be used
+// TODO: use with xmcu_assert in gpio pin initialization to check if pin can actually be used
 #define BV(x) (1 << (x))
 #if defined(STM32WB35CE)
 #define GPIOA_PIN_MASK                                                                                          \
@@ -42,6 +41,17 @@
      BV(13) | BV(14) | BV(15))
 #define GPIOB_PIN_MASK (BV(0) | BV(1) | BV(2) | BV(3) | BV(4) | BV(5) | BV(6) | BV(7) | BV(8) | BV(9))
 #define GPIOC_PIN_MASK (BV(14) | BV(15))
+#define GPIOE_PIN_MASK (BV(4))
+#define GPIOH_PIN_MASK (BV(3))
+#elif defined(STM32WB55RG)
+#define GPIOA_PIN_MASK                                                                                          \
+    (BV(0) | BV(1) | BV(2) | BV(3) | BV(4) | BV(5) | BV(6) | BV(7) | BV(8) | BV(9) | BV(10) | BV(11) | BV(12) | \
+     BV(13) | BV(14) | BV(15))
+#define GPIOB_PIN_MASK                                                                                          \
+    (BV(0) | BV(1) | BV(2) | BV(3) | BV(4) | BV(5) | BV(6) | BV(7) | BV(8) | BV(9) | BV(10) | BV(11) | BV(12) | \
+     BV(13) | BV(14) | BV(15))
+#define GPIOC_PIN_MASK (BV(1) | BV(2) | BV(3) | BV(4) | BV(5) | BV(6) | BV(10) | BV(11) | BV(12))
+#define GPIOD_PIN_MASK (BV(0) | BV(1))
 #define GPIOE_PIN_MASK (BV(4))
 #define GPIOH_PIN_MASK (BV(3))
 #else
@@ -59,29 +69,29 @@ class GPIO : private Non_copyable
 public:
     enum class Level : std::uint32_t
     {
-        low  = 0x0u,
+        low = 0x0u,
         high = 0x1u
     };
 
     enum class Type : std::uint32_t
     {
-        push_pull  = 0x0u,
+        push_pull = 0x0u,
         open_drain = 0x1u,
     };
 
     enum class Pull : std::uint32_t
     {
         none = 0x0u,
-        up   = 0x1u,
+        up = 0x1u,
         down = 0x2u,
     };
 
     enum class Speed : std::uint32_t
     {
-        low    = 0x0u,
+        low = 0x0u,
         medium = 0x1u,
-        high   = 0x2u,
-        ultra  = 0x3u,
+        high = 0x2u,
+        ultra = 0x3u,
     };
 
     class Out : private xmcu::Non_copyable
@@ -89,8 +99,8 @@ public:
     public:
         struct Enable_config
         {
-            Type type   = various::get_enum_incorrect_value<Type>();
-            Pull pull   = various::get_enum_incorrect_value<Pull>();
+            Type type = various::get_enum_incorrect_value<Type>();
+            Pull pull = various::get_enum_incorrect_value<Pull>();
             Speed speed = various::get_enum_incorrect_value<Speed>();
         };
 
@@ -131,9 +141,7 @@ public:
             friend Out;
         };
 
-        void enable(Limited<std::uint32_t, 0, 15> a_id,
-                    const Enable_config& a_enable_config,
-                    Pin* a_p_pin = nullptr);
+        void enable(Limited<std::uint32_t, 0, 15> a_id, const Enable_config& a_enable_config, Pin* a_p_pin = nullptr);
         void disable(Limited<std::uint32_t, 0, 15> a_id);
         void disable(Pin* p_pin);
 
@@ -244,8 +252,8 @@ public:
     public:
         struct Enable_config
         {
-            Type type   = various::get_enum_incorrect_value<Type>();
-            Pull pull   = various::get_enum_incorrect_value<Pull>();
+            Type type = various::get_enum_incorrect_value<Type>();
+            Pull pull = various::get_enum_incorrect_value<Pull>();
             Speed speed = various::get_enum_incorrect_value<Speed>();
         };
 
@@ -288,10 +296,8 @@ public:
             friend Alternate_function;
         };
 
-        template<typename Periph_t, std::uint32_t periph_id = std::numeric_limits<std::uint32_t>::max()>
-        void enable(Limited<std::uint32_t, 0, 15>,
-                    const Enable_config& a_enable_config,
-                    Pin* a_p_pin = nullptr) = delete;
+        template<typename Periph_t, std::uint32_t periph_id = std::numeric_limits<std::uint32_t>::max()> void
+        enable(Limited<std::uint32_t, 0, 15>, const Enable_config& a_enable_config, Pin* a_p_pin = nullptr) = delete;
         void disable(Limited<std::uint32_t, 0, 15> a_id);
         void disable(Pin* p_pin);
 
@@ -327,7 +333,7 @@ public:
 
         enum class Trigger_flag : std::uint32_t
         {
-            rising  = 0x1,
+            rising = 0x1,
             falling = 0x2,
         };
 
@@ -350,7 +356,7 @@ public:
             void* p_user_data = nullptr;
         };
 
-        Interrupt(Interrupt&&)            = default;
+        Interrupt(Interrupt&&) = default;
         Interrupt& operator=(Interrupt&&) = default;
 
         Interrupt()
@@ -427,10 +433,10 @@ public:
     {
         enum class Divider : std::uint32_t
         {
-            _1  = 0x0u,
-            _2  = RCC_CFGR_MCOPRE_0,
-            _4  = RCC_CFGR_MCOPRE_1,
-            _8  = RCC_CFGR_MCOPRE_0 | RCC_CFGR_MCOPRE_1,
+            _1 = 0x0u,
+            _2 = RCC_CFGR_MCOPRE_0,
+            _4 = RCC_CFGR_MCOPRE_1,
+            _8 = RCC_CFGR_MCOPRE_0 | RCC_CFGR_MCOPRE_1,
             _16 = RCC_CFGR_MCOPRE_2
         };
 
@@ -578,7 +584,7 @@ template<std::uint32_t id> class rcc<peripherals::GPIO, id> : private xmcu::non_
 {
 public:
     static void enable(bool a_enable_in_lp) = delete;
-    static void disable()                   = delete;
+    static void disable() = delete;
 };
 
 template<> void rcc<peripherals::GPIO, 1>::enable(bool a_enable_in_lp);
