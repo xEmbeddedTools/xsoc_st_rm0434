@@ -11,6 +11,8 @@
 // xmcu
 #include <xmcu/non_constructible.hpp>
 
+#define XMCU_SOC_STM32WB35CEU6A 1876651536769855465
+
 namespace xmcu {
 namespace soc {
 namespace m4 {
@@ -19,7 +21,7 @@ namespace rm0434 {
 namespace peripherals {
 namespace ll {
 
-#if XMCU_SOC_STM32_MODEL == STM32WB35CEU6A
+#if (XMCU_SOC_MODEL == XMCU_SOC_STM32WB35CEU6A)
 #define XMCU_GPIOA_PRESENT
 #define XMCU_GPIOB_PRESENT
 #define XMCU_GPIOC_PRESENT
@@ -63,8 +65,8 @@ public:
     };
     enum class C : std::uint8_t
     {
-        _14,
-        _15
+        _14_OSC32_IN,
+        _15_OSC32_OUT
     };
     enum class E : std::uint8_t
     {
@@ -72,7 +74,7 @@ public:
     };
     enum class H : std::uint8_t
     {
-        _3,
+        _3_BOOT0,
     };
 
 public:
