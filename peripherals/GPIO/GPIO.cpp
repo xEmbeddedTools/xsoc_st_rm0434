@@ -16,13 +16,13 @@
 #include <xmcu/assertion.hpp>
 
 namespace {
-using namespace xmcu::soc::m4::stm32wb::rm0434;
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
 
-peripherals::GPIO::Interrupt::Callback callbacks[7u];
+GPIO::Interrupt::Callback callbacks[7u];
 
-peripherals::ll::gpio::Port* cast_to_port(peripherals::GPIO* a_p_port)
+ll::gpio::Port* cast_to_port(GPIO* a_p_port)
 {
-    return static_cast<peripherals::ll::gpio::Port*>(*(a_p_port));
+    return static_cast<ll::gpio::Port*>(*(a_p_port));
 }
 
 } // namespace
