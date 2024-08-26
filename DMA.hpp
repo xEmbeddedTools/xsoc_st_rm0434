@@ -24,6 +24,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 template<typename Perihperal_t = void*> class DMA : private xmcu::Non_copyable
 {
 public:
@@ -114,6 +115,7 @@ public:
         bit::flag::clear(&(RCC->AHB1ENR), RCC_AHB1ENR_DMA2EN);
     }
 };
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

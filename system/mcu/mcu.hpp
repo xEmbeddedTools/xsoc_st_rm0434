@@ -28,6 +28,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace system {
 template<std::size_t id> class mcu : private non_constructible
 {
@@ -213,6 +214,7 @@ static inline bool operator==(const std::uint32_t& a_lhs, const mcu<1u>::Reset_s
 }
 
 } // namespace system
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -222,6 +224,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 template<> class rcc<system::mcu<1u>> : private non_constructible
 {
 public:
@@ -436,6 +439,7 @@ template<> void rcc<system::mcu<1u>>::set_wakeup_clock_source<sources::hsi16>();
 
 template<> void rcc<system::mcu<2u>>::set_wakeup_clock_source<sources::lse>();
 template<> void rcc<system::mcu<2u>>::set_wakeup_clock_source<sources::hse>();
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

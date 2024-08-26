@@ -19,8 +19,8 @@
 namespace {
 using namespace xmcu;
 using namespace xmcu::soc;
-using namespace xmcu::soc::m4::stm32wb;
-using namespace xmcu::soc::m4::stm32wb::peripherals;
+using namespace xmcu::soc::m4::stm32wb::rm0434;
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
 
 struct alarm_registers
 {
@@ -110,9 +110,9 @@ void RTC_Alarm_IRQHandler()
 }
 }
 
-namespace xmcu::soc::m4::stm32wb::peripherals {
+namespace xmcu::soc::m4::stm32wb::rm0434::peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::utils;
+using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
 
 void rtc::set_clock(Milliseconds a_world_millis)
 {
@@ -323,11 +323,11 @@ void rtc::write_bkp_register(std::size_t a_index, uint32_t a_value)
     }
 }
 
-} // namespace xmcu::soc::m4::stm32wb::peripherals
+} // namespace xmcu::soc::m4::stm32wb::rm0434::peripherals
 
 namespace xmcu::soc::m4::stm32wb {
-using namespace xmcu::soc::m4::stm32wb::sources;
-using namespace xmcu::soc::m4::stm32wb::peripherals;
+using namespace xmcu::soc::m4::stm32wb::rm0434::sources;
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
 
 template<> void rcc<rtc>::enable<lsi>(bool a_enable_in_lp)
 {

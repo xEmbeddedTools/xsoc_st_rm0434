@@ -21,9 +21,9 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::peripherals;
-using namespace xmcu::soc::m4::stm32wb::system;
-using namespace xmcu::soc::m4::stm32wb::utils;
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::stm32wb::rm0434::system;
+using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
 
 ADC* irq_context[] = { nullptr };
 
@@ -126,7 +126,7 @@ bool polling_read(ADC_TypeDef* a_p_registers,
 } // namespace
 
 extern "C" {
-using namespace xmcu::soc::m4::stm32wb::peripherals;
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
 
 void ADC1_IRQHandler()
 {
@@ -139,6 +139,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace peripherals {
 using namespace xmcu;
 using namespace utils;
@@ -489,6 +490,7 @@ void ADC::Interrupt::read_stop()
     this->p_ADC->callback = { nullptr, nullptr };
 }
 } // namespace peripherals
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -498,10 +500,11 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::peripherals;
-using namespace xmcu::soc::m4::stm32wb::sources;
-using namespace xmcu::soc::m4::stm32wb::system;
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::stm32wb::rm0434::sources;
+using namespace xmcu::soc::m4::stm32wb::rm0434::system;
 
 template<> void rcc<ADC>::async::enable<rcc<mcu<1u>>>(Prescaler a_prescaler, bool a_enable_in_lp)
 {
@@ -530,6 +533,7 @@ template<> void rcc<ADC>::sync::enable<rcc<mcu<1u>>::hclk<1u>>(Prescaler a_presc
     bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_ADCSEL_Msk);
     bit::flag::set(&(ADC1_COMMON->CCR), static_cast<std::uint32_t>(a_prescaler));
 }
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

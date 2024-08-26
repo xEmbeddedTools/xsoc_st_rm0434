@@ -21,7 +21,7 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::peripherals;
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
 
 void clear_FLASH_SR_errors()
 {
@@ -54,9 +54,10 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::system;
+using namespace xmcu::soc::m4::stm32wb::rm0434::system;
 using namespace utils;
 
 void internal_flash::unlocker::unlock()
@@ -567,6 +568,7 @@ internal_flash::polling::erase_bank(Bank_id a_id, Function_lock a_external_lock_
     return { get_status_flag_from_FLASH_SR(), 0u };
 }
 } // namespace peripherals
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

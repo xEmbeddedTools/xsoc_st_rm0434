@@ -27,6 +27,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace peripherals {
 class rng : private non_constructible
 {
@@ -95,6 +96,7 @@ constexpr rng::Event_flag operator|=(rng::Event_flag& a_f1, rng::Event_flag a_f2
     return a_f1;
 }
 } // namespace peripherals
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -103,6 +105,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 template<> class rcc<peripherals::rng> : private non_constructible
 {
 public:
@@ -113,6 +116,7 @@ public:
 template<> void rcc<peripherals::rng>::enable<rcc<system::mcu<1u>>::clk48>(bool a_enable_in_lp);
 template<> void rcc<peripherals::rng>::enable<sources::lsi>(bool a_enable_in_lp);
 template<> void rcc<peripherals::rng>::enable<sources::lse>(bool a_enable_in_lp);
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

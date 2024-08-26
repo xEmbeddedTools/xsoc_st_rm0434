@@ -29,6 +29,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 template<> class DMA<peripherals::USART> : private Non_copyable
 {
 public:
@@ -405,6 +406,7 @@ private:
 
     template<typename Periph_t, std::size_t id> friend class xmcu::soc::peripheral;
 };
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -412,37 +414,37 @@ private:
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m4::stm32wb::peripherals::USART, 1u, m4::stm32wb::DMA<>, 1u> : private non_constructible
+template<> class peripheral<m4::stm32wb::rm0434::peripherals::USART, 1u, m4::stm32wb::rm0434::DMA<>, 1u> : private non_constructible
 {
 public:
-    static m4::stm32wb::DMA<m4::stm32wb::peripherals::USART> create()
+    static m4::stm32wb::rm0434::DMA<m4::stm32wb::rm0434::peripherals::USART> create()
     {
-        return m4::stm32wb::DMA<m4::stm32wb::peripherals::USART>(0x0u, DMA1, USART1);
+        return m4::stm32wb::rm0434::DMA<m4::stm32wb::rm0434::peripherals::USART>(0x0u, DMA1, USART1);
     }
 };
-template<> class peripheral<m4::stm32wb::peripherals::USART, 1u, m4::stm32wb::DMA<>, 2u> : private non_constructible
+template<> class peripheral<m4::stm32wb::rm0434::peripherals::USART, 1u, m4::stm32wb::rm0434::DMA<>, 2u> : private non_constructible
 {
 public:
-    static m4::stm32wb::DMA<m4::stm32wb::peripherals::USART> create()
+    static m4::stm32wb::rm0434::DMA<m4::stm32wb::rm0434::peripherals::USART> create()
     {
-        return m4::stm32wb::DMA<m4::stm32wb::peripherals::USART>(0x1u, DMA2, USART1);
+        return m4::stm32wb::rm0434::DMA<m4::stm32wb::rm0434::peripherals::USART>(0x1u, DMA2, USART1);
     }
 };
 
-template<> class peripheral<m4::stm32wb::peripherals::LPUART, 1u, m4::stm32wb::DMA<>, 1u> : private non_constructible
+template<> class peripheral<m4::stm32wb::rm0434::peripherals::LPUART, 1u, m4::stm32wb::rm0434::DMA<>, 1u> : private non_constructible
 {
 public:
-    static m4::stm32wb::DMA<m4::stm32wb::peripherals::LPUART> create()
+    static m4::stm32wb::rm0434::DMA<m4::stm32wb::rm0434::peripherals::LPUART> create()
     {
-        return m4::stm32wb::DMA<m4::stm32wb::peripherals::LPUART>(0x0u, DMA1, LPUART1);
+        return m4::stm32wb::rm0434::DMA<m4::stm32wb::rm0434::peripherals::LPUART>(0x0u, DMA1, LPUART1);
     }
 };
-template<> class peripheral<m4::stm32wb::peripherals::LPUART, 1u, m4::stm32wb::DMA<>, 2u> : private non_constructible
+template<> class peripheral<m4::stm32wb::rm0434::peripherals::LPUART, 1u, m4::stm32wb::rm0434::DMA<>, 2u> : private non_constructible
 {
 public:
-    static m4::stm32wb::DMA<m4::stm32wb::peripherals::LPUART> create()
+    static m4::stm32wb::rm0434::DMA<m4::stm32wb::rm0434::peripherals::LPUART> create()
     {
-        return m4::stm32wb::DMA<m4::stm32wb::peripherals::LPUART>(0x1u, DMA2, LPUART1);
+        return m4::stm32wb::rm0434::DMA<m4::stm32wb::rm0434::peripherals::LPUART>(0x1u, DMA2, LPUART1);
     }
 };
 } // namespace soc

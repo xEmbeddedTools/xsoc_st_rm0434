@@ -24,6 +24,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace sources {
 class pll : private non_constructible
 {
@@ -299,6 +300,7 @@ template<> bool pll::enable<hse, hse::Prescaler::_2>(M a_M,
                                                      const p::Enable_config& a_P,
                                                      Milliseconds a_timeout);
 } // namespace sources
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

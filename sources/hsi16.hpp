@@ -15,6 +15,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace sources {
 class hsi16 : private non_constructible
 {
@@ -41,6 +42,7 @@ public:
     }
 };
 } // namespace sources
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

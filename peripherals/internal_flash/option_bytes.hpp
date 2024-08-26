@@ -15,6 +15,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace peripherals {
 class option_bytes : private non_constructible
 {
@@ -50,6 +51,7 @@ public:
     };
 };
 } // namespace peripherals
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -57,24 +59,24 @@ public:
 
 namespace xmcu {
 namespace soc {
-template<> class Scoped_guard<m4::stm32wb::peripherals::option_bytes::unlocker> : private Non_copyable
+template<> class Scoped_guard<m4::stm32wb::rm0434::peripherals::option_bytes::unlocker> : private Non_copyable
 {
 public:
     Scoped_guard()
         : unlocked(false)
     {
-        m4::stm32wb::peripherals::option_bytes::unlocker::unlock();
+        m4::stm32wb::rm0434::peripherals::option_bytes::unlocker::unlock();
         this->unlocked = true;
     }
 
     Scoped_guard(Milliseconds a_timeout)
-        : unlocked(m4::stm32wb::peripherals::option_bytes::unlocker::unlock(a_timeout))
+        : unlocked(m4::stm32wb::rm0434::peripherals::option_bytes::unlocker::unlock(a_timeout))
     {
     }
 
     ~Scoped_guard()
     {
-        m4::stm32wb::peripherals::option_bytes::unlocker::lock();
+        m4::stm32wb::rm0434::peripherals::option_bytes::unlocker::lock();
     }
 
     bool is_unlocked() const

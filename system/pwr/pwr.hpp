@@ -26,6 +26,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace system {
 template<typename MCU_t> class pwr : private xmcu::non_constructible
 {
@@ -92,6 +93,7 @@ void pwr<mcu<1u>>::stop_mode::enter<sources::hsi16>(Type a_type,
                                                     Sleeponexit a_sleeponexit,
                                                     peripherals::internal_flash::Latency a_desired_flash_latency);
 } // namespace system
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

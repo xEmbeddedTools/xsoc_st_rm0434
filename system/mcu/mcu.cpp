@@ -22,10 +22,11 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::sources;
-using namespace xmcu::soc::m4::stm32wb::system;
-using namespace xmcu::soc::m4::stm32wb::utils;
+using namespace xmcu::soc::m4::stm32wb::rm0434::sources;
+using namespace xmcu::soc::m4::stm32wb::rm0434::system;
+using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
 
 template<> void rcc<mcu<1u>>::clk48::set<hsi48>()
 {
@@ -493,6 +494,7 @@ const char* to_string(mcu<1u>::Reset_source a_source)
     }
 }
 } // namespace system
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

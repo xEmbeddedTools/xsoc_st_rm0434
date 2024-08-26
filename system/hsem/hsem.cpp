@@ -21,9 +21,10 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace system {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::utils;
+using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
 
 void hsem::_1_step::lock(Limited<std::uint8_t, 0, 31> a_semaphore_id)
 {
@@ -77,6 +78,7 @@ void hsem::_2_step::unlock(Limited<std::uint8_t, 0, 31> a_semaphore_id, std::uin
     HSEM->R[a_semaphore_id] = (a_process_id | HSEM_CR_COREID_CURRENT);
 }
 } // namespace system
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

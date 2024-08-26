@@ -15,10 +15,11 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace utils {
 // using namespace common;
-using namespace xmcu::soc::m4::stm32wb::sources;
-using namespace xmcu::soc::m4::stm32wb::system;
+using namespace xmcu::soc::m4::stm32wb::rm0434::sources;
+using namespace xmcu::soc::m4::stm32wb::rm0434::system;
 
 tick_counter<Milliseconds>::Callback tick_counter<Milliseconds>::callback;
 std::uint16_t auto_reload = 0x0u;
@@ -75,6 +76,7 @@ template<> void tick_counter<Milliseconds>::stop<Systick>()
     reinterpret_cast<Systick*>(p_timer)->stop();
 }
 } // namespace utils
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

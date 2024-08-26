@@ -11,7 +11,7 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb;
+using namespace xmcu::soc::m4::stm32wb::rm0434;
 
 DMA<>::Callback* p_callbacks[2][7] = { nullptr };
 
@@ -204,7 +204,8 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
-using namespace xmcu::soc::m4::stm32wb::peripherals;
+namespace rm0434 {
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
 
 void DMA<USART>::Receiver::Interrupt::set_context()
 {
@@ -239,6 +240,7 @@ void DMA<LPUART>::Transmitter::Interrupt::clear_context()
 {
     p_callbacks[this->p_DMA->idx][static_cast<std::uint32_t>(this->p_DMA->tx_channel)] = nullptr;
 }
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

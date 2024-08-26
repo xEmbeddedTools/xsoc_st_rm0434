@@ -23,6 +23,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace utils {
 template<typename Period_t> class tick_counter : private non_constructible
 {
@@ -66,6 +67,7 @@ template<> void tick_counter<Milliseconds>::disable<soc::Systick>();
 template<> void tick_counter<Milliseconds>::start<Systick>(bool a_start_handler_immediately);
 template<> void tick_counter<Milliseconds>::stop<Systick>();
 } // namespace utils
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

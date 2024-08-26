@@ -25,9 +25,10 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace utils {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::system;
+using namespace xmcu::soc::m4::stm32wb::rm0434::system;
 
 void delay::wait(Milliseconds a_time)
 {
@@ -55,6 +56,7 @@ void delay::wait(Microseconds a_time)
         ;
 }
 } // namespace utils
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
