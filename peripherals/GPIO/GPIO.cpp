@@ -16,13 +16,13 @@
 #include <xmcu/assertion.hpp>
 
 namespace {
-using namespace xmcu::soc::m4::stm32wb;
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
 
-peripherals::GPIO::Interrupt::Callback callbacks[7u];
+GPIO::Interrupt::Callback callbacks[7u];
 
-rm0434::peripherals::ll::gpio::Port* cast_to_port(peripherals::GPIO* a_p_port)
+ll::gpio::Port* cast_to_port(GPIO* a_p_port)
 {
-    return static_cast<rm0434::peripherals::ll::gpio::Port*>(*(a_p_port));
+    return static_cast<ll::gpio::Port*>(*(a_p_port));
 }
 
 } // namespace
@@ -108,11 +108,12 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::peripherals;
-using namespace xmcu::soc::m4::stm32wb::sources;
-using namespace xmcu::soc::m4::stm32wb::system;
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::stm32wb::rm0434::sources;
+using namespace xmcu::soc::m4::stm32wb::rm0434::system;
 
 void GPIO::In::Pin::set_pull(Pull a_pull)
 {
@@ -646,6 +647,7 @@ void GPIO::lsco::disable()
     bit::flag::clear(&(RCC->BDCR), RCC_BDCR_LSCOEN);
 }
 } // namespace peripherals
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -655,8 +657,9 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
-using namespace xmcu::soc::m4::stm32wb::peripherals;
-using namespace xmcu::soc::m4::stm32wb::system;
+namespace rm0434 {
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::stm32wb::rm0434::system;
 
 #if defined(GPIOA_PIN_MASK)
 template<> void rcc<GPIO, 1>::enable(bool a_enable_in_lp)
@@ -794,6 +797,7 @@ template<> void GPIO::Alternate_function::enable<GPIO::lsco>(Limited<std::uint32
 
     this->enable(a_id, a_config, 0x0u, a_p_pin);
 }
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

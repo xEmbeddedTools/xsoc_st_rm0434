@@ -14,8 +14,8 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb;
-using namespace xmcu::soc::m4::stm32wb::utils;
+using namespace xmcu::soc::m4::stm32wb::rm0434;
+using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
 
 void transmit(USART_TypeDef* a_p_USART_registers,
               DMA_Channel_TypeDef* a_p_channel_registers,
@@ -97,7 +97,8 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
-using namespace xmcu::soc::m4::stm32wb::peripherals;
+namespace rm0434 {
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
 
 void DMA<USART>::Receiver::enable(DMA<>::Channel a_channel)
 {
@@ -779,6 +780,7 @@ void DMA<LPUART>::Transmitter::Interrupt::stop()
 {
     bit::flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_EN);
 }
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

@@ -12,8 +12,8 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::peripherals;
-using namespace xmcu::soc::m4::stm32wb::utils;
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
 
 void enable(SPI_TypeDef* a_p_registers)
 {
@@ -91,6 +91,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace peripherals {
 
 void SPI::enable()
@@ -114,6 +115,7 @@ SPI::Polling::Result SPI::Polling::receive(Not_null<std::uint8_t*> a_p_data, std
 }
 
 } // namespace peripherals
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -123,8 +125,9 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::sources;
+using namespace xmcu::soc::m4::stm32wb::rm0434::sources;
 
 template<> template<> void rcc<peripherals::SPI, 1u>::enable<hsi16>(bool a_enable_in_lp)
 {
@@ -145,6 +148,7 @@ template<> void rcc<peripherals::SPI, 1>::disable()
     bit::flag::clear(&(RCC->APB2ENR), RCC_APB2ENR_SPI1EN);
 }
 
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

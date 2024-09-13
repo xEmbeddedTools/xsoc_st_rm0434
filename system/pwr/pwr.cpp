@@ -20,12 +20,13 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace system {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::sources;
-using namespace xmcu::soc::m4::stm32wb::system;
-using namespace xmcu::soc::m4::stm32wb::utils;
-using namespace xmcu::soc::m4::stm32wb::peripherals;
+using namespace xmcu::soc::m4::stm32wb::rm0434::sources;
+using namespace xmcu::soc::m4::stm32wb::rm0434::system;
+using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
 
 void pwr<mcu<1u>>::set_voltage_scaling(Voltage_scaling a_scaling)
 {
@@ -104,6 +105,7 @@ template<> void pwr<mcu<1u>>::stop_mode::enter<hsi16>(Type a_type,
     }
 }
 } // namespace system
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

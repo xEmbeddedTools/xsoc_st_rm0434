@@ -19,6 +19,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace utils {
 class delay : private non_constructible
 {
@@ -28,6 +29,7 @@ public:
     static void wait(Microseconds a_time);
 };
 } // namespace utils
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

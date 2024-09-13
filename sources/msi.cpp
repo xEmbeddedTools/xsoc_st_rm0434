@@ -21,9 +21,10 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace sources {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::utils;
+using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
 
 void msi::enable(Frequency a_frequency)
 {
@@ -89,6 +90,7 @@ std::uint32_t msi::get_frequency_Hz()
     return 0u;
 }
 } // namespace sources
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

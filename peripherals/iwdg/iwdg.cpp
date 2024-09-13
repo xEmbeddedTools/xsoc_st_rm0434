@@ -10,8 +10,8 @@
 #include <stm32wbxx.h>
 #pragma GCC diagnostic pop
 
-namespace xmcu::soc::m4::stm32wb::peripherals {
-using namespace xmcu::soc::m4::stm32wb::utils;
+namespace xmcu::soc::m4::stm32wb::rm0434::peripherals {
+using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
 
 void iwdg::enable()
 {
@@ -35,4 +35,4 @@ bool iwdg::is_active()
     return iwdg::is_wdg_active;
 }
 
-} // namespace xmcu::soc::m4::stm32wb::peripherals
+} // namespace xmcu::soc::m4::stm32wb::rm0434::peripherals

@@ -17,9 +17,10 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace sources {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::utils;
+using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
 
 void lsi::enable(Id a_id)
 {
@@ -85,6 +86,7 @@ bool lsi::is_selected(Id a_id)
     return false;
 }
 } // namespace sources
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

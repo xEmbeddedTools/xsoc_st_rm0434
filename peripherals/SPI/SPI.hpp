@@ -27,6 +27,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace peripherals {
 
 class SPI : private xmcu::Non_copyable
@@ -101,6 +102,7 @@ private:
 };
 
 } // namespace peripherals
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -110,6 +112,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 
 template<std::uint32_t id> class rcc<peripherals::SPI, id> : private xmcu::non_constructible
 {
@@ -147,6 +150,7 @@ peripherals::GPIO::Alternate_function::enable<peripherals::SPI, 1>(Limited<std::
     this->enable(a_id, a_config, alternate_function_index, a_p_pin);
 }
 
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -154,12 +158,12 @@ peripherals::GPIO::Alternate_function::enable<peripherals::SPI, 1>(Limited<std::
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m4::stm32wb::peripherals::SPI, 1u> : private xmcu::non_constructible
+template<> class peripheral<m4::stm32wb::rm0434::peripherals::SPI, 1u> : private xmcu::non_constructible
 {
 public:
-    static m4::stm32wb::peripherals::SPI create()
+    static m4::stm32wb::rm0434::peripherals::SPI create()
     {
-        return m4::stm32wb::peripherals::SPI(0u, SPI1, IRQn_Type::SPI1_IRQn);
+        return m4::stm32wb::rm0434::peripherals::SPI(0u, SPI1, IRQn_Type::SPI1_IRQn);
     }
 };
 } // namespace soc

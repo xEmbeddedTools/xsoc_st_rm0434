@@ -19,7 +19,7 @@
 #include <xmcu/assertion.hpp>
 
 namespace {
-using namespace xmcu::soc::m4::stm32wb::peripherals;
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
 
 LPTIM* LPTIM_irq_context[2] = { nullptr, nullptr };
 } // namespace
@@ -43,9 +43,10 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::utils;
+using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
 using namespace utils;
 
 void LPTIM_interrupt_handler(LPTIM* a_p_this)
@@ -163,6 +164,7 @@ void LPTIM::Tick_counter::Interrupt::unregister_callback()
     this->p_LPTIM->tick_counter_callback = { nullptr, nullptr };
 }
 } // namespace peripherals
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -172,9 +174,10 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
-using namespace xmcu::soc::m4::stm32wb::peripherals;
-using namespace xmcu::soc::m4::stm32wb::sources;
-using namespace xmcu::soc::m4::stm32wb::system;
+namespace rm0434 {
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::stm32wb::rm0434::sources;
+using namespace xmcu::soc::m4::stm32wb::rm0434::system;
 
 template<> template<> void rcc<LPTIM, 1>::enable<rcc<mcu<1u>>::pclk<1u>>(bool a_enable_in_lp)
 {
@@ -289,6 +292,7 @@ template<> template<> void rcc<peripherals::LPTIM, 2>::enable<lse>(bool a_enable
         bit::flag::clear(&(RCC->APB1SMENR2), RCC_APB1SMENR2_LPTIM2SMEN);
     }
 }
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

@@ -14,7 +14,7 @@
 #include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lsi.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
-namespace xmcu::soc::m4::stm32wb::peripherals {
+namespace xmcu::soc::m4::stm32wb::rm0434::peripherals {
 
 class backup_domain : non_constructible
 {
@@ -90,9 +90,9 @@ constexpr rtc::Alarm_mask operator|(rtc::Alarm_mask a_f1, rtc::Alarm_mask a_f2)
     return static_cast<rtc::Alarm_mask>(static_cast<std::uint32_t>(a_f1) | static_cast<std::uint32_t>(a_f2));
 }
 
-} // namespace xmcu::soc::m4::stm32wb::peripherals
+} // namespace xmcu::soc::m4::stm32wb::rm0434::peripherals
 
-namespace xmcu::soc::m4::stm32wb {
+namespace xmcu::soc::m4::stm32wb::rm0434 {
 
 template<> class rcc<peripherals::rtc> : private non_constructible
 {
@@ -108,11 +108,11 @@ template<> void rcc<peripherals::rtc>::enable<sources::lsi>(bool a_enable_in_lp)
 template<> void rcc<peripherals::rtc>::enable<sources::lse>(bool a_enable_in_lp);
 template<> void rcc<peripherals::rtc>::enable<sources::hse>(bool a_enable_in_lp);
 
-} // namespace xmcu::soc::m4::stm32wb
+} // namespace xmcu::soc::m4::stm32wb::rm0434
 
 namespace xmcu {
 namespace soc {
-template<> class Scoped_guard<m4::stm32wb::peripherals::backup_domain> : public Non_copyable
+template<> class Scoped_guard<m4::stm32wb::rm0434::peripherals::backup_domain> : public Non_copyable
 {
 public:
     Scoped_guard()
@@ -128,7 +128,7 @@ public:
     }
 };
 
-template<> class Scoped_guard<m4::stm32wb::peripherals::rtc> : private Non_copyable
+template<> class Scoped_guard<m4::stm32wb::rm0434::peripherals::rtc> : private Non_copyable
 {
 public:
     Scoped_guard()
@@ -145,7 +145,7 @@ public:
     }
 
 private:
-    Scoped_guard<m4::stm32wb::peripherals::backup_domain> bd_guard; // Must be unlocked prior to unlocking RTC
+    Scoped_guard<m4::stm32wb::rm0434::peripherals::backup_domain> bd_guard; // Must be unlocked prior to unlocking RTC
 };
 
 } // namespace soc

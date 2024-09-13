@@ -21,8 +21,8 @@
 namespace {
 using namespace xmcu;
 using namespace xmcu::soc::m4;
-using namespace xmcu::soc::m4::stm32wb::peripherals;
-using namespace xmcu::soc::m4::stm32wb::utils;
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
 
 constexpr std::uint32_t clock_prescaler_lut[] = { 1u, 2u, 4u, 6u, 8u, 10u, 12u, 16u, 32u, 64u, 128u, 256u };
 
@@ -645,6 +645,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace peripherals {
 using namespace xmcu;
 using namespace utils;
@@ -1164,6 +1165,7 @@ void LPUART::Interrupt::event_listening_stop()
                                        .p_user_data = nullptr };
 }
 } // namespace peripherals
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -1173,9 +1175,10 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
-using namespace xmcu::soc::m4::stm32wb::peripherals;
-using namespace xmcu::soc::m4::stm32wb::sources;
-using namespace xmcu::soc::m4::stm32wb::system;
+namespace rm0434 {
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::stm32wb::rm0434::sources;
+using namespace xmcu::soc::m4::stm32wb::rm0434::system;
 
 template<> template<> void rcc<peripherals::USART, 1u>::enable<rcc<mcu<1u>>::pclk<2u>>(bool a_enable_in_lp)
 {
@@ -1302,6 +1305,7 @@ template<> void rcc<peripherals::LPUART, 1>::disable()
     bit::flag::clear(&(RCC->APB1ENR2), RCC_APB1ENR2_LPUART1EN);
     bit::flag::clear(&(RCC->APB1SMENR2), RCC_APB1SMENR2_LPUART1SMEN);
 }
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

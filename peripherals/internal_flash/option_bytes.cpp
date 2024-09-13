@@ -24,10 +24,11 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::utils;
-using namespace xmcu::soc::m4::stm32wb::system;
+using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
+using namespace xmcu::soc::m4::stm32wb::rm0434::system;
 
 void option_bytes::unlocker::unlock()
 {
@@ -126,6 +127,7 @@ option_bytes::BOR::Level option_bytes::BOR::get()
     return static_cast<Level>(bit::flag::get(FLASH->OPTR, FLASH_OPTR_BOR_LEV));
 }
 } // namespace peripherals
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

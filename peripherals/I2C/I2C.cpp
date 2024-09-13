@@ -10,7 +10,7 @@
 #include <xmcu/Frequency.hpp>
 #include <xmcu/bit.hpp>
 
-namespace xmcu::soc::m4::stm32wb {
+namespace xmcu::soc::m4::stm32wb::rm0434 {
 using namespace xmcu;
 
 enum class Clk_Sel
@@ -120,9 +120,9 @@ template<> std::uint32_t rcc<peripherals::I2C, 3u>::get_frequency_Hz()
     return get_freq(static_cast<Clk_Sel>(reg_flags));
 }
 
-} // namespace xmcu::soc::m4::stm32wb
+} // namespace xmcu::soc::m4::stm32wb::rm0434
 
-namespace xmcu::soc::m4::stm32wb::peripherals {
+namespace xmcu::soc::m4::stm32wb::rm0434::peripherals {
 class Transfer_config
 {
 public:
@@ -325,4 +325,4 @@ I2C::Polling::receive(Address a_adr, Not_null<void*> a_p_data, std::size_t a_siz
     return Transfer_result::nack;
 }
 
-} // namespace xmcu::soc::m4::stm32wb::peripherals
+} // namespace xmcu::soc::m4::stm32wb::rm0434::peripherals

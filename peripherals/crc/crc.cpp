@@ -18,7 +18,7 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::peripherals;
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
 
 void crc_start(std::uint32_t a_init_value,
                std::uint32_t a_polynomial_length,
@@ -87,6 +87,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace peripherals {
 
 void crc<7u>::start(crc<>::Input_data_format a_input_data_format,
@@ -178,6 +179,7 @@ std::uint32_t crc<32u>::get()
     return CRC->DR;
 }
 } // namespace peripherals
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -187,8 +189,9 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::peripherals;
+using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
 
 void rcc<crc<>>::enable(bool a_enable_in_lp)
 {
@@ -207,6 +210,7 @@ void rcc<crc<>>::disable()
 {
     bit::flag::clear(&(RCC->AHB1ENR), RCC_AHB1ENR_CRCEN);
 }
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

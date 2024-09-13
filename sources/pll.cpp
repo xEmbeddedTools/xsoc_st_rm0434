@@ -17,8 +17,8 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::sources;
-using namespace xmcu::soc::m4::stm32wb::utils;
+using namespace xmcu::soc::m4::stm32wb::rm0434::sources;
+using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
 
 void enable_PLL(std::uint32_t a_source,
                 pll::M a_M,
@@ -114,6 +114,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace sources {
 using namespace xmcu;
 
@@ -239,6 +240,7 @@ void pll::sai1::disable()
     bit::flag::clear(&(RCC->CR), RCC_CR_PLLSAI1ON);
 }
 } // namespace sources
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

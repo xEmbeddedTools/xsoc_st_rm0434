@@ -36,6 +36,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace peripherals {
 class ADC : private Non_copyable
 {
@@ -275,6 +276,7 @@ template<> void ADC::Interrupt::read_start<ADC::Mode::continuous>(const Callback
 template<>
 void ADC::Interrupt::read_start<ADC::Mode::discontinuous>(const Callback& a_callback, std::size_t a_group_size);
 } // namespace peripherals
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -284,6 +286,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 template<> class rcc<peripherals::ADC> : private non_constructible
 {
 public:
@@ -338,6 +341,7 @@ template<> void rcc<peripherals::ADC>::async::enable<sources::pll::sai1::r>(Pres
 template<> void rcc<peripherals::ADC>::async::enable<sources::pll::p>(Prescaler a_prescaler, bool a_enable_in_lp);
 template<>
 void rcc<peripherals::ADC>::sync::enable<rcc<system::mcu<1u>>::hclk<1u>>(Prescaler a_prescaler, bool a_enable_in_lp);
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -345,12 +349,12 @@ void rcc<peripherals::ADC>::sync::enable<rcc<system::mcu<1u>>::hclk<1u>>(Prescal
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m4::stm32wb::peripherals::ADC, 1u> : private non_constructible
+template<> class peripheral<m4::stm32wb::rm0434::peripherals::ADC, 1u> : private non_constructible
 {
 public:
-    static m4::stm32wb::peripherals::ADC create()
+    static m4::stm32wb::rm0434::peripherals::ADC create()
     {
-        return m4::stm32wb::peripherals::ADC(0U, ADC1, IRQn_Type::ADC1_IRQn);
+        return m4::stm32wb::rm0434::peripherals::ADC(0U, ADC1, IRQn_Type::ADC1_IRQn);
     }
 };
 } // namespace soc

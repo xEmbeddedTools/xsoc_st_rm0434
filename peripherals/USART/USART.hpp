@@ -34,6 +34,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace peripherals {
 class USART : private Non_copyable
 {
@@ -514,6 +515,7 @@ constexpr USART::Event_flag operator|=(USART::Event_flag& a_f1, USART::Event_fla
     return a_f1;
 }
 } // namespace peripherals
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -523,6 +525,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 template<std::uint32_t id> class rcc<peripherals::USART, id> : private non_constructible
 {
 public:
@@ -547,6 +550,7 @@ inline void peripherals::GPIO::Alternate_function::enable<peripherals::USART, 1>
 
     this->enable(a_id, a_config, 0x7u, a_p_pin);
 }
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -554,12 +558,12 @@ inline void peripherals::GPIO::Alternate_function::enable<peripherals::USART, 1>
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m4::stm32wb::peripherals::USART, 1u> : private xmcu::non_constructible
+template<> class peripheral<m4::stm32wb::rm0434::peripherals::USART, 1u> : private xmcu::non_constructible
 {
 public:
-    static m4::stm32wb::peripherals::USART create()
+    static m4::stm32wb::rm0434::peripherals::USART create()
     {
-        return m4::stm32wb::peripherals::USART(0u, USART1, IRQn_Type::USART1_IRQn);
+        return m4::stm32wb::rm0434::peripherals::USART(0u, USART1, IRQn_Type::USART1_IRQn);
     }
 };
 } // namespace soc

@@ -17,9 +17,10 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace sources {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::utils;
+using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
 
 void hsi16::enable()
 {
@@ -48,6 +49,7 @@ bool hsi16::disable(Milliseconds a_timeout)
         RCC->CR, RCC_CR_HSIRDY, a_timeout.get() - (tick_counter<Milliseconds>::get() - start));
 }
 } // namespace sources
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc

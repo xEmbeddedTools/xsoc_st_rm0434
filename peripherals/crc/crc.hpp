@@ -19,6 +19,7 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 namespace peripherals {
 template<std::size_t length_t = 0x0u> class crc : private xmcu::non_constructible
 {
@@ -139,6 +140,7 @@ constexpr crc<>::Polynomial_flag operator|(crc<>::Polynomial_flag a_f1, std::uin
         (static_cast<std::uint64_t>(a_f1) | (static_cast<std::uint64_t>(a_f2) << 32u)));
 }
 } // namespace peripherals
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
@@ -148,12 +150,14 @@ namespace xmcu {
 namespace soc {
 namespace m4 {
 namespace stm32wb {
+namespace rm0434 {
 template<> class rcc<peripherals::crc<>> : private xmcu::non_constructible
 {
 public:
     static void enable(bool a_enable_in_lp);
     static void disable();
 };
+} // namespace rm0434
 } // namespace stm32wb
 } // namespace m4
 } // namespace soc
