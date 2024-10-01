@@ -70,29 +70,26 @@ class GPIO : private Non_copyable
 public:
     enum class Level : std::uint32_t
     {
-        low = 0x0u,
-        high = 0x1u
+        low = static_cast<std::uint32_t>(ll::gpio::ODR::low),
+        high = static_cast<std::uint32_t>(ll::gpio::ODR::high)
     };
-
     enum class Type : std::uint32_t
     {
-        push_pull = 0x0u,
-        open_drain = 0x1u,
+        push_pull = static_cast<std::uint32_t>(ll::gpio::OTYPER::push_pull),
+        open_drain = static_cast<std::uint32_t>(ll::gpio::OTYPER::open_drain),
     };
-
     enum class Pull : std::uint32_t
     {
-        none = 0x0u,
-        up = 0x1u,
-        down = 0x2u,
+        none = static_cast<std::uint32_t>(ll::gpio::PUPDR::none),
+        up = static_cast<std::uint32_t>(ll::gpio::PUPDR::pull_up),
+        down = static_cast<std::uint32_t>(ll::gpio::PUPDR::pull_down),
     };
-
     enum class Speed : std::uint32_t
     {
-        low = 0x0u,
-        medium = 0x1u,
-        high = 0x2u,
-        ultra = 0x3u,
+        low = static_cast<std::uint32_t>(ll::gpio::OSPEEDR::low),
+        medium = static_cast<std::uint32_t>(ll::gpio::OSPEEDR::medium),
+        high = static_cast<std::uint32_t>(ll::gpio::OSPEEDR::high),
+        ultra = static_cast<std::uint32_t>(ll::gpio::OSPEEDR::ultra),
     };
 
     class Out : private xmcu::Non_copyable
@@ -100,9 +97,9 @@ public:
     public:
         struct Enable_config
         {
-            Type type = various::get_enum_incorrect_value<Type>();
-            Pull pull = various::get_enum_incorrect_value<Pull>();
-            Speed speed = various::get_enum_incorrect_value<Speed>();
+            Type type;
+            Pull pull;
+            Speed speed;
         };
 
         class Pin : private xmcu::Non_copyable
@@ -130,14 +127,14 @@ public:
             {
                 return this->p_port;
             }
-            std::uint8_t get_id() const
+            std::uint32_t get_id() const
             {
                 return this->id;
             }
 
         private:
             GPIO* p_port;
-            std::uint8_t id;
+            std::uint32_t id;
 
             friend Out;
         };
@@ -176,14 +173,14 @@ public:
             {
                 return this->p_port;
             }
-            std::uint8_t get_id() const
+            std::uint32_t get_id() const
             {
                 return this->id;
             }
 
         private:
             GPIO* p_port;
-            std::uint8_t id;
+            std::uint32_t id;
 
             friend In;
         };
@@ -222,14 +219,14 @@ public:
             {
                 return this->p_port;
             }
-            std::uint8_t get_id() const
+            std::uint32_t get_id() const
             {
                 return this->id;
             }
 
         private:
             GPIO* p_port;
-            std::uint8_t id;
+            std::uint32_t id;
 
             friend Analog;
         };
@@ -496,7 +493,7 @@ public:
         return std::numeric_limits<decltype(this->idx)>::max() != this->idx && nullptr != this->p_registers;
     }
 
-    explicit operator xmcu::soc::m4::stm32wb::rm0434::peripherals::ll::gpio::Port*()
+    explicit operator xmcu::soc::m4::stm32wb::rm0434::peripherals::ll::gpio::Registers*()
     {
         return this->p_registers;
     }
@@ -507,7 +504,7 @@ public:
     Alternate_function alternate_function;
 
 private:
-    GPIO(std::uint32_t a_idx, rm0434::peripherals::ll::gpio::Port *a_p_registers)
+    GPIO(std::uint32_t a_idx, rm0434::peripherals::ll::gpio::Registers* a_p_registers)
         : out(this)
         , in(this)
         , analog(this)
@@ -529,7 +526,7 @@ private:
     }
 
     std::uint32_t idx;
-    xmcu::soc::m4::stm32wb::rm0434::peripherals::ll::gpio::Port *p_registers;
+    xmcu::soc::m4::stm32wb::rm0434::peripherals::ll::gpio::Registers* p_registers;
 
     std::uint32_t flags;
 
@@ -632,7 +629,8 @@ public:
     static m4::stm32wb::rm0434::peripherals::GPIO create()
     {
         namespace wb_peripherals = m4::stm32wb::rm0434::peripherals;
-        return m4::stm32wb::rm0434::peripherals::GPIO(0u, wb_peripherals::ll::gpio::port<wb_peripherals::ll::gpio::A>());
+        return m4::stm32wb::rm0434::peripherals::GPIO(
+            0u, wb_peripherals::ll::gpio::registers<wb_peripherals::ll::gpio::A>());
     }
 };
 #endif
@@ -644,7 +642,8 @@ public:
     static m4::stm32wb::rm0434::peripherals::GPIO create()
     {
         namespace wb_peripherals = m4::stm32wb::rm0434::peripherals;
-        return m4::stm32wb::rm0434::peripherals::GPIO(1u, wb_peripherals::ll::gpio::port<wb_peripherals::ll::gpio::B>());
+        return m4::stm32wb::rm0434::peripherals::GPIO(
+            1u, wb_peripherals::ll::gpio::registers<wb_peripherals::ll::gpio::B>());
     }
 };
 #endif
@@ -656,19 +655,8 @@ public:
     static m4::stm32wb::rm0434::peripherals::GPIO create()
     {
         namespace wb_peripherals = m4::stm32wb::rm0434::peripherals;
-        return m4::stm32wb::rm0434::peripherals::GPIO(2u, wb_peripherals::ll::gpio::port<wb_peripherals::ll::gpio::C>());
-    }
-};
-#endif
-
-#if defined(XMCU_GPIOD_PRESENT)
-template<> class peripheral<m4::stm32wb::rm0434::peripherals::GPIO, 4u> : private non_constructible
-{
-public:
-    static m4::stm32wb::rm0434::peripherals::GPIO create()
-    {
-        namespace wb_peripherals = m4::stm32wb::rm0434::peripherals;
-        return m4::stm32wb::rm0434::peripherals::GPIO(3u, wb_peripherals::ll::gpio::port<wb_peripherals::ll::gpio::D>());
+        return m4::stm32wb::rm0434::peripherals::GPIO(
+            2u, wb_peripherals::ll::gpio::registers<wb_peripherals::ll::gpio::C>());
     }
 };
 #endif
@@ -680,7 +668,8 @@ public:
     static m4::stm32wb::rm0434::peripherals::GPIO create()
     {
         namespace wb_peripherals = m4::stm32wb::rm0434::peripherals;
-        return m4::stm32wb::rm0434::peripherals::GPIO(4u, wb_peripherals::ll::gpio::port<wb_peripherals::ll::gpio::E>());
+        return m4::stm32wb::rm0434::peripherals::GPIO(
+            4u, wb_peripherals::ll::gpio::registers<wb_peripherals::ll::gpio::E>());
     }
 };
 #endif
@@ -692,7 +681,8 @@ public:
     static m4::stm32wb::rm0434::peripherals::GPIO create()
     {
         namespace wb_peripherals = m4::stm32wb::rm0434::peripherals;
-        return m4::stm32wb::rm0434::peripherals::GPIO(7u, wb_peripherals::ll::gpio::port<wb_peripherals::ll::gpio::H>());
+        return m4::stm32wb::rm0434::peripherals::GPIO(
+            7u, wb_peripherals::ll::gpio::registers<wb_peripherals::ll::gpio::H>());
     }
 };
 #endif
