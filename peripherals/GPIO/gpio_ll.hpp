@@ -91,8 +91,8 @@ struct gpio_idr_descriptor : private xmcu::non_constructible
 
     enum class Flag : std::uint32_t
     {
-        low,
-        high
+        low = 0x0u,
+        high = 0x1u
     };
 };
 struct gpio_odr_descriptor : private xmcu::non_constructible
@@ -102,8 +102,8 @@ struct gpio_odr_descriptor : private xmcu::non_constructible
 
     enum class Flag : std::uint32_t
     {
-        low,
-        high
+        low = 0x0u,
+        high = 0x1u
     };
 
     enum class Mask : std::uint32_t
@@ -143,7 +143,7 @@ struct gpio_afr_descriptor : private xmcu::non_constructible
 
     enum class Flag : std::uint32_t
     {
-        af0,
+        af0 = 0x0u,
         af1,
         af2,
         af3,
@@ -183,7 +183,7 @@ private:
      */
     template<typename desc_t> struct Reg_wrc
     {
-        enum class Data;
+        enum class Data : std::uint32_t;
 
         Reg_wrc(const volatile Reg_wrc& other_a)
             : v(other_a.v)
@@ -209,7 +209,7 @@ private:
     };
     template<typename desc_t> struct Reg_r
     {
-        enum class Data;
+        enum class Data : std::uint32_t;
 
         Reg_r(const volatile Reg_r& other_a)
             : v(other_a.v)
@@ -230,7 +230,7 @@ private:
     };
     template<typename desc_t> struct Reg_wc
     {
-        enum class Data;
+        enum class Data : std::uint32_t;
 
         Reg_wc(const volatile Reg_wc& other_a)
             : v(other_a.v)
@@ -256,7 +256,7 @@ private:
     };
     template<typename desc_t> struct Reg_wr
     {
-        enum class Data;
+        enum class Data : std::uint32_t;
 
         operator Data() const
         {
