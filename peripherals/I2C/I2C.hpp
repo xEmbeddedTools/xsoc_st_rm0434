@@ -17,12 +17,12 @@
 // xmcu
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/GPIO/GPIO.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/GPIO/GPIO.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 
-namespace xmcu::soc::m4::stm32wb::rm0434::peripherals {
+namespace xmcu::soc::m4::wb::rm0434::peripherals {
 class I2C : private xmcu::Non_copyable
 {
 public:
@@ -105,9 +105,9 @@ protected:
     std::uint32_t (*get_clk)();
 };
 
-} // namespace xmcu::soc::m4::stm32wb::rm0434::peripherals
+} // namespace xmcu::soc::m4::wb::rm0434::peripherals
 
-namespace xmcu::soc::m4::stm32wb::rm0434 {
+namespace xmcu::soc::m4::wb::rm0434 {
 template<std::uint32_t id> class rcc<peripherals::I2C, id> : private xmcu::non_constructible
 {
 public:
@@ -128,9 +128,9 @@ template<> template<> void rcc<peripherals::I2C, 3u>::enable<sources::hsi16>(boo
 template<> void rcc<peripherals::I2C, 3u>::disable();
 template<> std::uint32_t rcc<peripherals::I2C, 3u>::get_frequency_Hz();
 
-} // namespace xmcu::soc::m4::stm32wb::rm0434
+} // namespace xmcu::soc::m4::wb::rm0434
 
-namespace xmcu::soc::m4::stm32wb::rm0434 {
+namespace xmcu::soc::m4::wb::rm0434 {
 
 template<> inline void
 peripherals::GPIO::Alternate_function::enable<peripherals::I2C, 1u>(Limited<std::uint32_t, 0, 15> a_id,
@@ -142,17 +142,17 @@ peripherals::GPIO::Alternate_function::enable<peripherals::I2C, 1u>(Limited<std:
     this->enable(a_id, a_config, 4u, a_p_pin);
 }
 
-} // namespace xmcu::soc::m4::stm32wb::rm0434
+} // namespace xmcu::soc::m4::wb::rm0434
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m4::stm32wb::rm0434::peripherals::I2C, 1u> : private xmcu::non_constructible
+template<> class peripheral<m4::wb::rm0434::peripherals::I2C, 1u> : private xmcu::non_constructible
 {
 public:
-    static m4::stm32wb::rm0434::peripherals::I2C create()
+    static m4::wb::rm0434::peripherals::I2C create()
     {
-        std::uint32_t (*fun)() = m4::stm32wb::rm0434::rcc<m4::stm32wb::rm0434::peripherals::I2C, 1u>::get_frequency_Hz;
-        return m4::stm32wb::rm0434::peripherals::I2C(I2C1, fun);
+        std::uint32_t (*fun)() = m4::wb::rm0434::rcc<m4::wb::rm0434::peripherals::I2C, 1u>::get_frequency_Hz;
+        return m4::wb::rm0434::peripherals::I2C(I2C1, fun);
     }
 };
 } // namespace soc

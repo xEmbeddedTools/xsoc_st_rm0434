@@ -14,13 +14,13 @@
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
 #include <xmcu/bit.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/USART/USART.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/USART/USART.hpp>
 #include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace peripherals {
 class LPUART : private Non_copyable
@@ -406,7 +406,7 @@ operator|(LPUART::Transceiving_config::RS232_flow_control_flag a_f1,
 
 } // namespace peripherals
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu
@@ -414,7 +414,7 @@ operator|(LPUART::Transceiving_config::RS232_flow_control_flag a_f1,
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 template<std::uint32_t id> class rcc<peripherals::LPUART, id> : private non_constructible
 {
@@ -443,19 +443,19 @@ inline void peripherals::GPIO::Alternate_function::enable<peripherals::LPUART, 1
     this->enable(a_id, a_config, 0x8u, a_p_pin);
 }
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m4::stm32wb::rm0434::peripherals::LPUART, 1u> : private non_constructible
+template<> class peripheral<m4::wb::rm0434::peripherals::LPUART, 1u> : private non_constructible
 {
 public:
-    static m4::stm32wb::rm0434::peripherals::LPUART create()
+    static m4::wb::rm0434::peripherals::LPUART create()
     {
-        return m4::stm32wb::rm0434::peripherals::LPUART(0u, LPUART1, IRQn_Type::LPUART1_IRQn);
+        return m4::wb::rm0434::peripherals::LPUART(0u, LPUART1, IRQn_Type::LPUART1_IRQn);
     }
 };
 } // namespace soc

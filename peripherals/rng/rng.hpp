@@ -18,15 +18,15 @@
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lse.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lsi.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lsi.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace peripherals {
 class rng : private non_constructible
@@ -97,14 +97,14 @@ constexpr rng::Event_flag operator|=(rng::Event_flag& a_f1, rng::Event_flag a_f2
 }
 } // namespace peripherals
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 template<> class rcc<peripherals::rng> : private non_constructible
 {
@@ -117,7 +117,7 @@ template<> void rcc<peripherals::rng>::enable<rcc<system::mcu<1u>>::clk48>(bool 
 template<> void rcc<peripherals::rng>::enable<sources::lsi>(bool a_enable_in_lp);
 template<> void rcc<peripherals::rng>::enable<sources::lse>(bool a_enable_in_lp);
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

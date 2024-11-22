@@ -17,17 +17,17 @@
 // xmcu
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hse.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hsi48.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lse.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/pll.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi48.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/pll.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace system {
 template<std::size_t id> class mcu : private non_constructible
@@ -215,7 +215,7 @@ static inline bool operator==(const std::uint32_t& a_lhs, const mcu<1u>::Reset_s
 
 } // namespace system
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu
@@ -223,7 +223,7 @@ static inline bool operator==(const std::uint32_t& a_lhs, const mcu<1u>::Reset_s
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 template<> class rcc<system::mcu<1u>> : private non_constructible
 {
@@ -440,7 +440,7 @@ template<> void rcc<system::mcu<1u>>::set_wakeup_clock_source<sources::hsi16>();
 template<> void rcc<system::mcu<2u>>::set_wakeup_clock_source<sources::lse>();
 template<> void rcc<system::mcu<2u>>::set_wakeup_clock_source<sources::hse>();
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

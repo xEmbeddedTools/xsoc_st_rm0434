@@ -6,13 +6,13 @@
 #if defined(STM32WB)
 
 // this
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hse.hpp>
 
 // xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/bit.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 
 namespace {
 constexpr std::uint32_t hse_control_unlock_key = 0xCAFECAFEu;
@@ -21,11 +21,11 @@ constexpr std::uint32_t hse_control_unlock_key = 0xCAFECAFEu;
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace sources {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
+using namespace xmcu::soc::m4::wb::rm0434::utils;
 
 void hse::enable()
 {
@@ -72,7 +72,7 @@ void hse::tune::set(Amplifier_threshold a_amplifier_threshold)
 }
 } // namespace sources
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

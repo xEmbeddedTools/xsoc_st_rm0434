@@ -6,7 +6,7 @@
 #if defined(STM32WB)
 
 // this
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/crc/crc.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/crc/crc.hpp>
 
 // externals
 #pragma GCC diagnostic ignored "-Wvolatile"
@@ -18,7 +18,7 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::wb::rm0434::peripherals;
 
 void crc_start(std::uint32_t a_init_value,
                std::uint32_t a_polynomial_length,
@@ -86,7 +86,7 @@ void crc_update(const std::uint8_t* a_p_data, std::size_t a_data_legth_in_bytes)
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace peripherals {
 
@@ -180,7 +180,7 @@ std::uint32_t crc<32u>::get()
 }
 } // namespace peripherals
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu
@@ -188,10 +188,10 @@ std::uint32_t crc<32u>::get()
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::wb::rm0434::peripherals;
 
 void rcc<crc<>>::enable(bool a_enable_in_lp)
 {
@@ -211,7 +211,7 @@ void rcc<crc<>>::disable()
     bit::flag::clear(&(RCC->AHB1ENR), RCC_AHB1ENR_CRCEN);
 }
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

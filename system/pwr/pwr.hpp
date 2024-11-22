@@ -15,17 +15,17 @@
 
 // xmcu
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/internal_flash/internal_flash.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hse.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/msi.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/pll.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/internal_flash/internal_flash.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/msi.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/pll.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace system {
 template<typename MCU_t> class pwr : private xmcu::non_constructible
@@ -94,7 +94,7 @@ void pwr<mcu<1u>>::stop_mode::enter<sources::hsi16>(Type a_type,
                                                     peripherals::internal_flash::Latency a_desired_flash_latency);
 } // namespace system
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

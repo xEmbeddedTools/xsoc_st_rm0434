@@ -4,14 +4,14 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/USART/DMA.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/USART/DMA.hpp>
 
 // xmcu
 #include <xmcu/bit.hpp>
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::rm0434;
+using namespace xmcu::soc::m4::wb::rm0434;
 
 DMA<>::Callback* p_callbacks[2][7] = { nullptr };
 
@@ -203,9 +203,9 @@ void DMA2_Channel7_IRQHandler()
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
-using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::wb::rm0434::peripherals;
 
 void DMA<USART>::Receiver::Interrupt::set_context()
 {
@@ -241,7 +241,7 @@ void DMA<LPUART>::Transmitter::Interrupt::clear_context()
     p_callbacks[this->p_DMA->idx][static_cast<std::uint32_t>(this->p_DMA->tx_channel)] = nullptr;
 }
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

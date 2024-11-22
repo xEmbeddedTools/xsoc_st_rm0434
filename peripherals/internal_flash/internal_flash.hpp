@@ -26,7 +26,7 @@
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace peripherals {
 class internal_flash : private non_constructible
@@ -162,31 +162,31 @@ public:
 };
 } // namespace peripherals
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu
 
 namespace xmcu {
 namespace soc {
-template<> class Scoped_guard<m4::stm32wb::rm0434::peripherals::internal_flash::unlocker> : private Non_copyable
+template<> class Scoped_guard<m4::wb::rm0434::peripherals::internal_flash::unlocker> : private Non_copyable
 {
 public:
     Scoped_guard()
         : unlocked(false)
     {
-        m4::stm32wb::rm0434::peripherals::internal_flash::unlocker::unlock();
+        m4::wb::rm0434::peripherals::internal_flash::unlocker::unlock();
         this->unlocked = true;
     }
 
     Scoped_guard(Milliseconds a_timeout)
-        : unlocked(m4::stm32wb::rm0434::peripherals::internal_flash::unlocker::unlock(a_timeout))
+        : unlocked(m4::wb::rm0434::peripherals::internal_flash::unlocker::unlock(a_timeout))
     {
     }
 
     ~Scoped_guard()
     {
-        m4::stm32wb::rm0434::peripherals::internal_flash::unlocker::lock();
+        m4::wb::rm0434::peripherals::internal_flash::unlocker::lock();
     }
 
     bool is_unlocked() const
@@ -197,24 +197,24 @@ public:
 private:
     bool unlocked;
 };
-template<> class Scoped_guard<m4::stm32wb::rm0434::peripherals::internal_flash::cache_disabler> : private Non_copyable
+template<> class Scoped_guard<m4::wb::rm0434::peripherals::internal_flash::cache_disabler> : private Non_copyable
 {
 public:
     Scoped_guard()
         : disabled(false)
     {
-        m4::stm32wb::rm0434::peripherals::internal_flash::cache_disabler::disable();
+        m4::wb::rm0434::peripherals::internal_flash::cache_disabler::disable();
         this->disabled = true;
     }
 
     Scoped_guard(Milliseconds a_timeout)
-        : disabled(m4::stm32wb::rm0434::peripherals::internal_flash::cache_disabler::disable(a_timeout))
+        : disabled(m4::wb::rm0434::peripherals::internal_flash::cache_disabler::disable(a_timeout))
     {
     }
 
     ~Scoped_guard()
     {
-        m4::stm32wb::rm0434::peripherals::internal_flash::cache_disabler::enable();
+        m4::wb::rm0434::peripherals::internal_flash::cache_disabler::enable();
     }
 
     bool is_disabled() const

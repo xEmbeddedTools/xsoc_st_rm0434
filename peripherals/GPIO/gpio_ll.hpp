@@ -15,12 +15,12 @@
 
 // xmcu
 #include <xmcu/Non_copyable.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/GPIO/base.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/GPIO/base.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace peripherals {
 namespace ll {
@@ -119,7 +119,7 @@ template<> [[nodiscard]] constexpr gpio::Port* gpio::port<gpio::H>()
 } //namespace ll
 } //namespace peripherals
 } //namespace rm0434
-} //namespace stm32wb
+} //namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

@@ -6,7 +6,7 @@
 #if defined(STM32WB)
 
 // this
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/hsem/hsem.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/system/hsem/hsem.hpp>
 
 // externals
 #pragma GCC diagnostic ignored "-Wvolatile"
@@ -14,17 +14,17 @@
 #pragma GCC diagnostic pop
 
 // xmcu
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace system {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
+using namespace xmcu::soc::m4::wb::rm0434::utils;
 
 void hsem::_1_step::lock(Limited<std::uint8_t, 0, 31> a_semaphore_id)
 {
@@ -79,7 +79,7 @@ void hsem::_2_step::unlock(Limited<std::uint8_t, 0, 31> a_semaphore_id, std::uin
 }
 } // namespace system
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

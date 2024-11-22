@@ -6,21 +6,21 @@
 #if defined(STM32WB)
 
 // this
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/rng/rng.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/rng/rng.hpp>
 
 // xmcu
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/m4/nvic.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/hsem/hsem.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/system/hsem/hsem.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 #include <xmcu/various.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>
 
 namespace {
-using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::wb::rm0434::peripherals;
 
 // sic! Here becouse of 'static inline' gcc bug:
 // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=88165
@@ -28,7 +28,7 @@ rng::interrupt::Callback callback;
 } // namespace
 
 extern "C" {
-using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::wb::rm0434::peripherals;
 
 void RNG_IRQHandler()
 {
@@ -38,8 +38,8 @@ void RNG_IRQHandler()
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
-using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
+using namespace xmcu::soc::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::wb::rm0434::utils;
 
 rng::Event_flag get_Event_flag(std::uint32_t a_SR, std::uint32_t a_CR)
 {
@@ -62,11 +62,11 @@ rng::Event_flag get_Event_flag(std::uint32_t a_SR, std::uint32_t a_CR)
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::rm0434::system;
+using namespace xmcu::soc::m4::wb::rm0434::system;
 
 void RNG_interrupt_handler()
 {
@@ -175,7 +175,7 @@ bool rng::disable(Milliseconds a_timeout)
 }
 } // namespace peripherals
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu
@@ -183,10 +183,10 @@ bool rng::disable(Milliseconds a_timeout)
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
-using namespace xmcu::soc::m4::stm32wb::rm0434::system;
-using namespace xmcu::soc::m4::stm32wb::rm0434::sources;
+using namespace xmcu::soc::m4::wb::rm0434::system;
+using namespace xmcu::soc::m4::wb::rm0434::sources;
 
 template<> void rcc<rng>::enable<rcc<mcu<1u>>::clk48>(bool a_enable_in_lp)
 {
@@ -237,7 +237,7 @@ void rcc<rng>::disable()
     bit::flag::clear(&(RCC->AHB3ENR), RCC_AHB3SMENR_RNGSMEN);
 }
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu
