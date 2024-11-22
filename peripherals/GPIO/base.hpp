@@ -13,14 +13,7 @@
 
 #define XMCU_SOC_STM32WB35CEU6A 1876651536769855465
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
-namespace ll {
-
+namespace xmcu::soc::m4::wb::rm0434::peripherals::ll {
 #if (XMCU_SOC_MODEL == XMCU_SOC_STM32WB35CEU6A)
 #define XMCU_GPIOA_PRESENT
 #define XMCU_GPIOB_PRESENT
@@ -163,13 +156,5 @@ public:
         return false;
     }
 };
-
 #endif
-
-} // namespace ll
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::m4::wb::rm0434::peripherals::ll
