@@ -6,22 +6,22 @@
 #if defined(STM32WB)
 
 // this
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/internal_flash/internal_flash.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/internal_flash/internal_flash.hpp>
 
 // std
 #include <cstring>
 
 // xmcu
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/hsem/hsem.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/system/hsem/hsem.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 
 // debug
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/delay.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/delay.hpp>
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::wb::rm0434::peripherals;
 
 void clear_FLASH_SR_errors()
 {
@@ -53,11 +53,11 @@ internal_flash::Status_flag get_status_flag_from_FLASH_SR()
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::rm0434::system;
+using namespace xmcu::soc::m4::wb::rm0434::system;
 using namespace utils;
 
 void internal_flash::unlocker::unlock()
@@ -569,7 +569,7 @@ internal_flash::polling::erase_bank(Bank_id a_id, Function_lock a_external_lock_
 }
 } // namespace peripherals
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

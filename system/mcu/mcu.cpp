@@ -6,12 +6,12 @@
 #if defined(STM32WB)
 
 // this
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 
 // xmcu
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/hsem/hsem.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/system/hsem/hsem.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 
 namespace {
 constexpr std::uint32_t hclk_dividers[] = { 1u, 3u, 5u, 1u, 1u, 6u, 10u, 32u, 2u, 4u, 8u, 16u, 64u, 128u, 256u, 512u };
@@ -21,12 +21,12 @@ constexpr std::uint32_t pclk_dividers[] = { 2u, 4u, 8u, 16u };
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::rm0434::sources;
-using namespace xmcu::soc::m4::stm32wb::rm0434::system;
-using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
+using namespace xmcu::soc::m4::wb::rm0434::sources;
+using namespace xmcu::soc::m4::wb::rm0434::system;
+using namespace xmcu::soc::m4::wb::rm0434::utils;
 
 template<> void rcc<mcu<1u>>::clk48::set<hsi48>()
 {
@@ -495,7 +495,7 @@ const char* to_string(mcu<1u>::Reset_source a_source)
 }
 } // namespace system
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

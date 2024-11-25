@@ -4,18 +4,18 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/USART/DMA.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/USART/DMA.hpp>
 
 // xmcus
 #include <xmcu/soc/ST/arm/m4/nvic.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::rm0434;
-using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
+using namespace xmcu::soc::m4::wb::rm0434;
+using namespace xmcu::soc::m4::wb::rm0434::utils;
 
 void transmit(USART_TypeDef* a_p_USART_registers,
               DMA_Channel_TypeDef* a_p_channel_registers,
@@ -96,9 +96,9 @@ std::uint32_t get_interrupt_enable_flags(DMA<>::Event_flag a_event_flag)
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
-using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::wb::rm0434::peripherals;
 
 void DMA<USART>::Receiver::enable(DMA<>::Channel a_channel)
 {
@@ -781,7 +781,7 @@ void DMA<LPUART>::Transmitter::Interrupt::stop()
     bit::flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_EN);
 }
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

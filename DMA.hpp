@@ -17,13 +17,13 @@
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
 #include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 template<typename Perihperal_t = void*> class DMA : private xmcu::Non_copyable
 {
@@ -116,7 +116,7 @@ public:
     }
 };
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

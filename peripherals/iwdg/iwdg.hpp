@@ -7,7 +7,7 @@
 
 #include <xmcu/non_constructible.hpp>
 
-namespace xmcu::soc::m4::stm32wb::rm0434::peripherals {
+namespace xmcu::soc::m4::wb::rm0434::peripherals {
 
 class iwdg : private xmcu::non_constructible
 {
@@ -20,4 +20,4 @@ private:
     static inline bool is_wdg_active = false;
 };
 
-} // namespace xmcu::soc::m4::stm32wb::rm0434::peripherals
+} // namespace xmcu::soc::m4::wb::rm0434::peripherals

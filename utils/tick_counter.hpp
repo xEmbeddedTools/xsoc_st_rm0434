@@ -13,16 +13,16 @@
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
 #include <xmcu/soc/ST/arm/Systick.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lse.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lsi.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lsi.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace utils {
 template<typename Period_t> class tick_counter : private non_constructible
@@ -68,7 +68,7 @@ template<> void tick_counter<Milliseconds>::start<Systick>(bool a_start_handler_
 template<> void tick_counter<Milliseconds>::stop<Systick>();
 } // namespace utils
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

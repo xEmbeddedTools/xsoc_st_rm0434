@@ -4,7 +4,7 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/internal_flash/option_bytes.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/internal_flash/option_bytes.hpp>
 
 // externals
 #pragma GCC diagnostic ignored "-Wvolatile"
@@ -14,21 +14,21 @@
 // xmcu
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/m4/nvic.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/internal_flash/internal_flash.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/hsem/hsem.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/internal_flash/internal_flash.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/system/hsem/hsem.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
-using namespace xmcu::soc::m4::stm32wb::rm0434::system;
+using namespace xmcu::soc::m4::wb::rm0434::utils;
+using namespace xmcu::soc::m4::wb::rm0434::system;
 
 void option_bytes::unlocker::unlock()
 {
@@ -128,7 +128,7 @@ option_bytes::BOR::Level option_bytes::BOR::get()
 }
 } // namespace peripherals
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

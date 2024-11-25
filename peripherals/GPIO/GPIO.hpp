@@ -19,14 +19,14 @@
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/GPIO/gpio_ll.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hsi48.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lse.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lsi.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/pll.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/GPIO/gpio_ll.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi48.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lsi.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/pll.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
 
@@ -62,7 +62,7 @@
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace peripherals {
 class GPIO : private Non_copyable
@@ -493,7 +493,7 @@ public:
         return std::numeric_limits<decltype(this->idx)>::max() != this->idx && nullptr != this->p_registers;
     }
 
-    explicit operator xmcu::soc::m4::stm32wb::rm0434::peripherals::ll::gpio::Registers*()
+    explicit operator xmcu::soc::m4::wb::rm0434::peripherals::ll::gpio::Registers*()
     {
         return this->p_registers;
     }
@@ -526,7 +526,7 @@ private:
     }
 
     std::uint32_t idx;
-    xmcu::soc::m4::stm32wb::rm0434::peripherals::ll::gpio::Registers* p_registers;
+    xmcu::soc::m4::wb::rm0434::peripherals::ll::gpio::Registers *p_registers;
 
     std::uint32_t flags;
 
@@ -570,7 +570,7 @@ constexpr GPIO::Interrupt::Trigger_flag operator|=(GPIO::Interrupt::Trigger_flag
 }
 } // namespace peripherals
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu
@@ -578,7 +578,7 @@ constexpr GPIO::Interrupt::Trigger_flag operator|=(GPIO::Interrupt::Trigger_flag
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 template<std::uint32_t id> class rcc<peripherals::GPIO, id> : private xmcu::non_constructible
 {
@@ -614,7 +614,7 @@ void peripherals::GPIO::Alternate_function::enable<peripherals::GPIO::lsco>(Limi
                                                                             const Enable_config& a_config,
                                                                             Pin* a_p_pin);
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu
@@ -623,65 +623,65 @@ namespace xmcu {
 namespace soc {
 
 #if defined(XMCU_GPIOA_PRESENT)
-template<> class peripheral<m4::stm32wb::rm0434::peripherals::GPIO, 1u> : private non_constructible
+template<> class peripheral<m4::wb::rm0434::peripherals::GPIO, 1u> : private non_constructible
 {
 public:
-    static m4::stm32wb::rm0434::peripherals::GPIO create()
+    static m4::wb::rm0434::peripherals::GPIO create()
     {
-        namespace wb_peripherals = m4::stm32wb::rm0434::peripherals;
-        return m4::stm32wb::rm0434::peripherals::GPIO(
+        namespace wb_peripherals = m4::wb::rm0434::peripherals;
+        return m4::wb::rm0434::peripherals::GPIO(
             0u, wb_peripherals::ll::gpio::registers<wb_peripherals::ll::gpio::A>());
     }
 };
 #endif
 
 #if defined(XMCU_GPIOB_PRESENT)
-template<> class peripheral<m4::stm32wb::rm0434::peripherals::GPIO, 2u> : private non_constructible
+template<> class peripheral<m4::wb::rm0434::peripherals::GPIO, 2u> : private non_constructible
 {
 public:
-    static m4::stm32wb::rm0434::peripherals::GPIO create()
+    static m4::wb::rm0434::peripherals::GPIO create()
     {
-        namespace wb_peripherals = m4::stm32wb::rm0434::peripherals;
-        return m4::stm32wb::rm0434::peripherals::GPIO(
+        namespace wb_peripherals = m4::wb::rm0434::peripherals;
+        return m4::wb::rm0434::peripherals::GPIO(
             1u, wb_peripherals::ll::gpio::registers<wb_peripherals::ll::gpio::B>());
     }
 };
 #endif
 
 #if defined(XMCU_GPIOC_PRESENT)
-template<> class peripheral<m4::stm32wb::rm0434::peripherals::GPIO, 3u> : private non_constructible
+template<> class peripheral<m4::wb::rm0434::peripherals::GPIO, 3u> : private non_constructible
 {
 public:
-    static m4::stm32wb::rm0434::peripherals::GPIO create()
+    static m4::wb::rm0434::peripherals::GPIO create()
     {
-        namespace wb_peripherals = m4::stm32wb::rm0434::peripherals;
-        return m4::stm32wb::rm0434::peripherals::GPIO(
+        namespace wb_peripherals = m4::wb::rm0434::peripherals;
+        return m4::wb::rm0434::peripherals::GPIO(
             2u, wb_peripherals::ll::gpio::registers<wb_peripherals::ll::gpio::C>());
     }
 };
 #endif
 
 #if defined(XMCU_GPIOE_PRESENT)
-template<> class peripheral<m4::stm32wb::rm0434::peripherals::GPIO, 5u> : private non_constructible
+template<> class peripheral<m4::wb::rm0434::peripherals::GPIO, 5u> : private non_constructible
 {
 public:
-    static m4::stm32wb::rm0434::peripherals::GPIO create()
+    static m4::wb::rm0434::peripherals::GPIO create()
     {
-        namespace wb_peripherals = m4::stm32wb::rm0434::peripherals;
-        return m4::stm32wb::rm0434::peripherals::GPIO(
+        namespace wb_peripherals = m4::wb::rm0434::peripherals;
+        return m4::wb::rm0434::peripherals::GPIO(
             4u, wb_peripherals::ll::gpio::registers<wb_peripherals::ll::gpio::E>());
     }
 };
 #endif
 
 #if defined(XMCU_GPIOH_PRESENT)
-template<> class peripheral<m4::stm32wb::rm0434::peripherals::GPIO, 8u> : private non_constructible
+template<> class peripheral<m4::wb::rm0434::peripherals::GPIO, 8u> : private non_constructible
 {
 public:
-    static m4::stm32wb::rm0434::peripherals::GPIO create()
+    static m4::wb::rm0434::peripherals::GPIO create()
     {
-        namespace wb_peripherals = m4::stm32wb::rm0434::peripherals;
-        return m4::stm32wb::rm0434::peripherals::GPIO(
+        namespace wb_peripherals = m4::wb::rm0434::peripherals;
+        return m4::wb::rm0434::peripherals::GPIO(
             7u, wb_peripherals::ll::gpio::registers<wb_peripherals::ll::gpio::H>());
     }
 };

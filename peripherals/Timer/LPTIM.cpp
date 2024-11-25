@@ -6,12 +6,12 @@
 #if defined(STM32WB)
 
 // this
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/Timer/LPTIM.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/Timer/LPTIM.hpp>
 
 // hkm
 #include <xmcu/soc/ST/arm/m4/nvic.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 #include <xmcu/various.hpp>
 
@@ -19,7 +19,7 @@
 #include <xmcu/assertion.hpp>
 
 namespace {
-using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::wb::rm0434::peripherals;
 
 LPTIM* LPTIM_irq_context[2] = { nullptr, nullptr };
 } // namespace
@@ -42,11 +42,11 @@ void LPTIM2_IRQHandler()
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m4::stm32wb::rm0434::utils;
+using namespace xmcu::soc::m4::wb::rm0434::utils;
 using namespace utils;
 
 void LPTIM_interrupt_handler(LPTIM* a_p_this)
@@ -165,7 +165,7 @@ void LPTIM::Tick_counter::Interrupt::unregister_callback()
 }
 } // namespace peripherals
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu
@@ -173,11 +173,11 @@ void LPTIM::Tick_counter::Interrupt::unregister_callback()
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
-using namespace xmcu::soc::m4::stm32wb::rm0434::peripherals;
-using namespace xmcu::soc::m4::stm32wb::rm0434::sources;
-using namespace xmcu::soc::m4::stm32wb::rm0434::system;
+using namespace xmcu::soc::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::m4::wb::rm0434::sources;
+using namespace xmcu::soc::m4::wb::rm0434::system;
 
 template<> template<> void rcc<LPTIM, 1>::enable<rcc<mcu<1u>>::pclk<1u>>(bool a_enable_in_lp)
 {
@@ -293,7 +293,7 @@ template<> template<> void rcc<peripherals::LPTIM, 2>::enable<lse>(bool a_enable
     }
 }
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

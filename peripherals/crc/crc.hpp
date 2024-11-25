@@ -10,7 +10,7 @@
 
 // xmcu
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>
@@ -18,7 +18,7 @@
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace peripherals {
 template<std::size_t length_t = 0x0u> class crc : private xmcu::non_constructible
@@ -141,7 +141,7 @@ constexpr crc<>::Polynomial_flag operator|(crc<>::Polynomial_flag a_f1, std::uin
 }
 } // namespace peripherals
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu
@@ -149,7 +149,7 @@ constexpr crc<>::Polynomial_flag operator|(crc<>::Polynomial_flag a_f1, std::uin
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 template<> class rcc<peripherals::crc<>> : private xmcu::non_constructible
 {
@@ -158,7 +158,7 @@ public:
     static void disable();
 };
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

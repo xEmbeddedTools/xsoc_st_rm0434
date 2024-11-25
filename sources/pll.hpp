@@ -15,15 +15,15 @@
 #include <xmcu/Limited.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hse.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/msi.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/msi.hpp>
 #include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace sources {
 class pll : private non_constructible
@@ -301,7 +301,7 @@ template<> bool pll::enable<hse, hse::Prescaler::_2>(M a_M,
                                                      Milliseconds a_timeout);
 } // namespace sources
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu

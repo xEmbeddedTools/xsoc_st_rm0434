@@ -20,20 +20,20 @@
 #include <xmcu/Not_null.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/GPIO/GPIO.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/sources/lse.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/system/mcu/mcu.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/tick_counter.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/utils/wait_until.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/GPIO/GPIO.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/tick_counter.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
 
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 namespace peripherals {
 class USART : private Non_copyable
@@ -516,7 +516,7 @@ constexpr USART::Event_flag operator|=(USART::Event_flag& a_f1, USART::Event_fla
 }
 } // namespace peripherals
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu
@@ -524,7 +524,7 @@ constexpr USART::Event_flag operator|=(USART::Event_flag& a_f1, USART::Event_fla
 namespace xmcu {
 namespace soc {
 namespace m4 {
-namespace stm32wb {
+namespace wb {
 namespace rm0434 {
 template<std::uint32_t id> class rcc<peripherals::USART, id> : private non_constructible
 {
@@ -551,19 +551,19 @@ inline void peripherals::GPIO::Alternate_function::enable<peripherals::USART, 1>
     this->enable(a_id, a_config, 0x7u, a_p_pin);
 }
 } // namespace rm0434
-} // namespace stm32wb
+} // namespace wb
 } // namespace m4
 } // namespace soc
 } // namespace xmcu
 
 namespace xmcu {
 namespace soc {
-template<> class peripheral<m4::stm32wb::rm0434::peripherals::USART, 1u> : private xmcu::non_constructible
+template<> class peripheral<m4::wb::rm0434::peripherals::USART, 1u> : private xmcu::non_constructible
 {
 public:
-    static m4::stm32wb::rm0434::peripherals::USART create()
+    static m4::wb::rm0434::peripherals::USART create()
     {
-        return m4::stm32wb::rm0434::peripherals::USART(0u, USART1, IRQn_Type::USART1_IRQn);
+        return m4::wb::rm0434::peripherals::USART(0u, USART1, IRQn_Type::USART1_IRQn);
     }
 };
 } // namespace soc

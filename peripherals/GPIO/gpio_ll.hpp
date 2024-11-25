@@ -13,9 +13,9 @@
 
 // xmcu
 #include <xmcu/Non_copyable.hpp>
-#include <xmcu/soc/ST/arm/m4/stm32wb/rm0434/peripherals/GPIO/base.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/GPIO/base.hpp>
 
-namespace xmcu::soc::m4::stm32wb::rm0434::peripherals::ll {
+namespace xmcu::soc::m4::wb::rm0434::peripherals::ll {
 struct gpio_moder_descriptor : private xmcu::non_constructible
 {
     static constexpr std::uint32_t mask = 0x3u;
@@ -1820,53 +1820,53 @@ constexpr gpio::BRR::Data operator<<(gpio::BRR::Flag left_a, gpio::H pin_a)
 }
 
 #endif
-} // namespace xmcu::soc::m4::stm32wb::rm0434::peripherals::ll
+} // namespace xmcu::soc::m4::wb::rm0434::peripherals::ll
 
 namespace xmcu {
 template<> [[nodiscard]] constexpr bool
-bit::is<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR, xmcu::Limited<std::uint32_t, 0u, 15u>>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR a_register,
+bit::is<soc::m4::wb::rm0434::peripherals::ll::gpio::IDR, xmcu::Limited<std::uint32_t, 0u, 15u>>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::IDR a_register,
     xmcu::Limited<std::uint32_t, 0u, 15u> a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     const std::uint32_t flag = 0x1u << static_cast<std::uint32_t>(a_index);
     return flag == (static_cast<ll_gpio::IDR::Data>(a_register) & flag);
 }
 
 template<> [[nodiscard]] constexpr bool
-bit::is_any<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR, xmcu::Limited<std::uint32_t, 0x0u, 0xFFFFu>>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR a_register,
+bit::is_any<soc::m4::wb::rm0434::peripherals::ll::gpio::IDR, xmcu::Limited<std::uint32_t, 0x0u, 0xFFFFu>>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::IDR a_register,
     xmcu::Limited<std::uint32_t, 0x0u, 0xFFFFu> a_mask)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     return 0u != static_cast<std::uint32_t>(static_cast<ll_gpio::IDR::Data>(a_register) & a_mask);
 }
 
 template<>
-constexpr void bit::set<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, xmcu::Limited<std::uint32_t, 0u, 15u>>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+constexpr void bit::set<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, xmcu::Limited<std::uint32_t, 0u, 15u>>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
     xmcu::Limited<std::uint32_t, 0u, 15u> a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     (*a_p_register) = (*a_p_register) | static_cast<ll_gpio::ODR::Data>(0x1u << static_cast<std::uint32_t>(a_index));
 }
 
 template<>
-constexpr void bit::clear<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, xmcu::Limited<std::uint32_t, 0u, 15u>>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+constexpr void bit::clear<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, xmcu::Limited<std::uint32_t, 0u, 15u>>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
     xmcu::Limited<std::uint32_t, 0u, 15u> a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     (*a_p_register) = (*a_p_register) & static_cast<ll_gpio::ODR::Data>(~(0x1u << static_cast<std::uint32_t>(a_index)));
 }
 
 template<>
-constexpr void bit::toggle<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, xmcu::Limited<std::uint32_t, 0u, 15u>>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+constexpr void bit::toggle<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, xmcu::Limited<std::uint32_t, 0u, 15u>>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
     xmcu::Limited<std::uint32_t, 0u, 15u> a_index)
 {
     (*a_p_register) = (*a_p_register) ^ (0x1u << static_cast<std::uint32_t>(a_index));
@@ -1874,240 +1874,240 @@ constexpr void bit::toggle<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR,
 
 #if defined XMCU_GPIOA_PRESENT
 template<> [[nodiscard]] constexpr bool
-bit::is<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::A>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR a_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::A a_index)
+bit::is<soc::m4::wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::wb::rm0434::peripherals::ll::gpio::A>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::IDR a_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::A a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     const std::uint32_t flag = 0x1u << static_cast<std::uint32_t>(a_index);
     return flag == (static_cast<ll_gpio::IDR::Data>(a_register) & flag);
 }
 
 template<> [[nodiscard]] constexpr bool
-bit::is_any<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::A>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR a_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::A a_mask)
+bit::is_any<soc::m4::wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::wb::rm0434::peripherals::ll::gpio::A>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::IDR a_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::A a_mask)
 {
     return 0u != static_cast<std::uint32_t>(a_register & a_mask);
 }
 
 template<> constexpr void
-bit::set<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::A>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::A a_index)
+bit::set<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::wb::rm0434::peripherals::ll::gpio::A>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::A a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     (*a_p_register) = (*a_p_register) | static_cast<ll_gpio::ODR::Data>(0x1u << static_cast<std::uint32_t>(a_index));
 }
 
 template<> constexpr void
-bit::clear<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::A>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::A a_index)
+bit::clear<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::wb::rm0434::peripherals::ll::gpio::A>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::A a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     (*a_p_register) = (*a_p_register) & static_cast<ll_gpio::ODR::Data>(~(0x1u << static_cast<std::uint32_t>(a_index)));
 }
 
 template<> constexpr void
-bit::toggle<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::A>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::A a_index)
+bit::toggle<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::wb::rm0434::peripherals::ll::gpio::A>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::A a_index)
 {
     (*a_p_register) = (*a_p_register) ^ (0x1u << static_cast<std::uint32_t>(a_index));
 }
 #endif
 #if defined XMCU_GPIOB_PRESENT
 template<> [[nodiscard]] constexpr bool
-bit::is<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::B>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR a_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::B a_index)
+bit::is<soc::m4::wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::wb::rm0434::peripherals::ll::gpio::B>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::IDR a_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::B a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     const std::uint32_t flag = 0x1u << static_cast<std::uint32_t>(a_index);
     return flag == (static_cast<ll_gpio::IDR::Data>(a_register) & flag);
 }
 
 template<> [[nodiscard]] constexpr bool
-bit::is_any<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::B>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR a_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::B a_mask)
+bit::is_any<soc::m4::wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::wb::rm0434::peripherals::ll::gpio::B>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::IDR a_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::B a_mask)
 {
     return 0u != static_cast<std::uint32_t>(a_register & a_mask);
 }
 
 template<> constexpr void
-bit::set<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::B>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::B a_index)
+bit::set<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::wb::rm0434::peripherals::ll::gpio::B>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::B a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     (*a_p_register) = (*a_p_register) | static_cast<ll_gpio::ODR::Data>(0x1u << static_cast<std::uint32_t>(a_index));
 }
 
 template<> constexpr void
-bit::clear<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::B>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::B a_index)
+bit::clear<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::wb::rm0434::peripherals::ll::gpio::B>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::B a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     (*a_p_register) = (*a_p_register) & static_cast<ll_gpio::ODR::Data>(~(0x1u << static_cast<std::uint32_t>(a_index)));
 }
 
 template<> constexpr void
-bit::toggle<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::B>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::B a_index)
+bit::toggle<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::wb::rm0434::peripherals::ll::gpio::B>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::B a_index)
 {
     (*a_p_register) = (*a_p_register) ^ (0x1u << static_cast<std::uint32_t>(a_index));
 }
 #endif
 #if defined XMCU_GPIOC_PRESENT
 template<> [[nodiscard]] constexpr bool
-bit::is<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::C>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR a_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::C a_index)
+bit::is<soc::m4::wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::wb::rm0434::peripherals::ll::gpio::C>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::IDR a_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::C a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     const std::uint32_t flag = 0x1u << static_cast<std::uint32_t>(a_index);
     return flag == (static_cast<ll_gpio::IDR::Data>(a_register) & flag);
 }
 
 template<> [[nodiscard]] constexpr bool
-bit::is_any<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::C>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR a_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::C a_mask)
+bit::is_any<soc::m4::wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::wb::rm0434::peripherals::ll::gpio::C>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::IDR a_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::C a_mask)
 {
     return 0u != static_cast<std::uint32_t>(a_register & a_mask);
 }
 
 template<> constexpr void
-bit::set<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::C>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::C a_index)
+bit::set<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::wb::rm0434::peripherals::ll::gpio::C>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::C a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     (*a_p_register) = (*a_p_register) | static_cast<ll_gpio::ODR::Data>(0x1u << static_cast<std::uint32_t>(a_index));
 }
 
 template<> constexpr void
-bit::clear<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::C>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::C a_index)
+bit::clear<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::wb::rm0434::peripherals::ll::gpio::C>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::C a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     (*a_p_register) = (*a_p_register) & static_cast<ll_gpio::ODR::Data>(~(0x1u << static_cast<std::uint32_t>(a_index)));
 }
 
 template<> constexpr void
-bit::toggle<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::C>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::C a_index)
+bit::toggle<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::wb::rm0434::peripherals::ll::gpio::C>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::C a_index)
 {
     (*a_p_register) = (*a_p_register) ^ (0x1u << static_cast<std::uint32_t>(a_index));
 }
 #endif
 #if defined XMCU_GPIOE_PRESENT
 template<> [[nodiscard]] constexpr bool
-bit::is<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::E>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR a_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::E a_index)
+bit::is<soc::m4::wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::wb::rm0434::peripherals::ll::gpio::E>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::IDR a_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::E a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     const std::uint32_t flag = 0x1u << static_cast<std::uint32_t>(a_index);
     return flag == (static_cast<ll_gpio::IDR::Data>(a_register) & flag);
 }
 
 template<> [[nodiscard]] constexpr bool
-bit::is_any<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::E>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR a_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::E a_mask)
+bit::is_any<soc::m4::wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::wb::rm0434::peripherals::ll::gpio::E>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::IDR a_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::E a_mask)
 {
     return 0u != static_cast<std::uint32_t>(a_register & a_mask);
 }
 
 template<> constexpr void
-bit::set<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::E>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::E a_index)
+bit::set<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::wb::rm0434::peripherals::ll::gpio::E>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::E a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     (*a_p_register) = (*a_p_register) | static_cast<ll_gpio::ODR::Data>(0x1u << static_cast<std::uint32_t>(a_index));
 }
 
 template<> constexpr void
-bit::clear<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::E>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::E a_index)
+bit::clear<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::wb::rm0434::peripherals::ll::gpio::E>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::E a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     (*a_p_register) = (*a_p_register) & static_cast<ll_gpio::ODR::Data>(~(0x1u << static_cast<std::uint32_t>(a_index)));
 }
 
 template<> constexpr void
-bit::toggle<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::E>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::E a_index)
+bit::toggle<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::wb::rm0434::peripherals::ll::gpio::E>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::E a_index)
 {
     (*a_p_register) = (*a_p_register) ^ (0x1u << static_cast<std::uint32_t>(a_index));
 }
 #endif
 #if defined XMCU_GPIOH_PRESENT
 template<> [[nodiscard]] constexpr bool
-bit::is<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::H>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR a_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::H a_index)
+bit::is<soc::m4::wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::wb::rm0434::peripherals::ll::gpio::H>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::IDR a_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::H a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     const std::uint32_t flag = 0x1u << static_cast<std::uint32_t>(a_index);
     return flag == (static_cast<ll_gpio::IDR::Data>(a_register) & flag);
 }
 
 template<> [[nodiscard]] constexpr bool
-bit::is_any<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::H>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::IDR a_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::H a_mask)
+bit::is_any<soc::m4::wb::rm0434::peripherals::ll::gpio::IDR, soc::m4::wb::rm0434::peripherals::ll::gpio::H>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::IDR a_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::H a_mask)
 {
     return 0u != static_cast<std::uint32_t>(a_register & a_mask);
 }
 
 template<> constexpr void
-bit::set<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::H>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::H a_index)
+bit::set<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::wb::rm0434::peripherals::ll::gpio::H>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::H a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     (*a_p_register) = (*a_p_register) | static_cast<ll_gpio::ODR::Data>(0x1u << static_cast<std::uint32_t>(a_index));
 }
 
 template<> constexpr void
-bit::clear<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::H>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::H a_index)
+bit::clear<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::wb::rm0434::peripherals::ll::gpio::H>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::H a_index)
 {
-    using ll_gpio = soc::m4::stm32wb::rm0434::peripherals::ll::gpio;
+    using ll_gpio = soc::m4::wb::rm0434::peripherals::ll::gpio;
 
     (*a_p_register) = (*a_p_register) & static_cast<ll_gpio::ODR::Data>(~(0x1u << static_cast<std::uint32_t>(a_index)));
 }
 
 template<> constexpr void
-bit::toggle<soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::stm32wb::rm0434::peripherals::ll::gpio::H>(
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
-    soc::m4::stm32wb::rm0434::peripherals::ll::gpio::H a_index)
+bit::toggle<soc::m4::wb::rm0434::peripherals::ll::gpio::ODR, soc::m4::wb::rm0434::peripherals::ll::gpio::H>(
+    soc::m4::wb::rm0434::peripherals::ll::gpio::ODR* a_p_register,
+    soc::m4::wb::rm0434::peripherals::ll::gpio::H a_index)
 {
     (*a_p_register) = (*a_p_register) ^ (0x1u << static_cast<std::uint32_t>(a_index));
 }
