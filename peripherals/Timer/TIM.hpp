@@ -571,7 +571,7 @@ peripherals::GPIO::Alternate_function::enable<peripherals::timer::Channel, 17u>(
 namespace xmcu::soc {
 template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::TIM_ADV, 1u>
 {
-    static constexpr m4::wb::rm0434::peripherals::timer::Tim_advanced::TIM_irq_t irq {
+    static constexpr st::arm::m4::wb::rm0434::peripherals::timer::Tim_advanced::TIM_irq_t irq {
         .brk = st::arm::m4::wb::rm0434::peripherals::timer::TIM_irq::TIM1_BRK,
         .cc = st::arm::m4::wb::rm0434::peripherals::timer::TIM_irq::TIM1_CC,
         .trg = st::arm::m4::wb::rm0434::peripherals::timer::TIM_irq::TIM1_TRG,
