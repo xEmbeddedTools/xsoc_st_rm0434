@@ -3,15 +3,17 @@
  *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
  */
 
+// CMSIS
+#include <stm32wbxx.h>
+
+// this
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/iwdg/iwdg.hpp>
+
+// xmcu
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 
-#pragma GCC diagnostic ignored "-Wvolatile"
-#include <stm32wbxx.h>
-#pragma GCC diagnostic pop
-
-namespace xmcu::soc::m4::wb::rm0434::peripherals {
-using namespace xmcu::soc::m4::wb::rm0434::utils;
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
 void iwdg::enable()
 {
@@ -34,5 +36,4 @@ bool iwdg::is_active()
 {
     return iwdg::is_wdg_active;
 }
-
-} // namespace xmcu::soc::m4::wb::rm0434::peripherals
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals

@@ -14,12 +14,7 @@
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/tick_counter.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace utils {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::utils {
 struct wait_until : private non_constructible
 {
     template<typename Register_t, typename Mask_t>
@@ -95,9 +90,4 @@ struct wait_until : private non_constructible
         return status;
     }
 };
-} // namespace utils
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::utils

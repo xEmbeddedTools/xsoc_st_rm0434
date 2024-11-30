@@ -3,8 +3,6 @@
  *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
  */
 
-#if defined(STM32WB)
-
 // this
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/USART/LPUART.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/USART/USART.hpp>
@@ -20,9 +18,9 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4;
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
-using namespace xmcu::soc::m4::wb::rm0434::utils;
+using namespace xmcu::soc::st::arm::m4;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
 constexpr std::uint32_t clock_prescaler_lut[] = { 1u, 2u, 4u, 6u, 8u, 10u, 12u, 16u, 32u, 64u, 128u, 256u };
 
@@ -641,14 +639,9 @@ void LPUART1_IRQHandler()
 }
 }
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 using namespace xmcu;
-using namespace utils;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
 void USART_interrupt_handler(USART* a_p_this)
 {
@@ -1164,21 +1157,12 @@ void LPUART::Interrupt::event_listening_stop()
                                        .function = nullptr,
                                        .p_user_data = nullptr };
 }
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
-using namespace xmcu::soc::m4::wb::rm0434::sources;
-using namespace xmcu::soc::m4::wb::rm0434::system;
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
 
 template<> template<> void rcc<peripherals::USART, 1u>::enable<rcc<mcu<1u>>::pclk<2u>>(bool a_enable_in_lp)
 {
@@ -1305,10 +1289,4 @@ template<> void rcc<peripherals::LPUART, 1>::disable()
     bit::flag::clear(&(RCC->APB1ENR2), RCC_APB1ENR2_LPUART1EN);
     bit::flag::clear(&(RCC->APB1SMENR2), RCC_APB1SMENR2_LPUART1SMEN);
 }
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
-
-#endif
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434

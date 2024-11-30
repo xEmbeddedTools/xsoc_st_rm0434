@@ -3,8 +3,6 @@
  *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
  */
 
-#if defined(STM32WB)
-
 // this
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/system/pwr/pwr.hpp>
 
@@ -16,17 +14,12 @@
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace system {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::system {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::sources;
-using namespace xmcu::soc::m4::wb::rm0434::system;
-using namespace xmcu::soc::m4::wb::rm0434::utils;
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
 
 void pwr<mcu<1u>>::set_voltage_scaling(Voltage_scaling a_scaling)
 {
@@ -104,11 +97,4 @@ template<> void pwr<mcu<1u>>::stop_mode::enter<hsi16>(Type a_type,
         break;
     }
 }
-} // namespace system
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
-
-#endif
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::system

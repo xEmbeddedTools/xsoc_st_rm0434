@@ -3,8 +3,6 @@
  *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
  */
 
-#if defined(STM32WB)
-
 // this
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/rng/rng.hpp>
 
@@ -20,7 +18,7 @@
 #include <xmcu/assertion.hpp>
 
 namespace {
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
 
 // sic! Here becouse of 'static inline' gcc bug:
 // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=88165
@@ -28,7 +26,7 @@ rng::interrupt::Callback callback;
 } // namespace
 
 extern "C" {
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
 
 void RNG_IRQHandler()
 {
@@ -38,8 +36,8 @@ void RNG_IRQHandler()
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
-using namespace xmcu::soc::m4::wb::rm0434::utils;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
 rng::Event_flag get_Event_flag(std::uint32_t a_SR, std::uint32_t a_CR)
 {
@@ -59,14 +57,9 @@ rng::Event_flag get_Event_flag(std::uint32_t a_SR, std::uint32_t a_CR)
 }
 } // namespace
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::system;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
 
 void RNG_interrupt_handler()
 {
@@ -173,20 +166,11 @@ bool rng::disable(Milliseconds a_timeout)
 
     return false;
 }
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-using namespace xmcu::soc::m4::wb::rm0434::system;
-using namespace xmcu::soc::m4::wb::rm0434::sources;
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
 
 template<> void rcc<rng>::enable<rcc<mcu<1u>>::clk48>(bool a_enable_in_lp)
 {
@@ -236,10 +220,4 @@ void rcc<rng>::disable()
     bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_RNGSEL);
     bit::flag::clear(&(RCC->AHB3ENR), RCC_AHB3SMENR_RNGSMEN);
 }
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
-
-#endif
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434

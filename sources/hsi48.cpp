@@ -3,8 +3,6 @@
  *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
  */
 
-#if defined(STM32WB)
-
 // this
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi48.hpp>
 
@@ -15,15 +13,10 @@
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace sources {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::sources {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::system;
-using namespace xmcu::soc::m4::wb::rm0434::utils;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
 void hsi48::enable()
 {
@@ -70,11 +63,4 @@ bool hsi48::disable(Milliseconds a_timeout)
     }
     return false;
 }
-} // namespace sources
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
-
-#endif
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::sources

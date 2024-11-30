@@ -3,8 +3,6 @@
  *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
  */
 
-#if defined(STM32WB)
-
 // this
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lsi.hpp>
 
@@ -13,14 +11,9 @@
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace sources {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::sources {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::utils;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
 void lsi::enable(Id a_id)
 {
@@ -85,11 +78,4 @@ bool lsi::is_selected(Id a_id)
 
     return false;
 }
-} // namespace sources
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
-
-#endif
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::sources

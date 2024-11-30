@@ -15,34 +15,29 @@
 // debug
 #include <xmcu/assertion.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 template<std::size_t length_t = 0x0u> class crc : private xmcu::non_constructible
 {
 public:
     enum class Input_data_format : std::uint32_t
     {
-        unmodified            = 0x0u,
-        reversed_by_byte      = CRC_CR_REV_IN_0,
+        unmodified = 0x0u,
+        reversed_by_byte = CRC_CR_REV_IN_0,
         reversed_by_half_word = CRC_CR_REV_IN_1,
-        reversed_by_word      = CRC_CR_REV_IN_0 | CRC_CR_REV_IN_1
+        reversed_by_word = CRC_CR_REV_IN_0 | CRC_CR_REV_IN_1
     };
 
     enum class Output_data_format_flag : std::uint32_t
     {
-        unmodified      = 0x0u,
-        inverted        = 0x1u,
+        unmodified = 0x0u,
+        inverted = 0x1u,
         reversed_by_bit = 0x2u
     };
 
     enum class Polynomial_flag : std::uint64_t
     {
         unmodified = 0x1,
-        custom     = 0x2
+        custom = 0x2
     };
 };
 
@@ -139,26 +134,13 @@ constexpr crc<>::Polynomial_flag operator|(crc<>::Polynomial_flag a_f1, std::uin
     return static_cast<crc<>::Polynomial_flag>(
         (static_cast<std::uint64_t>(a_f1) | (static_cast<std::uint64_t>(a_f2) << 32u)));
 }
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 template<> class rcc<peripherals::crc<>> : private xmcu::non_constructible
 {
 public:
     static void enable(bool a_enable_in_lp);
     static void disable();
 };
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434

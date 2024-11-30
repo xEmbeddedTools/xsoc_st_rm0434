@@ -19,12 +19,7 @@
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lsi.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace utils {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::utils {
 template<typename Period_t> class tick_counter : private non_constructible
 {
 };
@@ -66,9 +61,4 @@ template<> void tick_counter<Milliseconds>::disable<soc::Systick>();
 
 template<> void tick_counter<Milliseconds>::start<Systick>(bool a_start_handler_immediately);
 template<> void tick_counter<Milliseconds>::stop<Systick>();
-} // namespace utils
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::utils

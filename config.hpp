@@ -1,0 +1,14 @@
+#pragma once
+
+#define XMCU_SOC_VENDOR st
+#define XMCU_SOC_ARCHITECTURE arm
+#define XMCU_SOC_CORE_FAMILY m4
+#define XMCU_SOC_VENDOR_FAMILY wb
+
+#if defined STM32WB35CEU6A
+#define XMCU_SOC_VENDOR_FAMILY_RM rm0434
+#define XMCU_SOC_VENDOR_FAMILY_RM0434
+#endif
+
+#if defined STM32L010C6T6
+#endif

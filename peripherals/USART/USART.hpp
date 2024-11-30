@@ -10,9 +10,7 @@
 #include <iterator>
 
 // external
-#pragma GCC diagnostic ignored "-Wvolatile"
 #include <stm32wbxx.h>
-#pragma GCC diagnostic pop
 
 // xmcu
 #include <xmcu/Duration.hpp>
@@ -30,12 +28,7 @@
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 class USART : private Non_copyable
 {
 public:
@@ -514,18 +507,9 @@ constexpr USART::Event_flag operator|=(USART::Event_flag& a_f1, USART::Event_fla
     a_f1 = a_f1 | a_f2;
     return a_f1;
 }
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 template<std::uint32_t id> class rcc<peripherals::USART, id> : private non_constructible
 {
 public:
@@ -550,21 +534,15 @@ inline void peripherals::GPIO::Alternate_function::enable<peripherals::USART, 1>
 
     this->enable(a_id, a_config, 0x7u, a_p_pin);
 }
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434
 
-namespace xmcu {
-namespace soc {
-template<> class peripheral<m4::wb::rm0434::peripherals::USART, 1u> : private xmcu::non_constructible
+namespace xmcu::soc {
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::USART, 1u> : private xmcu::non_constructible
 {
 public:
-    static m4::wb::rm0434::peripherals::USART create()
+    static st::arm::m4::wb::rm0434::peripherals::USART create()
     {
-        return m4::wb::rm0434::peripherals::USART(0u, USART1, IRQn_Type::USART1_IRQn);
+        return st::arm::m4::wb::rm0434::peripherals::USART(0u, USART1, IRQn_Type::USART1_IRQn);
     }
 };
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc

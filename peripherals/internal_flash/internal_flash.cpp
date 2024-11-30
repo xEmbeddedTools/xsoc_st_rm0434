@@ -3,8 +3,6 @@
  *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
  */
 
-#if defined(STM32WB)
-
 // this
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/internal_flash/internal_flash.hpp>
 
@@ -21,7 +19,7 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
 
 void clear_FLASH_SR_errors()
 {
@@ -50,15 +48,10 @@ internal_flash::Status_flag get_status_flag_from_FLASH_SR()
 }
 } // namespace
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::system;
-using namespace utils;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
 void internal_flash::unlocker::unlock()
 {
@@ -567,11 +560,4 @@ internal_flash::polling::erase_bank(Bank_id a_id, Function_lock a_external_lock_
 
     return { get_status_flag_from_FLASH_SR(), 0u };
 }
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
-
-#endif
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals

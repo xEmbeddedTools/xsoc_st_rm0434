@@ -10,9 +10,7 @@
 #include <cstddef>
 
 // external
-#pragma GCC diagnostic ignored "-Wvolatile"
 #include <stm32wbxx.h>
-#pragma GCC diagnostic pop
 
 // xmcu
 #include <xmcu/Non_copyable.hpp>
@@ -22,7 +20,7 @@
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 
-namespace xmcu::soc::m4::wb::rm0434::peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 class I2C : private xmcu::Non_copyable
 {
 public:
@@ -46,11 +44,9 @@ public:
     class Polling : private xmcu::Non_copyable
     {
     public:
-        Transfer_result
-        transmit(Address a_adr, Not_null<const void*> a_p_data, std::size_t a_size, bool a_is_auto_end);
+        Transfer_result transmit(Address a_adr, Not_null<const void*> a_p_data, std::size_t a_size, bool a_is_auto_end);
 
-        Transfer_result
-        receive(Address a_adr, Not_null<void*> a_p_data, std::size_t a_size, bool a_is_auto_end);
+        Transfer_result receive(Address a_adr, Not_null<void*> a_p_data, std::size_t a_size, bool a_is_auto_end);
 
         Transfer_result transmit(Address a_adr, const std::initializer_list<std::uint8_t>& a_list, bool a_is_auto_end)
         {
@@ -104,16 +100,15 @@ protected:
     I2C_TypeDef* p_registers;
     std::uint32_t (*get_clk)();
 };
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-} // namespace xmcu::soc::m4::wb::rm0434::peripherals
-
-namespace xmcu::soc::m4::wb::rm0434 {
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 template<std::uint32_t id> class rcc<peripherals::I2C, id> : private xmcu::non_constructible
 {
 public:
     template<typename Source_t> static void enable(bool a_enable_in_lp) = delete;
-    static void disable()                                               = delete;
-    static std::uint32_t get_frequency_Hz()                             = delete;
+    static void disable() = delete;
+    static std::uint32_t get_frequency_Hz() = delete;
 };
 
 template<> template<> void rcc<peripherals::I2C, 1u>::enable<rcc<system::mcu<1u>>::pclk<1u>>(bool a_enable_in_lp);
@@ -128,32 +123,29 @@ template<> template<> void rcc<peripherals::I2C, 3u>::enable<sources::hsi16>(boo
 template<> void rcc<peripherals::I2C, 3u>::disable();
 template<> std::uint32_t rcc<peripherals::I2C, 3u>::get_frequency_Hz();
 
-} // namespace xmcu::soc::m4::wb::rm0434
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434
 
-namespace xmcu::soc::m4::wb::rm0434 {
-
-template<> inline void
-peripherals::GPIO::Alternate_function::enable<peripherals::I2C, 1u>(Limited<std::uint32_t, 0, 15> a_id,
-                                                                    const Enable_config& a_config,
-                                                                    Pin* a_p_pin)
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
+template<>
+inline void peripherals::GPIO::Alternate_function::enable<peripherals::I2C, 1u>(Limited<std::uint32_t, 0, 15> a_id,
+                                                                                const Enable_config& a_config,
+                                                                                Pin* a_p_pin)
 {
     hkm_assert(Type::open_drain == a_config.type);
     hkm_assert(1 == this->p_port->idx && (8u == a_id || 9u == a_id));
     this->enable(a_id, a_config, 4u, a_p_pin);
 }
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434
 
-} // namespace xmcu::soc::m4::wb::rm0434
-
-namespace xmcu {
-namespace soc {
-template<> class peripheral<m4::wb::rm0434::peripherals::I2C, 1u> : private xmcu::non_constructible
+namespace xmcu::soc {
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::I2C, 1u> : private xmcu::non_constructible
 {
 public:
-    static m4::wb::rm0434::peripherals::I2C create()
+    static st::arm::m4::wb::rm0434::peripherals::I2C create()
     {
-        std::uint32_t (*fun)() = m4::wb::rm0434::rcc<m4::wb::rm0434::peripherals::I2C, 1u>::get_frequency_Hz;
-        return m4::wb::rm0434::peripherals::I2C(I2C1, fun);
+        std::uint32_t (*fun)() =
+            st::arm::m4::wb::rm0434::rcc<st::arm::m4::wb::rm0434::peripherals::I2C, 1u>::get_frequency_Hz;
+        return st::arm::m4::wb::rm0434::peripherals::I2C(I2C1, fun);
     }
 };
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc

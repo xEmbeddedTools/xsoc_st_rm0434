@@ -9,9 +9,7 @@
 #include <cstdint>
 
 // externals
-#pragma GCC diagnostic ignored "-Wvolatile"
 #include <stm32wbxx.h>
-#pragma GCC diagnostic pop
 
 // xmcu
 #include <xmcu/non_constructible.hpp>
@@ -22,12 +20,7 @@
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/pll.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace system {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::system {
 template<typename MCU_t> class pwr : private xmcu::non_constructible
 {
 };
@@ -92,9 +85,4 @@ void pwr<mcu<1u>>::stop_mode::enter<sources::hsi16>(Type a_type,
                                                     Method a_method,
                                                     Sleeponexit a_sleeponexit,
                                                     peripherals::internal_flash::Latency a_desired_flash_latency);
-} // namespace system
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::system

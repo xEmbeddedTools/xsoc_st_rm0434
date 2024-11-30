@@ -3,8 +3,6 @@
  *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
  */
 
-#if defined(STM32WB)
-
 // this
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/pll.hpp>
 
@@ -17,8 +15,8 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::sources;
-using namespace xmcu::soc::m4::wb::rm0434::utils;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
 void enable_PLL(std::uint32_t a_source,
                 pll::M a_M,
@@ -110,12 +108,7 @@ std::uint32_t calculate_PLL_channel_frequency_Hz(std::uint32_t a_div)
 
 } // namespace
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace sources {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::sources {
 using namespace xmcu;
 
 template<> void pll::enable<msi>(M a_M,
@@ -239,11 +232,4 @@ void pll::sai1::disable()
 {
     bit::flag::clear(&(RCC->CR), RCC_CR_PLLSAI1ON);
 }
-} // namespace sources
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
-
-#endif
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::sources

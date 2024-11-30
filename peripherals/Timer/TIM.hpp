@@ -10,9 +10,7 @@
 #include <utility>
 
 // externals
-#pragma GCC diagnostic ignored "-Wvolatile"
 #include <stm32wbxx.h>
-#pragma GCC diagnostic pop
 
 // xmcu
 #include <xmcu/Duration.hpp>
@@ -29,8 +27,7 @@
 #include <xmcu/various.hpp>
 
 // small classes & enums
-namespace xmcu::soc::m4::wb::rm0434::peripherals::timer {
-
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals::timer {
 enum class Count_Mode : std::uint32_t
 {
     up = 0,
@@ -122,20 +119,20 @@ private:
     friend class Tim_counter;
 };
 
-} // namespace xmcu::soc::m4::wb::rm0434::peripherals::timer
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals::timer
 
-namespace xmcu::soc::m4::wb::rm0434::peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 class TIM_ADV;
-} // namespace xmcu::soc::m4::wb::rm0434::peripherals
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-namespace xmcu::soc::m4::wb::rm0434::peripherals::timer::helper {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals::timer::helper {
 static constexpr std::uint32_t convert_compare_mode(std::uint32_t a_in)
 {
     return (0x7 & a_in) << TIM_CCMR1_OC1M_Pos | (0x8 & a_in ? TIM_CCMR1_OC1M_3 : 0);
 }
-} // namespace xmcu::soc::m4::wb::rm0434::peripherals::timer::helper
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals::timer::helper
 // Tim_counter & derived
-namespace xmcu::soc::m4::wb::rm0434::peripherals::timer {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals::timer {
 
 class Tim_counter : private xmcu::Non_copyable
 {
@@ -391,11 +388,10 @@ public:
         *Counter_base::get_CCR_ptr(this->idx, this->p_registers) = ccr;
     }
 };
-
-} // namespace xmcu::soc::m4::wb::rm0434::peripherals::timer
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals::timer
 
 // TIM - main class
-namespace xmcu::soc::m4::wb::rm0434::peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 class TIM_ADV
 {
     static constexpr std::uint32_t CH_N = 4;
@@ -469,12 +465,10 @@ private:
     }
     template<typename Periph_t, std::uint32_t id> friend class xmcu::soc::peripheral;
 };
-
-} // namespace xmcu::soc::m4::wb::rm0434::peripherals
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
 // RCC - template specialization
-namespace xmcu::soc::m4::wb::rm0434 {
-
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 template<> class rcc<peripherals::TIM_ADV, 1u>
 {
 public:
@@ -571,45 +565,41 @@ peripherals::GPIO::Alternate_function::enable<peripherals::timer::Channel, 17u>(
     this->enable(a_id, a_config, 14u, a_p_pin);
 }
 
-} // namespace xmcu::soc::m4::wb::rm0434
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434
 
 // peripheral - template specialization
-namespace xmcu {
-namespace soc {
-
-template<> class peripheral<m4::wb::rm0434::peripherals::TIM_ADV, 1u>
+namespace xmcu::soc {
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::TIM_ADV, 1u>
 {
     static constexpr m4::wb::rm0434::peripherals::timer::Tim_advanced::TIM_irq_t irq {
-        .brk = m4::wb::rm0434::peripherals::timer::TIM_irq::TIM1_BRK,
-        .cc = m4::wb::rm0434::peripherals::timer::TIM_irq::TIM1_CC,
-        .trg = m4::wb::rm0434::peripherals::timer::TIM_irq::TIM1_TRG,
-        .up = m4::wb::rm0434::peripherals::timer::TIM_irq::TIM1_UP
+        .brk = st::arm::m4::wb::rm0434::peripherals::timer::TIM_irq::TIM1_BRK,
+        .cc = st::arm::m4::wb::rm0434::peripherals::timer::TIM_irq::TIM1_CC,
+        .trg = st::arm::m4::wb::rm0434::peripherals::timer::TIM_irq::TIM1_TRG,
+        .up = st::arm::m4::wb::rm0434::peripherals::timer::TIM_irq::TIM1_UP
     };
 
 public:
-    static m4::wb::rm0434::peripherals::TIM_ADV create()
+    static st::arm::m4::wb::rm0434::peripherals::TIM_ADV create()
     {
         return { TIM1, irq };
     }
 };
 
-template<> class peripheral<m4::wb::rm0434::peripherals::TIM_G16, 16u>
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::TIM_G16, 16u>
 {
 public:
-    static m4::wb::rm0434::peripherals::TIM_G16 create()
+    static st::arm::m4::wb::rm0434::peripherals::TIM_G16 create()
     {
-        return { TIM16, m4::wb::rm0434::peripherals::timer::TIM_irq::TIM16_IRQ };
+        return { TIM16, st::arm::m4::wb::rm0434::peripherals::timer::TIM_irq::TIM16_IRQ };
     }
 };
 
-template<> class peripheral<m4::wb::rm0434::peripherals::TIM_G16, 17u>
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::TIM_G16, 17u>
 {
 public:
-    static m4::wb::rm0434::peripherals::TIM_G16 create()
+    static st::arm::m4::wb::rm0434::peripherals::TIM_G16 create()
     {
-        return { TIM17, m4::wb::rm0434::peripherals::timer::TIM_irq::TIM17_IRQ };
+        return { TIM17, st::arm::m4::wb::rm0434::peripherals::timer::TIM_irq::TIM17_IRQ };
     }
 };
-
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc
