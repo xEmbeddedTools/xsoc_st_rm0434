@@ -3,8 +3,6 @@
  *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
  */
 
-#if defined(STM32WB)
-
 // this
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/ADC/ADC.hpp>
 
@@ -21,9 +19,9 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
-using namespace xmcu::soc::m4::wb::rm0434::system;
-using namespace xmcu::soc::m4::wb::rm0434::utils;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
 ADC* irq_context[] = { nullptr };
 
@@ -126,7 +124,7 @@ bool polling_read(ADC_TypeDef* a_p_registers,
 } // namespace
 
 extern "C" {
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
 
 void ADC1_IRQHandler()
 {
@@ -135,12 +133,7 @@ void ADC1_IRQHandler()
 }
 }
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 using namespace xmcu;
 using namespace utils;
 
@@ -489,22 +482,13 @@ void ADC::Interrupt::read_stop()
 
     this->p_ADC->callback = { nullptr, nullptr };
 }
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
-using namespace xmcu::soc::m4::wb::rm0434::sources;
-using namespace xmcu::soc::m4::wb::rm0434::system;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
 
 template<> void rcc<ADC>::async::enable<rcc<mcu<1u>>>(Prescaler a_prescaler, bool a_enable_in_lp)
 {
@@ -533,10 +517,4 @@ template<> void rcc<ADC>::sync::enable<rcc<mcu<1u>>::hclk<1u>>(Prescaler a_presc
     bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_ADCSEL_Msk);
     bit::flag::set(&(ADC1_COMMON->CCR), static_cast<std::uint32_t>(a_prescaler));
 }
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
-
-#endif
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434

@@ -9,9 +9,7 @@
 #include <limits>
 
 // externals
-#pragma GCC diagnostic ignored "-Wvolatile"
 #include <stm32wbxx.h>
-#pragma GCC diagnostic pop
 
 // xmcu
 #include <xmcu/Duration.hpp>
@@ -25,11 +23,7 @@
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 template<> class DMA<peripherals::USART> : private Non_copyable
 {
 public:
@@ -406,46 +400,44 @@ private:
 
     template<typename Periph_t, std::size_t id> friend class xmcu::soc::peripheral;
 };
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434
 
-namespace xmcu {
-namespace soc {
-template<> class peripheral<m4::wb::rm0434::peripherals::USART, 1u, m4::wb::rm0434::DMA<>, 1u> : private non_constructible
+namespace xmcu::soc {
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::USART, 1u, st::arm::m4::wb::rm0434::DMA<>, 1u>
+    : private non_constructible
 {
 public:
-    static m4::wb::rm0434::DMA<m4::wb::rm0434::peripherals::USART> create()
+    static st::arm::m4::wb::rm0434::DMA<st::arm::m4::wb::rm0434::peripherals::USART> create()
     {
-        return m4::wb::rm0434::DMA<m4::wb::rm0434::peripherals::USART>(0x0u, DMA1, USART1);
+        return st::arm::m4::wb::rm0434::DMA<st::arm::m4::wb::rm0434::peripherals::USART>(0x0u, DMA1, USART1);
     }
 };
-template<> class peripheral<m4::wb::rm0434::peripherals::USART, 1u, m4::wb::rm0434::DMA<>, 2u> : private non_constructible
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::USART, 1u, st::arm::m4::wb::rm0434::DMA<>, 2u>
+    : private non_constructible
 {
 public:
-    static m4::wb::rm0434::DMA<m4::wb::rm0434::peripherals::USART> create()
+    static st::arm::m4::wb::rm0434::DMA<st::arm::m4::wb::rm0434::peripherals::USART> create()
     {
-        return m4::wb::rm0434::DMA<m4::wb::rm0434::peripherals::USART>(0x1u, DMA2, USART1);
+        return st::arm::m4::wb::rm0434::DMA<st::arm::m4::wb::rm0434::peripherals::USART>(0x1u, DMA2, USART1);
     }
 };
 
-template<> class peripheral<m4::wb::rm0434::peripherals::LPUART, 1u, m4::wb::rm0434::DMA<>, 1u> : private non_constructible
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::LPUART, 1u, st::arm::m4::wb::rm0434::DMA<>, 1u>
+    : private non_constructible
 {
 public:
-    static m4::wb::rm0434::DMA<m4::wb::rm0434::peripherals::LPUART> create()
+    static st::arm::m4::wb::rm0434::DMA<st::arm::m4::wb::rm0434::peripherals::LPUART> create()
     {
-        return m4::wb::rm0434::DMA<m4::wb::rm0434::peripherals::LPUART>(0x0u, DMA1, LPUART1);
+        return st::arm::m4::wb::rm0434::DMA<st::arm::m4::wb::rm0434::peripherals::LPUART>(0x0u, DMA1, LPUART1);
     }
 };
-template<> class peripheral<m4::wb::rm0434::peripherals::LPUART, 1u, m4::wb::rm0434::DMA<>, 2u> : private non_constructible
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::LPUART, 1u, st::arm::m4::wb::rm0434::DMA<>, 2u>
+    : private non_constructible
 {
 public:
-    static m4::wb::rm0434::DMA<m4::wb::rm0434::peripherals::LPUART> create()
+    static st::arm::m4::wb::rm0434::DMA<st::arm::m4::wb::rm0434::peripherals::LPUART> create()
     {
-        return m4::wb::rm0434::DMA<m4::wb::rm0434::peripherals::LPUART>(0x1u, DMA2, LPUART1);
+        return st::arm::m4::wb::rm0434::DMA<st::arm::m4::wb::rm0434::peripherals::LPUART>(0x1u, DMA2, LPUART1);
     }
 };
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc

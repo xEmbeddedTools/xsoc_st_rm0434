@@ -3,8 +3,6 @@
  *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
  */
 
-#if defined(STM32WB)
-
 // this
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/Timer/LPTIM.hpp>
 
@@ -19,7 +17,7 @@
 #include <xmcu/assertion.hpp>
 
 namespace {
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
 
 LPTIM* LPTIM_irq_context[2] = { nullptr, nullptr };
 } // namespace
@@ -39,15 +37,9 @@ void LPTIM2_IRQHandler()
 }
 }
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::utils;
-using namespace utils;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
 void LPTIM_interrupt_handler(LPTIM* a_p_this)
 {
@@ -163,21 +155,12 @@ void LPTIM::Tick_counter::Interrupt::unregister_callback()
 
     this->p_LPTIM->tick_counter_callback = { nullptr, nullptr };
 }
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
-using namespace xmcu::soc::m4::wb::rm0434::sources;
-using namespace xmcu::soc::m4::wb::rm0434::system;
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
 
 template<> template<> void rcc<LPTIM, 1>::enable<rcc<mcu<1u>>::pclk<1u>>(bool a_enable_in_lp)
 {
@@ -292,10 +275,4 @@ template<> template<> void rcc<peripherals::LPTIM, 2>::enable<lse>(bool a_enable
         bit::flag::clear(&(RCC->APB1SMENR2), RCC_APB1SMENR2_LPTIM2SMEN);
     }
 }
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
-
-#endif
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434

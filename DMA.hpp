@@ -20,11 +20,7 @@
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
 #include <xmcu/various.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 template<typename Perihperal_t = void*> class DMA : private xmcu::Non_copyable
 {
 public:
@@ -115,8 +111,4 @@ public:
         bit::flag::clear(&(RCC->AHB1ENR), RCC_AHB1ENR_DMA2EN);
     }
 };
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434

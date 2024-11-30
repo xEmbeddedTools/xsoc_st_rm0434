@@ -6,21 +6,14 @@
  */
 
 // external
-#pragma GCC diagnostic ignored "-Wvolatile"
 #include <stm32wbxx.h>
-#pragma GCC diagnostic pop
 
 // xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace sources {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::sources {
 class lse : private non_constructible
 {
 public:
@@ -62,9 +55,4 @@ public:
         return 0u;
     }
 };
-} // namespace sources
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::sources

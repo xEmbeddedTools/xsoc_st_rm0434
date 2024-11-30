@@ -9,9 +9,7 @@
 #include <cstdint>
 
 // external
-#pragma GCC diagnostic ignored "-Wvolatile"
 #include <stm32wbxx.h>
-#pragma GCC diagnostic pop
 
 // xmcu
 #include <xmcu/Non_copyable.hpp>
@@ -23,13 +21,7 @@
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
-
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 class SPI : private xmcu::Non_copyable
 {
 public:
@@ -101,19 +93,9 @@ private:
     template<typename Periph_t, std::uint32_t id> friend class xmcu::soc::peripheral;
 };
 
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 template<std::uint32_t id> class rcc<peripherals::SPI, id> : private xmcu::non_constructible
 {
 public:
@@ -123,10 +105,10 @@ public:
 template<> template<> void rcc<peripherals::SPI, 1u>::enable<sources::hsi16>(bool a_enable_in_lp);
 template<> void rcc<peripherals::SPI, 1u>::disable();
 
-template<> inline void
-peripherals::GPIO::Alternate_function::enable<peripherals::SPI, 1>(Limited<std::uint32_t, 0, 15> a_id,
-                                                                   const Enable_config& a_config,
-                                                                   Pin* a_p_pin)
+template<>
+inline void peripherals::GPIO::Alternate_function::enable<peripherals::SPI, 1>(Limited<std::uint32_t, 0, 15> a_id,
+                                                                               const Enable_config& a_config,
+                                                                               Pin* a_p_pin)
 {
     // Check if GPIO is eligible for RX/TX pin
     std::uint8_t alternate_function_index;
@@ -149,22 +131,15 @@ peripherals::GPIO::Alternate_function::enable<peripherals::SPI, 1>(Limited<std::
 #endif
     this->enable(a_id, a_config, alternate_function_index, a_p_pin);
 }
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434
 
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
-
-namespace xmcu {
-namespace soc {
-template<> class peripheral<m4::wb::rm0434::peripherals::SPI, 1u> : private xmcu::non_constructible
+namespace xmcu::soc {
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::SPI, 1u> : private xmcu::non_constructible
 {
 public:
-    static m4::wb::rm0434::peripherals::SPI create()
+    static st::arm::m4::wb::rm0434::peripherals::SPI create()
     {
-        return m4::wb::rm0434::peripherals::SPI(0u, SPI1, IRQn_Type::SPI1_IRQn);
+        return st::arm::m4::wb::rm0434::peripherals::SPI(0u, SPI1, IRQn_Type::SPI1_IRQn);
     }
 };
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc

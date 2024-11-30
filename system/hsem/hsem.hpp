@@ -8,16 +8,11 @@
 // xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/Limited.hpp>
-#include <xmcu/non_constructible.hpp>
 #include <xmcu/Non_copyable.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace system {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::system {
 class hsem : private non_constructible
 {
 public:
@@ -59,9 +54,8 @@ public:
     struct _2_step : private non_constructible
     {
         static void lock(Limited<std::uint8_t, 0, 31> a_semaphore_id, std::uint8_t a_process_id);
-        static bool try_lock(Limited<std::uint8_t, 0, 31> a_semaphore_id,
-                             std::uint8_t a_process_id,
-                             Milliseconds a_timeout);
+        static bool
+        try_lock(Limited<std::uint8_t, 0, 31> a_semaphore_id, std::uint8_t a_process_id, Milliseconds a_timeout);
         static bool try_lock(Limited<std::uint8_t, 0, 31> a_semaphore_id, std::uint8_t a_process_id);
         static void unlock(Limited<std::uint8_t, 0, 31> a_semaphore_id, std::uint8_t a_process_id);
 
@@ -92,34 +86,28 @@ public:
         return is_locked(static_cast<std::underlying_type<Id>::type>(a_id));
     }
 };
-} // namespace system
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::system
 
-namespace xmcu {
-namespace soc {
-template<> class Scoped_guard<m4::wb::rm0434::system::hsem::_1_step> : private Non_copyable
+namespace xmcu::soc {
+template<> class Scoped_guard<st::arm::m4::wb::rm0434::system::hsem::_1_step> : private Non_copyable
 {
 public:
     Scoped_guard(Limited<std::uint8_t, 0, 31> a_semaphore_id)
         : semaphore_id(a_semaphore_id)
     {
-        m4::wb::rm0434::system::hsem::_1_step::lock(a_semaphore_id);
+        st::arm::m4::wb::rm0434::system::hsem::_1_step::lock(a_semaphore_id);
         this->locked = true;
     }
 
     Scoped_guard(Limited<std::uint8_t, 0, 31> a_semaphore_id, Milliseconds a_timeout)
         : semaphore_id(a_semaphore_id)
     {
-        this->locked = m4::wb::rm0434::system::hsem::_1_step::try_lock(a_semaphore_id, a_timeout);
+        this->locked = st::arm::m4::wb::rm0434::system::hsem::_1_step::try_lock(a_semaphore_id, a_timeout);
     }
 
     ~Scoped_guard()
     {
-        m4::wb::rm0434::system::hsem::_1_step::unlock(this->semaphore_id);
+        st::arm::m4::wb::rm0434::system::hsem::_1_step::unlock(this->semaphore_id);
     }
 
     bool is_locked() const
@@ -132,7 +120,7 @@ private:
     bool locked;
 };
 
-template<> class Scoped_guard<m4::wb::rm0434::system::hsem::_2_step> : private Non_copyable
+template<> class Scoped_guard<st::arm::m4::wb::rm0434::system::hsem::_2_step> : private Non_copyable
 {
 public:
     Scoped_guard(Limited<std::uint8_t, 0, 31> a_semaphore_id, std::uint8_t a_process_id)
@@ -140,22 +128,20 @@ public:
         , process_id(a_process_id)
         , locked(false)
     {
-        m4::wb::rm0434::system::hsem::_2_step::lock(a_semaphore_id, a_process_id);
+        st::arm::m4::wb::rm0434::system::hsem::_2_step::lock(a_semaphore_id, a_process_id);
         this->locked = true;
     }
 
-    Scoped_guard(Limited<std::uint8_t, 0, 31> a_semaphore_id,
-                 std::uint8_t a_process_id,
-                 Milliseconds a_timeout)
+    Scoped_guard(Limited<std::uint8_t, 0, 31> a_semaphore_id, std::uint8_t a_process_id, Milliseconds a_timeout)
         : semaphore_id(a_semaphore_id)
         , process_id(a_process_id)
-        , locked(m4::wb::rm0434::system::hsem::_2_step::try_lock(a_semaphore_id, a_process_id, a_timeout))
+        , locked(st::arm::m4::wb::rm0434::system::hsem::_2_step::try_lock(a_semaphore_id, a_process_id, a_timeout))
     {
     }
 
     ~Scoped_guard()
     {
-        m4::wb::rm0434::system::hsem::_2_step::unlock(this->semaphore_id, this->process_id);
+        st::arm::m4::wb::rm0434::system::hsem::_2_step::unlock(this->semaphore_id, this->process_id);
     }
 
     bool is_locked() const
@@ -168,5 +154,4 @@ private:
     std::uint8_t process_id;
     bool locked;
 };
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc
