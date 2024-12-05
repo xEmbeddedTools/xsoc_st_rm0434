@@ -3,8 +3,6 @@
  *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
  */
 
-#if defined(STM32WB)
-
 // this
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hse.hpp>
 
@@ -18,14 +16,9 @@ namespace {
 constexpr std::uint32_t hse_control_unlock_key = 0xCAFECAFEu;
 }
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace sources {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::sources {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::utils;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
 void hse::enable()
 {
@@ -70,11 +63,4 @@ void hse::tune::set(Amplifier_threshold a_amplifier_threshold)
     RCC->HSECR = hse_control_unlock_key;
     bit::flag::set(&(RCC->HSECR), RCC_HSECR_HSES, static_cast<std::uint32_t>(a_amplifier_threshold));
 }
-} // namespace sources
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
-
-#endif
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::sources

@@ -7,9 +7,7 @@
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/internal_flash/option_bytes.hpp>
 
 // externals
-#pragma GCC diagnostic ignored "-Wvolatile"
 #include <stm32wbxx.h>
-#pragma GCC diagnostic pop
 
 // xmcu
 #include <xmcu/bit.hpp>
@@ -20,15 +18,10 @@
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::utils;
-using namespace xmcu::soc::m4::wb::rm0434::system;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
 
 void option_bytes::unlocker::unlock()
 {
@@ -126,9 +119,4 @@ option_bytes::BOR::Level option_bytes::BOR::get()
 
     return static_cast<Level>(bit::flag::get(FLASH->OPTR, FLASH_OPTR_BOR_LEV));
 }
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals

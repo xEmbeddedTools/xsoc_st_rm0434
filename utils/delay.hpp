@@ -5,7 +5,7 @@
  *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
  */
 
-// hkm
+// xmcu
 #include <xmcu/Duration.hpp>
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
@@ -15,12 +15,7 @@
 // debug
 #include <xmcu/assertion.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace utils {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::utils {
 class delay : private non_constructible
 {
 public:
@@ -28,9 +23,4 @@ public:
     static void wait(Seconds a_time);
     static void wait(Microseconds a_time);
 };
-} // namespace utils
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::utils

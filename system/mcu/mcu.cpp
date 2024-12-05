@@ -3,8 +3,6 @@
  *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
  */
 
-#if defined(STM32WB)
-
 // this
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 
@@ -18,15 +16,11 @@ constexpr std::uint32_t hclk_dividers[] = { 1u, 3u, 5u, 1u, 1u, 6u, 10u, 32u, 2u
 constexpr std::uint32_t pclk_dividers[] = { 2u, 4u, 8u, 16u };
 } // namespace
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::sources;
-using namespace xmcu::soc::m4::wb::rm0434::system;
-using namespace xmcu::soc::m4::wb::rm0434::utils;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
 template<> void rcc<mcu<1u>>::clk48::set<hsi48>()
 {
@@ -469,35 +463,4 @@ template<> void rcc<mcu<1u>>::hclk<5u>::set<hse, hse::Prescaler::_2>()
 {
     bit::flag::set(&(RCC->EXTCFGR), RCC_EXTCFGR_RFCSS);
 }
-namespace system {
-
-const char* to_string(mcu<1u>::Reset_source a_source)
-{
-    switch (a_source)
-    {
-        case mcu<1u>::Reset_source::low_power:
-            return "low_power";
-        case mcu<1u>::Reset_source::window_watchdog:
-            return "window_watchdog";
-        case mcu<1u>::Reset_source::independent_window_watchdog:
-            return "independent_window_watchdog";
-        case mcu<1u>::Reset_source::software:
-            return "software";
-        case mcu<1u>::Reset_source::bor:
-            return "bor";
-        case mcu<1u>::Reset_source::pin:
-            return "pin";
-        case mcu<1u>::Reset_source::option_byte:
-            return "option_byte";
-        default:
-            return nullptr;
-    }
-}
-} // namespace system
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
-
-#endif
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434

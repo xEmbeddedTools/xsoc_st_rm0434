@@ -14,8 +14,8 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434;
-using namespace xmcu::soc::m4::wb::rm0434::utils;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
 void transmit(USART_TypeDef* a_p_USART_registers,
               DMA_Channel_TypeDef* a_p_channel_registers,
@@ -93,12 +93,8 @@ std::uint32_t get_interrupt_enable_flags(DMA<>::Event_flag a_event_flag)
 
 } // namespace
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
 
 void DMA<USART>::Receiver::enable(DMA<>::Channel a_channel)
 {
@@ -780,8 +776,4 @@ void DMA<LPUART>::Transmitter::Interrupt::stop()
 {
     bit::flag::clear(&(this->p_DMA->p_tx_channel_registers->CCR), DMA_CCR_EN);
 }
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434

@@ -7,16 +7,11 @@
 
 // xmcu
 #include <xmcu/Duration.hpp>
-#include <xmcu/non_constructible.hpp>
 #include <xmcu/Non_copyable.hpp>
+#include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 class option_bytes : private non_constructible
 {
 public:
@@ -50,33 +45,27 @@ public:
         static Level get();
     };
 };
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-namespace xmcu {
-namespace soc {
-template<> class Scoped_guard<m4::wb::rm0434::peripherals::option_bytes::unlocker> : private Non_copyable
+namespace xmcu::soc {
+template<> class Scoped_guard<st::arm::m4::wb::rm0434::peripherals::option_bytes::unlocker> : private Non_copyable
 {
 public:
     Scoped_guard()
         : unlocked(false)
     {
-        m4::wb::rm0434::peripherals::option_bytes::unlocker::unlock();
+        st::arm::m4::wb::rm0434::peripherals::option_bytes::unlocker::unlock();
         this->unlocked = true;
     }
 
     Scoped_guard(Milliseconds a_timeout)
-        : unlocked(m4::wb::rm0434::peripherals::option_bytes::unlocker::unlock(a_timeout))
+        : unlocked(st::arm::m4::wb::rm0434::peripherals::option_bytes::unlocker::unlock(a_timeout))
     {
     }
 
     ~Scoped_guard()
     {
-        m4::wb::rm0434::peripherals::option_bytes::unlocker::lock();
+        st::arm::m4::wb::rm0434::peripherals::option_bytes::unlocker::lock();
     }
 
     bool is_unlocked() const
@@ -87,5 +76,4 @@ public:
 private:
     bool unlocked;
 };
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc

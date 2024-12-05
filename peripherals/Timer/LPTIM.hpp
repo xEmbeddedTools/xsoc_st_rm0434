@@ -6,9 +6,7 @@
  */
 
 // externals
-#pragma GCC diagnostic ignored "-Wvolatile"
 #include <stm32wbxx.h>
-#pragma GCC diagnostic pop
 
 // xmcu
 #include <xmcu/Duration.hpp>
@@ -23,12 +21,7 @@
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 class LPTIM : private Non_copyable
 {
 public:
@@ -163,18 +156,9 @@ private:
     friend void LPTIM_interrupt_handler(LPTIM* a_p_this);
 };
 void LPTIM_interrupt_handler(LPTIM* a_p_this);
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 template<std::uint32_t id> class rcc<peripherals::LPTIM, id> : private non_constructible
 {
 public:
@@ -191,30 +175,24 @@ template<> template<> void rcc<peripherals::LPTIM, 2>::enable<rcc<system::mcu<1u
 template<> template<> void rcc<peripherals::LPTIM, 2>::enable<sources::lsi>(bool a_enable_in_lp);
 template<> template<> void rcc<peripherals::LPTIM, 2>::enable<sources::hsi16>(bool a_enable_in_lp);
 template<> template<> void rcc<peripherals::LPTIM, 2>::enable<sources::lse>(bool a_enable_in_lp);
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434
 
-namespace xmcu {
-namespace soc {
-template<> class peripheral<m4::wb::rm0434::peripherals::LPTIM, 1u> : private non_constructible
+namespace xmcu::soc {
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::LPTIM, 1u> : private non_constructible
 {
 public:
-    static m4::wb::rm0434::peripherals::LPTIM create()
+    static st::arm::m4::wb::rm0434::peripherals::LPTIM create()
     {
-        return m4::wb::rm0434::peripherals::LPTIM(0u, LPTIM1, IRQn_Type::LPTIM1_IRQn);
+        return st::arm::m4::wb::rm0434::peripherals::LPTIM(0u, LPTIM1, IRQn_Type::LPTIM1_IRQn);
     }
 };
 
-template<> class peripheral<m4::wb::rm0434::peripherals::LPTIM, 2u> : private non_constructible
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::LPTIM, 2u> : private non_constructible
 {
 public:
-    static m4::wb::rm0434::peripherals::LPTIM create()
+    static st::arm::m4::wb::rm0434::peripherals::LPTIM create()
     {
-        return m4::wb::rm0434::peripherals::LPTIM(1u, LPTIM2, IRQn_Type::LPTIM2_IRQn);
+        return st::arm::m4::wb::rm0434::peripherals::LPTIM(1u, LPTIM2, IRQn_Type::LPTIM2_IRQn);
     }
 };
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc

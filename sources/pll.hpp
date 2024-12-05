@@ -6,9 +6,7 @@
  */
 
 // externals
-#pragma GCC diagnostic ignored "-Wvolatile"
 #include <stm32wbxx.h>
-#pragma GCC diagnostic pop
 
 // xmcu
 #include <xmcu/Duration.hpp>
@@ -20,12 +18,7 @@
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/msi.hpp>
 #include <xmcu/various.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace sources {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::sources {
 class pll : private non_constructible
 {
 public:
@@ -299,9 +292,4 @@ template<> bool pll::enable<hse, hse::Prescaler::_2>(M a_M,
                                                      const q::Enable_config& a_Q,
                                                      const p::Enable_config& a_P,
                                                      Milliseconds a_timeout);
-} // namespace sources
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::sources

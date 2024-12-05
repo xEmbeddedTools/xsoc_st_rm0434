@@ -4,9 +4,7 @@
  */
 
 // externals
-#pragma GCC diagnostic ignored "-Wvolatile"
 #include <stm32wbxx.h>
-#pragma GCC diagnostic pop
 
 // xmcu
 #include <xmcu/Duration.hpp>
@@ -19,8 +17,8 @@
 namespace {
 using namespace xmcu;
 using namespace xmcu::soc;
-using namespace xmcu::soc::m4::wb::rm0434;
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
 
 struct alarm_registers
 {
@@ -110,9 +108,9 @@ void RTC_Alarm_IRQHandler()
 }
 }
 
-namespace xmcu::soc::m4::wb::rm0434::peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::utils;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
 void rtc::set_clock(Milliseconds a_world_millis)
 {
@@ -323,11 +321,11 @@ void rtc::write_bkp_register(std::size_t a_index, uint32_t a_value)
     }
 }
 
-} // namespace xmcu::soc::m4::wb::rm0434::peripherals
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-namespace xmcu::soc::m4::wb {
-using namespace xmcu::soc::m4::wb::rm0434::sources;
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
+namespace xmcu::soc::st::arm::m4::wb {
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
 
 template<> void rcc<rtc>::enable<lsi>(bool a_enable_in_lp)
 {
@@ -359,5 +357,4 @@ bool rcc<rtc>::is_enabled()
                       bit::is_any(RCC->BDCR, RCC_BDCR_RTCSEL);
     return is_enabled;
 }
-
-} // namespace xmcu::soc::m4::wb
+} // namespace xmcu::soc::st::arm::m4::wb

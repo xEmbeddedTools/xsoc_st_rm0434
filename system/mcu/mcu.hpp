@@ -10,9 +10,7 @@
 #include <cstdint>
 
 // externals
-#pragma GCC diagnostic ignored "-Wvolatile"
 #include <stm32wbxx.h>
-#pragma GCC diagnostic pop
 
 // xmcu
 #include <xmcu/bit.hpp>
@@ -24,12 +22,7 @@
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lse.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/pll.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace system {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::system {
 template<std::size_t id> class mcu : private non_constructible
 {
 };
@@ -212,19 +205,9 @@ static inline bool operator==(const std::uint32_t& a_lhs, const mcu<1u>::Reset_s
 {
     return a_lhs == static_cast<std::uint32_t>(a_rhs);
 }
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::system
 
-} // namespace system
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
-
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 template<> class rcc<system::mcu<1u>> : private non_constructible
 {
 public:
@@ -439,8 +422,4 @@ template<> void rcc<system::mcu<1u>>::set_wakeup_clock_source<sources::hsi16>();
 
 template<> void rcc<system::mcu<2u>>::set_wakeup_clock_source<sources::lse>();
 template<> void rcc<system::mcu<2u>>::set_wakeup_clock_source<sources::hse>();
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434
