@@ -3,22 +3,18 @@
  *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
  */
 
-#if defined(STM32WB)
-
 // this
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/crc/crc.hpp>
 
 // externals
-#pragma GCC diagnostic ignored "-Wvolatile"
 #include <stm32wbxx.h>
-#pragma GCC diagnostic pop
 
 // xmcu
 #include <xmcu/bit.hpp>
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
 
 void crc_start(std::uint32_t a_init_value,
                std::uint32_t a_polynomial_length,
@@ -83,13 +79,7 @@ void crc_update(const std::uint8_t* a_p_data, std::size_t a_data_legth_in_bytes)
 }
 } // namespace
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
-
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 void crc<7u>::start(crc<>::Input_data_format a_input_data_format,
                     crc<>::Output_data_format_flag a_output_data_format,
                     crc<>::Polynomial_flag a_polynomial,
@@ -178,20 +168,11 @@ std::uint32_t crc<32u>::get()
 
     return CRC->DR;
 }
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
 
 void rcc<crc<>>::enable(bool a_enable_in_lp)
 {
@@ -210,10 +191,4 @@ void rcc<crc<>>::disable()
 {
     bit::flag::clear(&(RCC->AHB1ENR), RCC_AHB1ENR_CRCEN);
 }
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
-
-#endif
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434

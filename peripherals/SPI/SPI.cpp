@@ -12,8 +12,8 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
-using namespace xmcu::soc::m4::wb::rm0434::utils;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
 void enable(SPI_TypeDef* a_p_registers)
 {
@@ -87,13 +87,7 @@ SPI::Polling::Result receive(SPI_TypeDef* a_p_registers, data_t* a_p_data, std::
 
 } // namespace
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
-
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 void SPI::enable()
 {
     ::enable(this->p_registers);
@@ -113,21 +107,11 @@ SPI::Polling::Result SPI::Polling::receive(Not_null<std::uint8_t*> a_p_data, std
 {
     return ::receive<std::uint8_t>(this->p_SPI->p_registers, a_p_data, a_data_size_in_words);
 }
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
-
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
 
 template<> template<> void rcc<peripherals::SPI, 1u>::enable<hsi16>(bool a_enable_in_lp)
 {
@@ -147,9 +131,4 @@ template<> void rcc<peripherals::SPI, 1>::disable()
 {
     bit::flag::clear(&(RCC->APB2ENR), RCC_APB2ENR_SPI1EN);
 }
-
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434

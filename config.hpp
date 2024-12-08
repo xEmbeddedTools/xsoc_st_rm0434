@@ -1,0 +1,26 @@
+#pragma once
+
+/*
+ *  Copyright (c) xEmbeddedTools team and contributors.
+ *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
+ */
+
+#define XMCU_SOC_VENDOR_ST st
+#define XMCU_SOC_ARCHITECTURE_ARM arm
+#define XMCU_SOC_CORE_FAMILY_M4 m4
+#define XMCU_SOC_VENDOR_FAMILY_WB wb
+#define XMCU_SOC_VENDOR_FAMILY_RM0434 rm0434
+
+#define XMCU_SOC_VENDOR XMCU_SOC_VENDOR_ST
+#define XMCU_SOC_ARCHITECTURE XMCU_SOC_ARCHITECTURE_ARM
+#define XMCU_SOC_CORE_FAMILY XMCU_SOC_CORE_FAMILY_M4
+#define XMCU_SOC_VENDOR_FAMILY XMCU_SOC_VENDOR_FAMILY_WB
+#define XMCU_SOC_VENDOR_FAMILY_RM XMCU_SOC_VENDOR_FAMILY_RM0434
+
+#if defined(XMCU_SOC_MODEL_STM32WB35CEU6A)
+#define XMCU_GPIOA_PRESENT
+#define XMCU_GPIOB_PRESENT
+#define XMCU_GPIOC_PRESENT
+#define XMCU_GPIOE_PRESENT
+#define XMCU_GPIOH_PRESENT
+#endif

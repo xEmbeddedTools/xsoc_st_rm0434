@@ -3,23 +3,15 @@
  *  Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for details.
  */
 
-#if defined(STM32WB)
-
 // this
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/tick_counter.hpp>
 
 // debug
 #include <xmcu/assertion.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace utils {
-// using namespace common;
-using namespace xmcu::soc::m4::wb::rm0434::sources;
-using namespace xmcu::soc::m4::wb::rm0434::system;
+namespace xmcu::soc::st::arm::m4::wb::rm0434::utils {
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
 
 tick_counter<Milliseconds>::Callback tick_counter<Milliseconds>::callback;
 std::uint16_t auto_reload = 0x0u;
@@ -75,11 +67,4 @@ template<> void tick_counter<Milliseconds>::stop<Systick>()
 {
     reinterpret_cast<Systick*>(p_timer)->stop();
 }
-} // namespace utils
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
-
-#endif
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::utils

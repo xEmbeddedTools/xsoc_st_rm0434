@@ -9,9 +9,7 @@
 #include <cstdint>
 
 // externals
-#pragma GCC diagnostic ignored "-Wvolatile"
 #include <stm32wbxx.h>
-#pragma GCC diagnostic pop
 
 // xmcu
 #include <xmcu/Limited.hpp>
@@ -59,12 +57,7 @@
 #endif
 #undef BVs
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 class GPIO : private Non_copyable
 {
 public:
@@ -493,7 +486,7 @@ public:
         return std::numeric_limits<decltype(this->idx)>::max() != this->idx && nullptr != this->p_registers;
     }
 
-    explicit operator xmcu::soc::m4::wb::rm0434::peripherals::ll::gpio::Registers*()
+    explicit operator xmcu::soc::st::arm::m4::wb::rm0434::peripherals::ll::gpio::Registers*()
     {
         return this->p_registers;
     }
@@ -526,7 +519,7 @@ private:
     }
 
     std::uint32_t idx;
-    xmcu::soc::m4::wb::rm0434::peripherals::ll::gpio::Registers *p_registers;
+    xmcu::soc::st::arm::m4::wb::rm0434::peripherals::ll::gpio::Registers* p_registers;
 
     std::uint32_t flags;
 
@@ -568,18 +561,9 @@ constexpr GPIO::Interrupt::Trigger_flag operator|=(GPIO::Interrupt::Trigger_flag
     a_f1 = a_f1 | a_f2;
     return a_f1;
 }
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 template<std::uint32_t id> class rcc<peripherals::GPIO, id> : private xmcu::non_constructible
 {
 public:
@@ -613,79 +597,71 @@ template<>
 void peripherals::GPIO::Alternate_function::enable<peripherals::GPIO::lsco>(Limited<std::uint32_t, 0, 15> a_id,
                                                                             const Enable_config& a_config,
                                                                             Pin* a_p_pin);
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434
 
-namespace xmcu {
-namespace soc {
-
+namespace xmcu::soc {
 #if defined(XMCU_GPIOA_PRESENT)
-template<> class peripheral<m4::wb::rm0434::peripherals::GPIO, 1u> : private non_constructible
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::GPIO, 1u> : private non_constructible
 {
 public:
-    static m4::wb::rm0434::peripherals::GPIO create()
+    static st::arm::m4::wb::rm0434::peripherals::GPIO create()
     {
-        namespace wb_peripherals = m4::wb::rm0434::peripherals;
-        return m4::wb::rm0434::peripherals::GPIO(
+        namespace wb_peripherals = st::arm::m4::wb::rm0434::peripherals;
+        return st::arm::m4::wb::rm0434::peripherals::GPIO(
             0u, wb_peripherals::ll::gpio::registers<wb_peripherals::ll::gpio::A>());
     }
 };
 #endif
 
 #if defined(XMCU_GPIOB_PRESENT)
-template<> class peripheral<m4::wb::rm0434::peripherals::GPIO, 2u> : private non_constructible
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::GPIO, 2u> : private non_constructible
 {
 public:
-    static m4::wb::rm0434::peripherals::GPIO create()
+    static st::arm::m4::wb::rm0434::peripherals::GPIO create()
     {
-        namespace wb_peripherals = m4::wb::rm0434::peripherals;
-        return m4::wb::rm0434::peripherals::GPIO(
+        namespace wb_peripherals = st::arm::m4::wb::rm0434::peripherals;
+        return st::arm::m4::wb::rm0434::peripherals::GPIO(
             1u, wb_peripherals::ll::gpio::registers<wb_peripherals::ll::gpio::B>());
     }
 };
 #endif
 
 #if defined(XMCU_GPIOC_PRESENT)
-template<> class peripheral<m4::wb::rm0434::peripherals::GPIO, 3u> : private non_constructible
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::GPIO, 3u> : private non_constructible
 {
 public:
-    static m4::wb::rm0434::peripherals::GPIO create()
+    static st::arm::m4::wb::rm0434::peripherals::GPIO create()
     {
-        namespace wb_peripherals = m4::wb::rm0434::peripherals;
-        return m4::wb::rm0434::peripherals::GPIO(
+        namespace wb_peripherals = st::arm::m4::wb::rm0434::peripherals;
+        return st::arm::m4::wb::rm0434::peripherals::GPIO(
             2u, wb_peripherals::ll::gpio::registers<wb_peripherals::ll::gpio::C>());
     }
 };
 #endif
 
 #if defined(XMCU_GPIOE_PRESENT)
-template<> class peripheral<m4::wb::rm0434::peripherals::GPIO, 5u> : private non_constructible
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::GPIO, 5u> : private non_constructible
 {
 public:
-    static m4::wb::rm0434::peripherals::GPIO create()
+    static st::arm::m4::wb::rm0434::peripherals::GPIO create()
     {
-        namespace wb_peripherals = m4::wb::rm0434::peripherals;
-        return m4::wb::rm0434::peripherals::GPIO(
+        namespace wb_peripherals = st::arm::m4::wb::rm0434::peripherals;
+        return st::arm::m4::wb::rm0434::peripherals::GPIO(
             4u, wb_peripherals::ll::gpio::registers<wb_peripherals::ll::gpio::E>());
     }
 };
 #endif
 
 #if defined(XMCU_GPIOH_PRESENT)
-template<> class peripheral<m4::wb::rm0434::peripherals::GPIO, 8u> : private non_constructible
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::GPIO, 8u> : private non_constructible
 {
 public:
-    static m4::wb::rm0434::peripherals::GPIO create()
+    static st::arm::m4::wb::rm0434::peripherals::GPIO create()
     {
-        namespace wb_peripherals = m4::wb::rm0434::peripherals;
-        return m4::wb::rm0434::peripherals::GPIO(
+        namespace wb_peripherals = st::arm::m4::wb::rm0434::peripherals;
+        return st::arm::m4::wb::rm0434::peripherals::GPIO(
             7u, wb_peripherals::ll::gpio::registers<wb_peripherals::ll::gpio::H>());
     }
 };
 #endif
-
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc

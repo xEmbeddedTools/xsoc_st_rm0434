@@ -6,9 +6,7 @@
  */
 
 // externals
-#pragma GCC diagnostic ignored "-Wvolatile"
 #include <stm32wbxx.h>
-#pragma GCC diagnostic pop
 
 // xmcu
 #include <xmcu/Non_copyable.hpp>
@@ -17,12 +15,7 @@
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/USART/USART.hpp>
 #include <xmcu/various.hpp>
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 class LPUART : private Non_copyable
 {
 public:
@@ -404,18 +397,9 @@ operator|(LPUART::Transceiving_config::RS232_flow_control_flag a_f1,
                                                                              static_cast<std::uint32_t>(a_f2));
 }
 
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 template<std::uint32_t id> class rcc<peripherals::LPUART, id> : private non_constructible
 {
 public:
@@ -442,21 +426,15 @@ inline void peripherals::GPIO::Alternate_function::enable<peripherals::LPUART, 1
 
     this->enable(a_id, a_config, 0x8u, a_p_pin);
 }
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434
 
-namespace xmcu {
-namespace soc {
-template<> class peripheral<m4::wb::rm0434::peripherals::LPUART, 1u> : private non_constructible
+namespace xmcu::soc {
+template<> class peripheral<st::arm::m4::wb::rm0434::peripherals::LPUART, 1u> : private non_constructible
 {
 public:
-    static m4::wb::rm0434::peripherals::LPUART create()
+    static st::arm::m4::wb::rm0434::peripherals::LPUART create()
     {
-        return m4::wb::rm0434::peripherals::LPUART(0u, LPUART1, IRQn_Type::LPUART1_IRQn);
+        return st::arm::m4::wb::rm0434::peripherals::LPUART(0u, LPUART1, IRQn_Type::LPUART1_IRQn);
     }
 };
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc

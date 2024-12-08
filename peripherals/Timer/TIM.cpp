@@ -12,7 +12,7 @@
 #include <xmcu/soc/Scoped_guard.hpp>
 
 // Tim_counter & derived
-namespace xmcu::soc::m4::wb::rm0434::peripherals::timer {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals::timer {
 using namespace xmcu;
 
 bool Polling::is_overload() const
@@ -94,9 +94,9 @@ void Tim_advanced::enable(Tmr_divider a_div, Count_Mode a_mode, std::uint16_t a_
     bit::flag::set(&this->p_registers->BDTR, TIM_BDTR_OSSI | TIM_BDTR_OSSR);
     Tim_counter::enable(a_div, a_mode, a_psc);
 }
-} // namespace xmcu::soc::m4::wb::rm0434::peripherals::timer
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals::timer
 
-namespace xmcu::soc::m4::wb::rm0434::peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 using namespace xmcu;
 
 void TIM_ADV::config_output_idle_state(GPIO::Level a_lvl)
@@ -113,10 +113,10 @@ void TIM_ADV::config_output_idle_state(GPIO::Level a_lvl)
             break;
     }
 }
-} // namespace xmcu::soc::m4::wb::rm0434::peripherals
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
 // interrupts
-namespace xmcu::soc::m4::wb::rm0434::peripherals::timer {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals::timer {
 
 struct Interrupt_constants
 {
@@ -282,10 +282,10 @@ void TIM2_IRQHandler(void)
 }
 } // extern "C"
 
-} // namespace xmcu::soc::m4::wb::rm0434::peripherals::timer
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals::timer
 
 // class Interrupt
-namespace xmcu::soc::m4::wb::rm0434::peripherals::timer {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals::timer {
 
 void Interrupt::enable(const IRQ_config& a_config)
 {
@@ -335,5 +335,4 @@ void Interrupt::unregister_callback()
 
     this->callback = { nullptr, nullptr };
 }
-
-} // namespace xmcu::soc::m4::wb::rm0434::peripherals::timer
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals::timer

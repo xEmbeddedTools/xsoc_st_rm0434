@@ -16,7 +16,7 @@
 #include <xmcu/assertion.hpp>
 
 namespace {
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
 
 GPIO::Interrupt::Callback callbacks[7u];
 
@@ -104,16 +104,11 @@ void EXTI15_10_IRQHandler()
 }
 }
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-namespace peripherals {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 using namespace xmcu;
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
-using namespace xmcu::soc::m4::wb::rm0434::sources;
-using namespace xmcu::soc::m4::wb::rm0434::system;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
 
 void GPIO::In::Pin::set_pull(Pull a_pull)
 {
@@ -645,20 +640,11 @@ void GPIO::lsco::disable()
 {
     bit::flag::clear(&(RCC->BDCR), RCC_BDCR_LSCOEN);
 }
-} // namespace peripherals
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
-namespace xmcu {
-namespace soc {
-namespace m4 {
-namespace wb {
-namespace rm0434 {
-using namespace xmcu::soc::m4::wb::rm0434::peripherals;
-using namespace xmcu::soc::m4::wb::rm0434::system;
+namespace xmcu::soc::st::arm::m4::wb::rm0434 {
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
 
 #if defined(GPIOA_PIN_MASK)
 template<> void rcc<GPIO, 1>::enable(bool a_enable_in_lp)
@@ -796,8 +782,4 @@ template<> void GPIO::Alternate_function::enable<GPIO::lsco>(Limited<std::uint32
 
     this->enable(a_id, a_config, 0x0u, a_p_pin);
 }
-} // namespace rm0434
-} // namespace wb
-} // namespace m4
-} // namespace soc
-} // namespace xmcu
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434
