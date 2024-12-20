@@ -170,9 +170,9 @@ bool rng::disable(Milliseconds a_timeout)
 
 namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
-using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources;
 
-template<> void rcc<rng>::enable<rcc<mcu<1u>>::clk48>(bool a_enable_in_lp)
+template<> void rcc<rng>::enable<clocks::clk48>(bool a_enable_in_lp)
 {
     bit::flag::set(&(RCC->AHB3ENR), RCC_AHB3ENR_RNGEN);
     bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_RNGSEL);

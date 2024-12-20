@@ -1161,10 +1161,11 @@ void LPUART::Interrupt::event_listening_stop()
 
 namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
-using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources;
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
 
-template<> template<> void rcc<peripherals::USART, 1u>::enable<rcc<mcu<1u>>::pclk<2u>>(bool a_enable_in_lp)
+template<> template<> void rcc<peripherals::USART, 1u>::enable<pclk<2u>>(bool a_enable_in_lp)
 {
     bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_USART1SEL);
     bit::flag::set(&(RCC->APB2ENR), RCC_APB2ENR_USART1EN);
@@ -1226,7 +1227,7 @@ template<> void rcc<peripherals::USART, 1u>::disable()
     bit::flag::clear(&(RCC->APB2ENR), RCC_APB2ENR_USART1EN);
 }
 
-template<> template<> void rcc<peripherals::LPUART, 1u>::enable<rcc<mcu<1u>>::pclk<1u>>(bool a_enable_in_lp)
+template<> template<> void rcc<peripherals::LPUART, 1u>::enable<pclk<1u>>(bool a_enable_in_lp)
 {
     bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_LPUART1SEL);
     bit::flag::set(&(RCC->APB1ENR2), RCC_APB1ENR2_LPUART1EN);

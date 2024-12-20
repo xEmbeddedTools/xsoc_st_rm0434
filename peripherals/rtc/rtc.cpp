@@ -324,7 +324,7 @@ void rtc::write_bkp_register(std::size_t a_index, uint32_t a_value)
 } // namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals
 
 namespace xmcu::soc::st::arm::m4::wb {
-using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources;
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
 
 template<> void rcc<rtc>::enable<lsi>(bool a_enable_in_lp)

@@ -8,6 +8,7 @@
 
 // xmcu
 #include <xmcu/bit.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sysclk.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/internal_flash/internal_flash.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/system/hsem/hsem.hpp>
@@ -16,7 +17,8 @@
 
 namespace xmcu::soc::st::arm::m4::wb::rm0434::system {
 using namespace xmcu;
-using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks;
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
@@ -59,13 +61,13 @@ template<> void pwr<mcu<1u>>::stop_mode::enter<hsi16>(Type a_type,
         {
             hsem::_1_step::unlock(hsem::Id::stop_entry);
 
-            rcc<mcu<1u>>::set_system_clock_source<hsi16>();
+            sysclk<1u>::set_source<hsi16>();
             internal_flash::set_latency(a_desired_flash_latency);
         }
     }
     else
     {
-        rcc<mcu<1u>>::set_system_clock_source<hsi16>();
+        sysclk<1u>::set_source<hsi16>();
         internal_flash::set_latency(a_desired_flash_latency);
     }
 

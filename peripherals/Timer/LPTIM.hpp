@@ -13,10 +13,11 @@
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/pclk.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/lse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/lsi.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lse.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lsi.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
@@ -166,15 +167,15 @@ public:
     static void disable() = delete;
 };
 
-template<> template<> void rcc<peripherals::LPTIM, 1>::enable<rcc<system::mcu<1u>>::pclk<1u>>(bool a_enable_in_lp);
-template<> template<> void rcc<peripherals::LPTIM, 1>::enable<sources::lsi>(bool a_enable_in_lp);
-template<> template<> void rcc<peripherals::LPTIM, 1>::enable<sources::hsi16>(bool a_enable_in_lp);
-template<> template<> void rcc<peripherals::LPTIM, 1>::enable<sources::lse>(bool a_enable_in_lp);
+template<> template<> void rcc<peripherals::LPTIM, 1>::enable<clocks::pclk<1u>>(bool a_enable_in_lp);
+template<> template<> void rcc<peripherals::LPTIM, 1>::enable<clocks::sources::lsi>(bool a_enable_in_lp);
+template<> template<> void rcc<peripherals::LPTIM, 1>::enable<clocks::sources::hsi16>(bool a_enable_in_lp);
+template<> template<> void rcc<peripherals::LPTIM, 1>::enable<clocks::sources::lse>(bool a_enable_in_lp);
 
-template<> template<> void rcc<peripherals::LPTIM, 2>::enable<rcc<system::mcu<1u>>::pclk<1u>>(bool a_enable_in_lp);
-template<> template<> void rcc<peripherals::LPTIM, 2>::enable<sources::lsi>(bool a_enable_in_lp);
-template<> template<> void rcc<peripherals::LPTIM, 2>::enable<sources::hsi16>(bool a_enable_in_lp);
-template<> template<> void rcc<peripherals::LPTIM, 2>::enable<sources::lse>(bool a_enable_in_lp);
+template<> template<> void rcc<peripherals::LPTIM, 2>::enable<clocks::pclk<1u>>(bool a_enable_in_lp);
+template<> template<> void rcc<peripherals::LPTIM, 2>::enable<clocks::sources::lsi>(bool a_enable_in_lp);
+template<> template<> void rcc<peripherals::LPTIM, 2>::enable<clocks::sources::hsi16>(bool a_enable_in_lp);
+template<> template<> void rcc<peripherals::LPTIM, 2>::enable<clocks::sources::lse>(bool a_enable_in_lp);
 } // namespace xmcu::soc::st::arm::m4::wb::rm0434
 
 namespace xmcu::soc {

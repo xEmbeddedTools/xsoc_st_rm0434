@@ -17,7 +17,7 @@
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/GPIO/GPIO.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/hsi16.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 
@@ -102,7 +102,7 @@ public:
     template<typename Source_t> static void enable(bool a_enable_in_lp) = delete;
     static void disable() = delete;
 };
-template<> template<> void rcc<peripherals::SPI, 1u>::enable<sources::hsi16>(bool a_enable_in_lp);
+template<> template<> void rcc<peripherals::SPI, 1u>::enable<clocks::sources::hsi16>(bool a_enable_in_lp);
 template<> void rcc<peripherals::SPI, 1u>::disable();
 
 template<>

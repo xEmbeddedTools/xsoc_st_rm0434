@@ -13,7 +13,7 @@
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
 
-namespace xmcu::soc::st::arm::m4::wb::rm0434::sources {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources {
 class msi : private non_constructible
 {
 public:
@@ -46,4 +46,4 @@ public:
         return bit::flag::is(RCC->CR, RCC_CR_MSIRDY);
     }
 };
-} // namespace xmcu::soc::st::arm::m4::wb::rm0434::sources
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources
