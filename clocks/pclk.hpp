@@ -131,7 +131,7 @@ public:
     static std::uint32_t get_Tim_frequency_Hz() // TODO: no idea why this function exsists
     {
         std::uint32_t index = bit::flag::get(RCC->CFGR, RCC_CFGR_PPRE2) >> RCC_CFGR_PPRE2_Pos;
-
+        
         if (index >= 4)
         {
             return SystemCoreClock * 2 / pclk<0u>::dividers[index - 4];
