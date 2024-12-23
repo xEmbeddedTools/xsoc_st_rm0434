@@ -11,6 +11,7 @@
 
 // xmcu
 #include <xmcu/Duration.hpp>
+#include <xmcu/assertion.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
 
@@ -59,9 +60,10 @@ public:
 
     static Prescaler get_Prescaler()
     {
+        hkm_assert(false);
         return {}; // TODO: implement
     }
-    static std::uint32_t get_frequency_Hz() // TODO: fixme
+    static std::uint32_t get_frequency_Hz() // TODO: fixme: use sysclk<> insted of SystemCoreClock
     {
         std::uint32_t index = bit::flag::get(RCC->CFGR, RCC_CFGR_PPRE1) >> RCC_CFGR_PPRE1_Pos;
 
@@ -72,7 +74,7 @@ public:
 
         return SystemCoreClock;
     }
-    static std::uint32_t get_Tim_frequency_Hz() // TODO: ??
+    static std::uint32_t get_Tim_frequency_Hz() // TODO: no idea why this function exists
     {
         std::uint32_t index = bit::flag::get(RCC->CFGR, RCC_CFGR_PPRE1) >> RCC_CFGR_PPRE1_Pos;
 
@@ -112,9 +114,10 @@ public:
 
     static Prescaler get_Prescaler()
     {
+        hkm_assert(false);
         return {}; // TODO: implement
     }
-    static std::uint32_t get_frequency_Hz() // TODO: fixme
+    static std::uint32_t get_frequency_Hz() // TODO: fixme: use sysclk<> insted of SystemCoreClock
     {
         std::uint32_t index = bit::flag::get(RCC->CFGR, RCC_CFGR_PPRE2) >> RCC_CFGR_PPRE2_Pos;
 
@@ -125,7 +128,7 @@ public:
 
         return SystemCoreClock;
     }
-    static std::uint32_t get_Tim_frequency_Hz() // TODO: ??
+    static std::uint32_t get_Tim_frequency_Hz() // TODO: no idea why this function exsists
     {
         std::uint32_t index = bit::flag::get(RCC->CFGR, RCC_CFGR_PPRE2) >> RCC_CFGR_PPRE2_Pos;
 
