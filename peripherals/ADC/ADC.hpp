@@ -20,9 +20,10 @@
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/hclk.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/lse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/pll.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lse.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/pll.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
@@ -321,10 +322,11 @@ public:
 };
 
 template<> void rcc<peripherals::ADC>::async::enable<rcc<system::mcu<1u>>>(Prescaler a_prescaler, bool a_enable_in_lp);
-template<> void rcc<peripherals::ADC>::async::enable<sources::pll::sai1::r>(Prescaler a_prescaler, bool a_enable_in_lp);
-template<> void rcc<peripherals::ADC>::async::enable<sources::pll::p>(Prescaler a_prescaler, bool a_enable_in_lp);
 template<>
-void rcc<peripherals::ADC>::sync::enable<rcc<system::mcu<1u>>::hclk<1u>>(Prescaler a_prescaler, bool a_enable_in_lp);
+void rcc<peripherals::ADC>::async::enable<clocks::sources::pll::sai1::r>(Prescaler a_prescaler, bool a_enable_in_lp);
+template<>
+void rcc<peripherals::ADC>::async::enable<clocks::sources::pll::p>(Prescaler a_prescaler, bool a_enable_in_lp);
+template<> void rcc<peripherals::ADC>::sync::enable<clocks::hclk<1u>>(Prescaler a_prescaler, bool a_enable_in_lp);
 } // namespace xmcu::soc::st::arm::m4::wb::rm0434
 
 namespace xmcu::soc {

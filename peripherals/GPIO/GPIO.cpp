@@ -107,7 +107,7 @@ void EXTI15_10_IRQHandler()
 namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 using namespace xmcu;
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
-using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources;
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
 
 void GPIO::In::Pin::set_pull(Pull a_pull)

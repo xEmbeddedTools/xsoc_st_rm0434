@@ -9,7 +9,8 @@
 // externals
 #include <stm32wbxx.h>
 
-// xmcu
+// soc
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sysclk.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/tick_counter.hpp>
@@ -20,6 +21,7 @@
 namespace xmcu::soc::st::arm::m4::wb::rm0434::utils {
 using namespace xmcu;
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks;
 
 void delay::wait(Milliseconds a_time)
 {
@@ -35,12 +37,11 @@ void delay::wait(Seconds a_time)
 
 void delay::wait(Microseconds a_time)
 {
-    hkm_assert(rcc<mcu<1u>>::get_system_clock_frequency_Hz() >= 1_MHz);
+    hkm_assert(sysclk<1u>::get_frequency_Hz() >= 1_MHz);
     hkm_assert(mcu<1u>::DWT_mode::enabled == mcu<1u>::get_DWT_mode());
 
     DWT->CYCCNT = 0;
-    const std::uint32_t max =
-        DWT->CYCCNT + (rcc<mcu<1u>>::get_system_clock_frequency_Hz() / 1_MHz * (a_time - 1_us).get());
+    const std::uint32_t max = DWT->CYCCNT + (sysclk<1u>::get_frequency_Hz() / 1_MHz * (a_time - 1_us).get());
 
     while (DWT->CYCCNT < max);
 }

@@ -12,6 +12,8 @@
 
 namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 using namespace xmcu;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources;
 
 enum class Clk_Sel
 {
@@ -25,11 +27,11 @@ static std::uint32_t get_freq(Clk_Sel a_sel)
     switch (a_sel)
     {
         case Clk_Sel::PCLK:
-            return rcc<system::mcu<1u>>::pclk<1u>::get_frequency_Hz();
+            return pclk<1u>::get_frequency_Hz();
         case Clk_Sel::SYSCLK:
-            return rcc<system::mcu<1u>>::get_system_clock_frequency_Hz();
+            return sysclk<1u>::get_frequency_Hz();
         case Clk_Sel::HSI16:
-            return sources::hsi16::get_frequency_Hz();
+            return hsi16::get_frequency_Hz();
         default: {
             [[maybe_unused]] bool is_valid_clock_selection = false;
             hkm_assert(is_valid_clock_selection);
@@ -70,7 +72,7 @@ template<> void enable_rcc_impl<0x03u>(Clk_Sel a_sel, bool a_enable_in_lp)
     }
 }
 
-template<> template<> void rcc<peripherals::I2C, 1u>::enable<rcc<system::mcu<1u>>::pclk<1u>>(bool a_enable_in_lp)
+template<> template<> void rcc<peripherals::I2C, 1u>::enable<pclk<1u>>(bool a_enable_in_lp)
 {
     return enable_rcc_impl<1u>(Clk_Sel::PCLK, a_enable_in_lp);
 }
@@ -95,7 +97,7 @@ template<> std::uint32_t rcc<peripherals::I2C, 1u>::get_frequency_Hz()
     return get_freq(static_cast<Clk_Sel>(reg_flags));
 }
 
-template<> template<> void rcc<peripherals::I2C, 3u>::enable<rcc<system::mcu<1u>>::pclk<1u>>(bool a_enable_in_lp)
+template<> template<> void rcc<peripherals::I2C, 3u>::enable<pclk<1u>>(bool a_enable_in_lp)
 {
     return enable_rcc_impl<3u>(Clk_Sel::PCLK, a_enable_in_lp);
 }

@@ -17,13 +17,13 @@
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/hsi48.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/lse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/lsi.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/pll.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/GPIO/gpio_ll.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi48.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lse.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lsi.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/pll.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
@@ -530,18 +530,18 @@ private:
     template<typename Periph_t, std::uint32_t id> friend class xmcu::soc::peripheral;
 };
 
-template<> void GPIO::mco::enable<sources::lse>(Divider a_divider);
-template<> void GPIO::mco::enable<sources::lsi, 1>(Divider a_divider);
-template<> void GPIO::mco::enable<sources::lsi, 2>(Divider a_divider);
-template<> void GPIO::mco::enable<sources::hse>(Divider a_divider);
-template<> void GPIO::mco::enable<sources::hsi16>(Divider a_divider);
-template<> void GPIO::mco::enable<sources::pll::r>(Divider a_divider);
-template<> void GPIO::mco::enable<sources::msi>(Divider a_divider);
-template<> void GPIO::mco::enable<sources::hsi48>(Divider a_divider);
+template<> void GPIO::mco::enable<clocks::sources::lse>(Divider a_divider);
+template<> void GPIO::mco::enable<clocks::sources::lsi, 1>(Divider a_divider);
+template<> void GPIO::mco::enable<clocks::sources::lsi, 2>(Divider a_divider);
+template<> void GPIO::mco::enable<clocks::sources::hse>(Divider a_divider);
+template<> void GPIO::mco::enable<clocks::sources::hsi16>(Divider a_divider);
+template<> void GPIO::mco::enable<clocks::sources::pll::r>(Divider a_divider);
+template<> void GPIO::mco::enable<clocks::sources::msi>(Divider a_divider);
+template<> void GPIO::mco::enable<clocks::sources::hsi48>(Divider a_divider);
 template<> void GPIO::mco::enable<rcc<system::mcu<1>>>(Divider a_divider);
 
-template<> void GPIO::lsco::enable<sources::lsi>();
-template<> void GPIO::lsco::enable<sources::lse>();
+template<> void GPIO::lsco::enable<clocks::sources::lsi>();
+template<> void GPIO::lsco::enable<clocks::sources::lse>();
 
 constexpr GPIO::Interrupt::Trigger_flag operator|(GPIO::Interrupt::Trigger_flag a_f1,
                                                   GPIO::Interrupt::Trigger_flag a_f2)

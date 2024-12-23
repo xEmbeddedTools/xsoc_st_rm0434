@@ -4,7 +4,7 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/pll.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/pll.hpp>
 
 // xmcu
 #include <xmcu/bit.hpp>
@@ -15,7 +15,7 @@
 
 namespace {
 using namespace xmcu;
-using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources;
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
 void enable_PLL(std::uint32_t a_source,
@@ -108,7 +108,7 @@ std::uint32_t calculate_PLL_channel_frequency_Hz(std::uint32_t a_div)
 
 } // namespace
 
-namespace xmcu::soc::st::arm::m4::wb::rm0434::sources {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources {
 using namespace xmcu;
 
 template<> void pll::enable<msi>(M a_M,
@@ -232,4 +232,4 @@ void pll::sai1::disable()
 {
     bit::flag::clear(&(RCC->CR), RCC_CR_PLLSAI1ON);
 }
-} // namespace xmcu::soc::st::arm::m4::wb::rm0434::sources
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources

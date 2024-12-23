@@ -4,9 +4,10 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/msi.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/msi.hpp>
 
 // xmcu
+#include <xmcu/Frequency.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 
@@ -15,7 +16,7 @@ constexpr std::uint32_t msi_frequency_hz_lut[] = { 100_kHz, 200_kHz, 400_kHz, 80
                                                    4_MHz,   8_MHz,   16_MHz,  24_MHz,  32_MHz, 48_MHz };
 }
 
-namespace xmcu::soc::st::arm::m4::wb::rm0434::sources {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources {
 using namespace xmcu;
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
@@ -82,4 +83,4 @@ std::uint32_t msi::get_frequency_Hz()
 
     return 0u;
 }
-} // namespace xmcu::soc::st::arm::m4::wb::rm0434::sources
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources

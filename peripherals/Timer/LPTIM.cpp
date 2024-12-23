@@ -159,10 +159,11 @@ void LPTIM::Tick_counter::Interrupt::unregister_callback()
 
 namespace xmcu::soc::st::arm::m4::wb::rm0434 {
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals;
-using namespace xmcu::soc::st::arm::m4::wb::rm0434::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources;
+using namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks;
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
 
-template<> template<> void rcc<LPTIM, 1>::enable<rcc<mcu<1u>>::pclk<1u>>(bool a_enable_in_lp)
+template<> template<> void rcc<LPTIM, 1>::enable<pclk<1u>>(bool a_enable_in_lp)
 {
     bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_LPTIM1SEL);
     bit::flag::set(&(RCC->APB1ENR1), RCC_APB1ENR1_LPTIM1EN);
@@ -219,7 +220,7 @@ template<> template<> void rcc<peripherals::LPTIM, 1>::enable<lse>(bool a_enable
     }
 }
 
-template<> template<> void rcc<peripherals::LPTIM, 2>::enable<rcc<mcu<1u>>::pclk<1u>>(bool a_enable_in_lp)
+template<> template<> void rcc<peripherals::LPTIM, 2>::enable<pclk<1u>>(bool a_enable_in_lp)
 {
     bit::flag::clear(&(RCC->CCIPR), RCC_CCIPR_LPTIM2SEL);
     bit::flag::set(&(RCC->APB1ENR2), RCC_APB1ENR2_LPTIM2EN);

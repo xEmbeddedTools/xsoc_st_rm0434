@@ -4,7 +4,7 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi48.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/hsi48.hpp>
 
 // xmcu
 #include <xmcu/bit.hpp>
@@ -13,7 +13,7 @@
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
-namespace xmcu::soc::st::arm::m4::wb::rm0434::sources {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources {
 using namespace xmcu;
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::system;
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
@@ -63,4 +63,4 @@ bool hsi48::disable(Milliseconds a_timeout)
     }
     return false;
 }
-} // namespace xmcu::soc::st::arm::m4::wb::rm0434::sources
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources

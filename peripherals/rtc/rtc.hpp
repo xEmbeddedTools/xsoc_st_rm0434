@@ -8,10 +8,10 @@
 #include <xmcu/Duration.hpp>
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/bit.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/hse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/lse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/lsi.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hse.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lse.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lsi.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
 namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
@@ -102,9 +102,9 @@ public:
     static bool is_enabled();
 };
 
-template<> void rcc<peripherals::rtc>::enable<sources::lsi>(bool a_enable_in_lp);
-template<> void rcc<peripherals::rtc>::enable<sources::lse>(bool a_enable_in_lp);
-template<> void rcc<peripherals::rtc>::enable<sources::hse>(bool a_enable_in_lp);
+template<> void rcc<peripherals::rtc>::enable<clocks::sources::lsi>(bool a_enable_in_lp);
+template<> void rcc<peripherals::rtc>::enable<clocks::sources::lse>(bool a_enable_in_lp);
+template<> void rcc<peripherals::rtc>::enable<clocks::sources::hse>(bool a_enable_in_lp);
 } // namespace xmcu::soc::st::arm::m4::wb::rm0434
 
 namespace xmcu::soc {

@@ -14,7 +14,7 @@
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
 
-namespace xmcu::soc::st::arm::m4::wb::rm0434::sources {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources {
 class lsi : private non_constructible
 {
 public:
@@ -57,4 +57,4 @@ public:
         return 0u;
     }
 };
-} // namespace xmcu::soc::st::arm::m4::wb::rm0434::sources
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources

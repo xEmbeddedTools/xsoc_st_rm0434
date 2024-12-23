@@ -13,11 +13,11 @@
 
 // xmcu
 #include <xmcu/non_constructible.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/hse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/msi.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/pll.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/internal_flash/internal_flash.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hse.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/msi.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/pll.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 
 namespace xmcu::soc::st::arm::m4::wb::rm0434::system {
@@ -80,9 +80,9 @@ public:
     static void set_boot(Boot_after_reset_or_stop a_mode);
 };
 
-template<>
-void pwr<mcu<1u>>::stop_mode::enter<sources::hsi16>(Type a_type,
-                                                    Method a_method,
-                                                    Sleeponexit a_sleeponexit,
-                                                    peripherals::internal_flash::Latency a_desired_flash_latency);
+template<> void
+pwr<mcu<1u>>::stop_mode::enter<clocks::sources::hsi16>(Type a_type,
+                                                       Method a_method,
+                                                       Sleeponexit a_sleeponexit,
+                                                       peripherals::internal_flash::Latency a_desired_flash_latency);
 } // namespace xmcu::soc::st::arm::m4::wb::rm0434::system

@@ -4,7 +4,7 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/hse.hpp>
 
 // xmcu
 #include <xmcu/Duration.hpp>
@@ -16,7 +16,7 @@ namespace {
 constexpr std::uint32_t hse_control_unlock_key = 0xCAFECAFEu;
 }
 
-namespace xmcu::soc::st::arm::m4::wb::rm0434::sources {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources {
 using namespace xmcu;
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
@@ -63,4 +63,4 @@ void hse::tune::set(Amplifier_threshold a_amplifier_threshold)
     RCC->HSECR = hse_control_unlock_key;
     bit::flag::set(&(RCC->HSECR), RCC_HSECR_HSES, static_cast<std::uint32_t>(a_amplifier_threshold));
 }
-} // namespace xmcu::soc::st::arm::m4::wb::rm0434::sources
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources

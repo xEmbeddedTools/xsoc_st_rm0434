@@ -4,14 +4,14 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lsi.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/lsi.hpp>
 
 // xmcu
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 
-namespace xmcu::soc::st::arm::m4::wb::rm0434::sources {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources {
 using namespace xmcu;
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
@@ -78,4 +78,4 @@ bool lsi::is_selected(Id a_id)
 
     return false;
 }
-} // namespace xmcu::soc::st::arm::m4::wb::rm0434::sources
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources

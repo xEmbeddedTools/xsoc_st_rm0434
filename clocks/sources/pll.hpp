@@ -13,12 +13,12 @@
 #include <xmcu/Limited.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hse.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/msi.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/hse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/msi.hpp>
 #include <xmcu/various.hpp>
 
-namespace xmcu::soc::st::arm::m4::wb::rm0434::sources {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources {
 class pll : private non_constructible
 {
 public:
@@ -292,4 +292,4 @@ template<> bool pll::enable<hse, hse::Prescaler::_2>(M a_M,
                                                      const q::Enable_config& a_Q,
                                                      const p::Enable_config& a_P,
                                                      Milliseconds a_timeout);
-} // namespace xmcu::soc::st::arm::m4::wb::rm0434::sources
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources

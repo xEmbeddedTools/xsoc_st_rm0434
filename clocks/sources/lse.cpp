@@ -4,13 +4,13 @@
  */
 
 // this
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/lse.hpp>
 
 // xmcu
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/tick_counter.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/utils/wait_until.hpp>
 
-namespace xmcu::soc::st::arm::m4::wb::rm0434::sources {
+namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources {
 using namespace xmcu;
 using namespace xmcu::soc::st::arm::m4::wb::rm0434::utils;
 
@@ -86,4 +86,4 @@ bool lse::disable(Milliseconds a_timeout)
 
     return false;
 }
-} // namespace xmcu::soc::st::arm::m4::wb::rm0434::sources
+} // namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources

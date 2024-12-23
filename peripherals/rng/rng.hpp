@@ -15,9 +15,10 @@
 #include <xmcu/Duration.hpp>
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/clk48.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/lse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/lsi.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lse.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lsi.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 #include <xmcu/soc/Scoped_guard.hpp>
 
@@ -98,7 +99,7 @@ public:
     static void disable();
 };
 
-template<> void rcc<peripherals::rng>::enable<rcc<system::mcu<1u>>::clk48>(bool a_enable_in_lp);
-template<> void rcc<peripherals::rng>::enable<sources::lsi>(bool a_enable_in_lp);
-template<> void rcc<peripherals::rng>::enable<sources::lse>(bool a_enable_in_lp);
+template<> void rcc<peripherals::rng>::enable<clocks::clk48>(bool a_enable_in_lp);
+template<> void rcc<peripherals::rng>::enable<clocks::sources::lsi>(bool a_enable_in_lp);
+template<> void rcc<peripherals::rng>::enable<clocks::sources::lse>(bool a_enable_in_lp);
 } // namespace xmcu::soc::st::arm::m4::wb::rm0434

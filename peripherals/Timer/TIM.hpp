@@ -17,11 +17,12 @@
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/soc/ST/arm/IRQ_config.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/pclk.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/hsi16.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/lse.hpp>
+#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/lsi.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/peripherals/GPIO/GPIO.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/rcc.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lse.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/sources/lsi.hpp>
 #include <xmcu/soc/ST/arm/m4/wb/rm0434/system/mcu/mcu.hpp>
 #include <xmcu/soc/peripheral.hpp>
 #include <xmcu/various.hpp>
@@ -486,7 +487,7 @@ public:
     }
     static std::uint32_t get_frequency_Hz()
     {
-        return rcc<system::mcu<1u>>::pclk<2>::get_Tim_frequency_Hz();
+        return clocks::pclk<2>::get_Tim_frequency_Hz();
     }
 };
 
@@ -507,7 +508,7 @@ public:
     }
     static std::uint32_t get_frequency_Hz()
     {
-        return rcc<system::mcu<1u>>::pclk<2>::get_Tim_frequency_Hz();
+        return clocks::pclk<2>::get_Tim_frequency_Hz();
     }
 };
 template<> class rcc<peripherals::TIM_G16, 17u>
@@ -527,7 +528,7 @@ public:
     }
     static std::uint32_t get_frequency_Hz()
     {
-        return rcc<system::mcu<1u>>::pclk<2>::get_Tim_frequency_Hz();
+        return clocks::pclk<2>::get_Tim_frequency_Hz();
     }
 };
 
