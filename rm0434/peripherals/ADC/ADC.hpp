@@ -28,9 +28,6 @@
 #include <xmcu/non_constructible.hpp>
 #include <xmcu/various.hpp>
 
-// common
-// #include <common/Vector_array.hpp>
-
 namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 class ADC : private Non_copyable
 {

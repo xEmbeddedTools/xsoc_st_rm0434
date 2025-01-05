@@ -21,7 +21,6 @@
 #include <rm0434/system/mcu/mcu.hpp>
 #include <xmcu/Non_copyable.hpp>
 #include <xmcu/Not_null.hpp>
-#include <soc/peripheral.hpp>
 
 namespace xmcu::soc::st::arm::m4::wb::rm0434::peripherals {
 class I2C : private xmcu::Non_copyable
