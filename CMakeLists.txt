@@ -19,8 +19,14 @@ if (XMCU_SOC_MODEL STREQUAL "XMCU_SOC_MODEL_STM32WB35CEU6A")
     add_compile_definitions(XMCU_SOC PUBLIC "XMCU_SOC_MODEL_STM32WB35CEU6A" "STM32WB35xx")
 endif()
 
-set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} -mcpu=cortex-m4)
-set(CMAKE_STATIC_LINKER_FLAGS ${CMAKE_STATIC_LINKER_FLAGS} -mcpu=cortex-m4 -mthumb)
+set(XMCU_COMPILE_FLAGS ${XMCU_COMPILE_FLAGS} -mcpu=cortex-m4 -mthumb)
+set(XMCU_LINKER_FLAGS ${XMCU_LINKER_FLAGS} -mcpu=cortex-m4 -mthumb)
+
+if (${XMCU_NOSTDLIB} STREQUAL "ON")
+    message("XMCU: no stdlib")
+    set(XMCU_COMPILE_FLAGS ${XMCU_COMPILE_FLAGS} -nostdlib -nostartfiles)
+    set(XMCU_LINKER_FLAGS ${XMCU_LINKER_FLAGS} -nostdlib -nostartfiles --specs=nosys.specs -lc_nano)
+endif()
 
 include_directories(XMCU_SOC PUBLIC
                     ${XMCU_PATH}

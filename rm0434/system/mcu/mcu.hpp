@@ -183,8 +183,6 @@ public:
     }
 };
 
-const char* to_string(mcu<1u>::Reset_source);
-
 static inline std::uint32_t operator~(const mcu<1u>::Reset_source& a_rhs)
 {
     return ~static_cast<std::uint32_t>(a_rhs);
