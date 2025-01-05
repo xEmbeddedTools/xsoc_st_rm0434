@@ -16,12 +16,6 @@
 #include <xmcu/Limited.hpp>
 #include <xmcu/bit.hpp>
 #include <xmcu/non_constructible.hpp>
-<<<<<<<< HEAD:rm0434/clocks/sources/pll.hpp
-========
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/hse.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/hsi16.hpp>
-#include <xmcu/soc/ST/arm/m4/wb/rm0434/clocks/sources/msi.hpp>
->>>>>>>> main:clocks/sources/pll.hpp
 #include <xmcu/various.hpp>
 
 namespace xmcu::soc::st::arm::m4::wb::rm0434::clocks::sources {
